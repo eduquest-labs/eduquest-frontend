@@ -1,36 +1,42 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# EduQuest — Frontend
+
+Frontend PWA untuk **EduQuest**, platform gamifikasi pembelajaran yang dibangun untuk mendukung riset eksperimen kelas di Universitas Pendidikan Indonesia (UPI). Siswa berinteraksi lewat tantangan, kuis, poin, badge, dan leaderboard; seluruh interaksi tercatat untuk kebutuhan analisis data penelitian (perbandingan kelompok eksperimen vs kontrol).
+
+Repo ini adalah frontend saja. Backend API ada di `../eduquest-backend` (Laravel + MySQL). Dokumen produk (PRD & skema database) ada di `../PRD Project/`.
+
+## Stack
+
+- Next.js 16 (App Router) + React 19 + TypeScript
+- Tailwind CSS v4 + HeroUI v3
+- TanStack Query v5 (server state) + Zustand (UI state)
+- axios, Zod, next-themes, framer-motion
+- Testing: Vitest + React Testing Library + MSW, Playwright (E2E)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) di browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Commands
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run dev       # dev server
+npm run build     # production build
+npm run start     # jalankan production build
+npm run lint      # eslint
+npm run test      # vitest (unit/integration/component)
+npm run test:e2e  # playwright (E2E)
+```
 
-## Learn More
+## Dua peran pengguna
 
-To learn more about Next.js, take a look at the following resources:
+- **Siswa** — masuk cukup dengan kode kelas + nama, tanpa registrasi/password. Akses: daftar tantangan, kuis, leaderboard, progress, riwayat.
+- **Dosen** — login email + password. Akses penuh: dashboard admin, authoring soal, manajemen kelas & siswa, penjadwalan, monitoring real-time, koreksi poin manual, ekspor data riset.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Konvensi & arsitektur
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Aturan struktur folder, data flow, styling, dan konvensi kode ada di [CLAUDE.md](./CLAUDE.md) — baca itu sebelum menambah fitur baru.
