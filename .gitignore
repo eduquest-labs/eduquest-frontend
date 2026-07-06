@@ -40,6 +40,9 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# generated at build/dev time from sw-src/sw.template.js
+/public/sw.js
+
 # AI tooling
 .claude/
 .codex/

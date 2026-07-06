@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Plain Node scripts, not bundled by Next — CommonJS require() is expected here.
+    "scripts/**",
+    // AI tooling skill scripts, not part of the application.
+    ".claude/**",
+    ".codex/**",
   ]),
 ]);
 

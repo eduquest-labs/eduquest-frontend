@@ -222,6 +222,15 @@ Order to follow when adding a new domain (example: `quiz`):
 8. `components/quiz/` — domain UI components
 9. `app/(route-group)/quiz/page.tsx` — the route (Server Component by default)
 
+## PWA
+
+- `public/manifest.json` — app name/icons/`display: standalone`, linked via `metadata.manifest` in `app/layout.tsx` (Next's built-in metadata API, not a manual `<link>` tag). `theme-color` is set via the `viewport` export in the same file.
+- `public/sw.js` is **generated**, not source — never edit it directly. Its source of truth is `sw-src/sw.template.js`, and `scripts/generate-sw.js` stamps a fresh `CACHE_VERSION` (from `$SOURCE_COMMIT` in CI, or a timestamp locally) into `public/sw.js` on every `predev`/`prebuild`. `public/sw.js` is gitignored. Edit the template, not the generated file, when changing service worker behavior.
+- The service worker caches the app shell only (`/`, `/offline`, manifest, icons) — it does **not** cache API responses or implement offline-first data sync. This is "PWA shell dasar" per the v1.0 scope, not full offline support.
+- On navigation requests, a failed fetch falls back to the cached `/offline` page (`app/offline/page.tsx`) instead of the browser's default network-error screen — relevant because outdoor GPS challenges (jogging) are explicitly called out in the PRD as having weak-signal risk.
+- Registered client-side by `app/service-worker-registration.tsx` (a no-render client component mounted in the root layout).
+- `public/icons/icon-192.png`, `icon-512.png`, `icon-maskable-512.png` are placeholder icons (generated, plain "EQ" wordmark) — replace with real branding when available.
+
 ## Domain scope (v1.0)
 
 Out of scope unless explicitly requested (reserved for a later phase): push notifications, full offline-first support (PWA shell only), broadcast announcements, advanced data filtering/segmentation, file/photo upload for task evidence, student profiles/avatars, moderation of submitted evidence.
