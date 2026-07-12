@@ -196,7 +196,17 @@ Escalate scope only when necessary: single element → skeleton inline; list/tab
 - Prefer built-in Tailwind utility scale over arbitrary values when an equivalent exists (`max-w-48` not `max-w-[12rem]`).
 - CSS custom properties in a `className` use the `(--token)` syntax, not `[var(--token)]`: `text-(--nav-fg)` not `text-[var(--nav-fg)]`. In a `style` prop, still use `style={{ background: 'var(--nav-bg)' }}`.
 - Dark mode is driven by `next-themes` with `attribute="data-theme"` — write dark-mode overrides against `[data-theme="dark"]`.
-- Mobile-first: unprefixed classes are the mobile default, breakpoint prefixes (`sm`, `md`, `lg`) style up from there — never write desktop-first with `max-*` prefixes.
+
+### Mobile-first (required)
+
+Every page/component is designed and built for mobile first, then scaled up — not the other way around. This isn't optional polish; it's how layout code must be written from the first draft.
+
+- Unprefixed classes are the mobile default; breakpoint prefixes (`sm:`, `md:`, `lg:`) style up from there. Never write desktop-first with `max-*` prefixes, and never leave a component that only "happens to work" on wide viewports.
+- Full-viewport containers use `min-h-dvh`, not `min-h-screen` — `100vh` includes the mobile browser's address-bar chrome and causes content to jump/get clipped on load. `dvh` (dynamic viewport height) accounts for it.
+- Any element that can grow large (decorative background blobs, absolutely-positioned art, wide tables) must sit inside a parent with `overflow-hidden` or otherwise be verified not to cause horizontal scroll at 375px width — check this explicitly, don't assume `blur`/`translate` utilities stay within bounds.
+- Touch targets: HeroUI v3's default `Input`/`Button` sizes (~40px) are accepted as-is project-wide for consistency with the design system — don't override sizing per-page to chase the 44px WCAG/HIG minimum. If a specific interactive element outside HeroUI's own components is added, size it ≥44×44px.
+- Before calling a page done, verify it at a 375px-wide viewport (iPhone SE class) in addition to desktop — most bugs (overflow, cramped touch targets, illegible text) only show up at the narrow end, not the wide one.
+- Long forms (4+ stacked fields) must rely on natural page scroll, not a fixed-height container — never trap form content in a viewport-height box that can clip fields on short/landscape mobile screens.
 
 ## State management
 

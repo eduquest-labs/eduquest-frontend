@@ -4,7 +4,7 @@ interface AuthShellProps {
 
 export function AuthShell({ children }: AuthShellProps) {
   return (
-    <div className="relative flex flex-1 min-h-screen items-center justify-center overflow-hidden px-6 py-12 bg-linear-to-br from-teal-50 via-white to-emerald-50 dark:from-[#031312] dark:via-[#08201d] dark:to-[#031312]">
+    <div className="relative flex flex-1 min-h-dvh items-center justify-center overflow-hidden px-6 py-12 bg-linear-to-br from-teal-50 via-white to-emerald-50 dark:from-[#031312] dark:via-[#08201d] dark:to-[#031312]">
       <div
         aria-hidden
         className="pointer-events-none absolute top-1/4 left-1/2 h-112 w-md -translate-x-2/3 rounded-full bg-teal-400/50 blur-3xl dark:bg-teal-400/25"
