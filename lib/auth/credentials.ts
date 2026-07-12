@@ -1,6 +1,6 @@
 import { CredentialsSignin } from "next-auth";
 
-import { endpoints } from "@/services/endpoints";
+import { API_ENDPOINTS } from "@/services/endpoints";
 import { loginSchema } from "@/lib/validations";
 import type { MeResponseContract, TokenPairContract } from "@/lib/contracts/auth";
 
@@ -39,7 +39,7 @@ export function createAuthorizeCredentials() {
       throw new InvalidCredentialsError();
     }
 
-    const loginResponse = await fetchWithRetry(apiUrl(endpoints.auth.login), {
+    const loginResponse = await fetchWithRetry(apiUrl(API_ENDPOINTS.AUTH.LOGIN), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(parsed.data),
@@ -55,7 +55,7 @@ export function createAuthorizeCredentials() {
 
     const tokenPair = (await loginResponse.json()) as TokenPairContract;
 
-    const meResponse = await fetchWithRetry(apiUrl(endpoints.auth.me), {
+    const meResponse = await fetchWithRetry(apiUrl(API_ENDPOINTS.AUTH.ME), {
       headers: { Authorization: `Bearer ${tokenPair.access_token}` },
     });
 

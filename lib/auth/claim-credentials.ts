@@ -1,6 +1,6 @@
 import { CredentialsSignin } from "next-auth";
 
-import { endpoints } from "@/services/endpoints";
+import { API_ENDPOINTS } from "@/services/endpoints";
 import { claimStudentSchema } from "@/lib/validations";
 import type { MeResponseContract, TokenPairContract } from "@/lib/contracts/auth";
 
@@ -43,7 +43,7 @@ export function createAuthorizeClaimStudent() {
       throw new ClaimFailedError();
     }
 
-    const claimResponse = await fetchWithRetry(apiUrl(endpoints.auth.claimStudent), {
+    const claimResponse = await fetchWithRetry(apiUrl(API_ENDPOINTS.AUTH.CLAIM_STUDENT), {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -75,7 +75,7 @@ export function createAuthorizeClaimStudent() {
 
     const tokenPair = (await claimResponse.json()) as TokenPairContract;
 
-    const meResponse = await fetchWithRetry(apiUrl(endpoints.auth.me), {
+    const meResponse = await fetchWithRetry(apiUrl(API_ENDPOINTS.AUTH.ME), {
       headers: { Authorization: `Bearer ${tokenPair.access_token}` },
     });
 

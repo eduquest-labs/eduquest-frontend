@@ -1,11 +1,40 @@
+import Link from "next/link";
+import { ArrowRight, School } from "lucide-react";
+
 import { auth } from "@/auth";
 
 export default async function DosenPage() {
   const session = await auth();
 
   return (
-    <div className="flex flex-1 items-center justify-center p-8">
-      <p className="text-lg">Selamat datang, {session?.user.name}.</p>
+    <div className="flex flex-col gap-8 p-4 sm:p-8">
+      <div className="flex flex-col gap-1">
+        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+          Halo, {session?.user.name}
+        </h1>
+        <p className="text-sm text-slate-500 dark:text-slate-400">
+          Kelola kelas dan pantau progres siswa Anda dari sini.
+        </p>
+      </div>
+
+      <Link
+        href="/dosen/kelas"
+        className="group flex max-w-md items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20"
+      >
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-200">
+          <School size={19} strokeWidth={2} />
+        </span>
+        <div className="flex flex-1 flex-col gap-0.5">
+          <span className="text-sm font-semibold text-slate-900 dark:text-white">Kelas Saya</span>
+          <span className="text-sm text-slate-500 dark:text-slate-400">
+            Kelola kelas dan impor siswa
+          </span>
+        </div>
+        <ArrowRight
+          size={16}
+          className="shrink-0 text-slate-300 transition-colors group-hover:text-slate-500 dark:text-slate-600"
+        />
+      </Link>
     </div>
   );
 }

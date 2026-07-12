@@ -1,14 +1,14 @@
 import { client } from "@/services/client";
-import { endpoints } from "@/services/endpoints";
+import { API_ENDPOINTS } from "@/services/endpoints";
 import type { MeResponseContract } from "@/lib/contracts/auth";
 import type { AuthUser } from "@/types";
 
 export async function logout(): Promise<void> {
-  await client.post(endpoints.auth.logout);
+  await client.post(API_ENDPOINTS.AUTH.LOGOUT);
 }
 
 export async function getMe(): Promise<AuthUser> {
-  const { data } = await client.get<MeResponseContract>(endpoints.auth.me);
+  const { data } = await client.get<MeResponseContract>(API_ENDPOINTS.AUTH.ME);
   return {
     id: data.id,
     name: data.name,

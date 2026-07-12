@@ -1,6 +1,6 @@
 import type { NextAuthConfig } from "next-auth";
 
-import { endpoints } from "@/services/endpoints";
+import { API_ENDPOINTS } from "@/services/endpoints";
 import type { TokenPairContract } from "@/lib/contracts/auth";
 
 import { fetchWithRetry } from "./fetch-with-retry";
@@ -21,7 +21,7 @@ async function refreshAccessToken(refreshToken: string): Promise<TokenPairContra
 
   refreshPromise = (async () => {
     try {
-      const response = await fetchWithRetry(apiUrl(endpoints.auth.refresh), {
+      const response = await fetchWithRetry(apiUrl(API_ENDPOINTS.AUTH.REFRESH), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ refresh_token: refreshToken }),

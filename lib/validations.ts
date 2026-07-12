@@ -16,3 +16,26 @@ export const claimStudentSchema = z
     message: "Konfirmasi kata sandi tidak cocok",
     path: ["passwordConfirmation"],
   });
+
+export const createClassSchema = z.object({
+  name: z.string().min(1, "Nama kelas wajib diisi").max(255, "Nama kelas maksimal 255 karakter"),
+});
+export type CreateClassFormValues = z.infer<typeof createClassSchema>;
+
+const ACCEPTED_IMPORT_TYPES = [
+  "text/csv",
+  "application/vnd.ms-excel",
+  "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+];
+const MAX_IMPORT_FILE_SIZE_BYTES = 5120 * 1024; // mirrors backend max:5120 (KB)
+
+export const importStudentsSchema = z.object({
+  file: z
+    .instanceof(File, { message: "File wajib dipilih" })
+    .refine((file) => file.size <= MAX_IMPORT_FILE_SIZE_BYTES, "Ukuran file maksimal 5 MB")
+    .refine(
+      (file) => ACCEPTED_IMPORT_TYPES.includes(file.type) || /\.(csv|xlsx|xls)$/i.test(file.name),
+      "Format file harus CSV, XLS, atau XLSX"
+    ),
+});
+export type ImportStudentsFormValues = z.infer<typeof importStudentsSchema>;

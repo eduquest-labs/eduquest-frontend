@@ -17,6 +17,14 @@ export const pageMetadata = {
     title: "Dashboard",
     description: siteConfig.description,
   },
+  kelas: {
+    title: "Kelas Saya",
+    description: "Kelola kelas dan siswa Anda.",
+  },
+  kelasDetail: {
+    title: "Detail Kelas",
+    description: "Lihat kode kelas dan kelola daftar siswa.",
+  },
 } as const;
 
 export function buildTitle(title: string): string {

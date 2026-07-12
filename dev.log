@@ -1,0 +1,106 @@
+
+> eduquest-frontend@0.1.0 predev
+> node scripts/generate-sw.js
+
+
+> eduquest-frontend@0.1.0 dev
+> next dev
+
+▲ Next.js 16.2.10 (Turbopack)
+- Local:         http://localhost:3000
+- Network:       http://192.168.18.162:3000
+- Environments: .env
+✓ Ready in 1424ms
+
+ GET /login 200 in 1089ms (next.js: 416ms, application-code: 672ms)
+ GET /dosen/kelas/999 200 in 2.5s (next.js: 1911ms, application-code: 585ms)
+ GET / 200 in 361ms (next.js: 220ms, application-code: 140ms)
+[browser] Image with src "http://localhost:3000/vercel.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+ GET /api/auth/session 200 in 1947ms (next.js: 1887ms, application-code: 60ms)
+ GET /api/auth/session 200 in 37ms (next.js: 15ms, application-code: 22ms)
+ GET /api/auth/session 200 in 32ms (next.js: 5ms, application-code: 27ms)
+ GET /api/auth/session 200 in 20ms (next.js: 5ms, application-code: 15ms)
+ GET / 200 in 167ms (next.js: 6ms, application-code: 161ms)
+ GET /offline 200 in 119ms (next.js: 54ms, application-code: 65ms)
+ GET /api/auth/session 200 in 232ms (next.js: 146ms, application-code: 86ms)
+ GET /api/auth/session 200 in 42ms (next.js: 17ms, application-code: 24ms)
+ GET /api/auth/session 200 in 38ms (next.js: 20ms, application-code: 17ms)
+ GET /api/auth/session 200 in 17ms (next.js: 4ms, application-code: 13ms)
+ GET /login 307 in 257ms (next.js: 18ms, application-code: 238ms)
+ GET /dosen 200 in 183ms (next.js: 82ms, application-code: 100ms)
+ GET /api/auth/session 200 in 170ms (next.js: 23ms, application-code: 148ms)
+ GET /api/auth/session 200 in 167ms (next.js: 44ms, application-code: 123ms)
+ GET /api/auth/session 200 in 37ms (next.js: 7ms, application-code: 30ms)
+ GET /api/auth/session 200 in 37ms (next.js: 13ms, application-code: 24ms)
+ GET /api/auth/session 200 in 67ms (next.js: 13ms, application-code: 54ms)
+ GET /dosen/kelas 200 in 304ms (next.js: 156ms, application-code: 148ms)
+ GET /api/auth/session 200 in 79ms (next.js: 17ms, application-code: 62ms)
+ GET /api/auth/session 200 in 32ms (next.js: 12ms, application-code: 21ms)
+ GET /api/auth/session 200 in 15ms (next.js: 4ms, application-code: 11ms)
+ GET /api/auth/session 200 in 98ms (next.js: 11ms, application-code: 87ms)
+ GET /api/auth/session 200 in 40ms (next.js: 17ms, application-code: 22ms)
+ GET /api/auth/session 200 in 16ms (next.js: 5ms, application-code: 11ms)
+ GET /api/auth/session 200 in 44ms (next.js: 20ms, application-code: 23ms)
+ GET /api/auth/session 200 in 13ms (next.js: 3ms, application-code: 9ms)
+ GET /api/auth/session 200 in 34ms (next.js: 20ms, application-code: 14ms)
+ GET /api/auth/session 200 in 20ms (next.js: 4ms, application-code: 16ms)
+✓ Compiled in 460ms
+ GET /dosen/kelas 200 in 856ms (next.js: 412ms, application-code: 444ms)
+ GET /dosen/kelas 200 in 731ms (next.js: 20ms, application-code: 711ms)
+ GET /api/auth/session 200 in 146ms (next.js: 121ms, application-code: 25ms)
+ GET /api/auth/session 200 in 38ms (next.js: 8ms, application-code: 31ms)
+ GET /api/auth/session 200 in 25ms (next.js: 5ms, application-code: 20ms)
+ GET /api/auth/session 200 in 43ms (next.js: 16ms, application-code: 28ms)
+ GET /api/auth/session 200 in 57ms (next.js: 22ms, application-code: 35ms)
+ GET /api/auth/session 200 in 14ms (next.js: 5ms, application-code: 9ms)
+ GET /api/auth/session 200 in 50ms (next.js: 31ms, application-code: 19ms)
+ GET /api/auth/session 200 in 15ms (next.js: 3ms, application-code: 12ms)
+ GET /dosen/kelas 200 in 164ms (next.js: 21ms, application-code: 142ms)
+ GET /api/auth/session 200 in 47ms (next.js: 19ms, application-code: 28ms)
+ GET /api/auth/session 200 in 32ms (next.js: 7ms, application-code: 25ms)
+ GET /api/auth/session 200 in 36ms (next.js: 15ms, application-code: 21ms)
+ GET /api/auth/session 200 in 74ms (next.js: 8ms, application-code: 66ms)
+ GET /api/auth/session 200 in 64ms (next.js: 21ms, application-code: 43ms)
+ GET /api/auth/session 200 in 32ms (next.js: 13ms, application-code: 19ms)
+ GET /dosen 200 in 899ms (next.js: 335ms, application-code: 563ms)
+ GET /api/auth/session 200 in 33ms (next.js: 14ms, application-code: 19ms)
+ GET /api/auth/session 200 in 23ms (next.js: 5ms, application-code: 18ms)
+ GET /api/auth/session 200 in 72ms (next.js: 24ms, application-code: 48ms)
+ GET /api/auth/session 200 in 24ms (next.js: 5ms, application-code: 19ms)
+ GET /dosen 200 in 110ms (next.js: 4ms, application-code: 105ms)
+ GET /api/auth/session 200 in 73ms (next.js: 35ms, application-code: 38ms)
+ GET /api/auth/session 200 in 17ms (next.js: 5ms, application-code: 12ms)
+ GET /dosen/kelas 200 in 222ms (next.js: 16ms, application-code: 206ms)
+ GET /api/auth/session 200 in 52ms (next.js: 27ms, application-code: 25ms)
+ GET /api/auth/session 200 in 52ms (next.js: 12ms, application-code: 40ms)
+ GET /api/auth/session 200 in 56ms (next.js: 8ms, application-code: 48ms)
+ GET /api/auth/session 200 in 18ms (next.js: 4ms, application-code: 13ms)
+ GET /api/auth/session 200 in 55ms (next.js: 19ms, application-code: 35ms)
+ GET /api/auth/session 200 in 18ms (next.js: 5ms, application-code: 13ms)
+ GET /api/auth/session 200 in 34ms (next.js: 14ms, application-code: 20ms)
+ GET /api/auth/session 200 in 14ms (next.js: 3ms, application-code: 11ms)
+[31m[auth][error][0m JWTSessionError: Read more at https://errors.authjs.dev#jwtsessionerror
+[31m[auth][cause][0m: JWEInvalid: Invalid Compact JWE
+    at compactDecrypt (C:\backend\eduquest\eduquest-frontend\.next\dev\server\chunks\ssr\node_modules_jose_dist_webapi_0yq6spq._.js:3428:15)
+    at jwtDecrypt (C:\backend\eduquest\eduquest-frontend\.next\dev\server\chunks\ssr\node_modules_jose_dist_webapi_0yq6spq._.js:3464:215)
+    at Object.decode (C:\backend\eduquest\eduquest-frontend\.next\dev\server\chunks\ssr\node_modules_@auth_core_1tplxaj._.js:905:202)
+    at Module.session (C:\backend\eduquest\eduquest-frontend\.next\dev\server\chunks\ssr\node_modules_@auth_core_1tplxaj._.js:4546:39)
+    at AuthInternal (C:\backend\eduquest\eduquest-frontend\.next\dev\server\chunks\ssr\node_modules_@auth_core_1tplxaj._.js:5145:196)
+    at async Auth (C:\backend\eduquest\eduquest-frontend\.next\dev\server\chunks\ssr\node_modules_@auth_core_1tplxaj._.js:5384:34)
+    at async DosenLayout (C:\backend\eduquest\eduquest-frontend\.next\dev\server\chunks\ssr\[root-of-the-server]__0jqrumb._.js:614:21)
+[31m[auth][details][0m: {}
+ GET /dosen/kelas 307 in 85ms (next.js: 6ms, application-code: 80ms)
+ GET /api/auth/session 200 in 33ms (next.js: 16ms, application-code: 16ms)
+ GET /api/auth/session 200 in 14ms (next.js: 4ms, application-code: 10ms)
+✓ Compiled in 220ms
+ GET /dosen/kelas 200 in 356ms (next.js: 232ms, application-code: 124ms)
+ GET /api/auth/session 200 in 210ms (next.js: 175ms, application-code: 35ms)
+ GET /api/auth/session 200 in 20ms (next.js: 4ms, application-code: 16ms)
+✓ Compiled in 247ms
+ GET /dosen/kelas 200 in 281ms (next.js: 174ms, application-code: 108ms)
+ GET /api/auth/session 200 in 192ms (next.js: 162ms, application-code: 30ms)
+ GET /api/auth/session 200 in 19ms (next.js: 3ms, application-code: 16ms)
+ GET /dosen 200 in 668ms (next.js: 53ms, application-code: 615ms)
+ GET /api/auth/session 200 in 37ms (next.js: 11ms, application-code: 25ms)
+ GET /api/auth/session 200 in 28ms (next.js: 7ms, application-code: 21ms)
+[?25h
