@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Frontend for **EduQuest**, a learning-gamification PWA built to support a classroom experiment at Universitas Pendidikan Indonesia (UPI). It talks to a separate Laravel API (`../eduquest-backend`) backed by MySQL. Two roles use it: `dosen` (lecturer — full authoring/monitoring/analytics, real email+password login) and `siswa` (student — joins via class code + name only, no password, auto-provisioned account). Don't design a unified auth flow — the two roles' login UX is intentionally different.
+Frontend for **EduQuest**, a learning-gamification PWA built to support a classroom experiment at Universitas Pendidikan Indonesia (UPI). It talks to a separate Laravel API (`../eduquest-backend`, Passport OAuth2 password grant) backed by MySQL. Two roles use it: `dosen` (lecturer — full authoring/monitoring/analytics, real email+password login) and `siswa` (student). Siswa accounts are pre-registered by a dosen in bulk (CSV import of name + NIS, no password set), then each student claims their account exactly once by proving `class_code` + `nis` and setting their own password (`POST /api/claim-student`) — from then on they log in with their permanent `anonymous_id` + that password via the same `/api/login` shape dosen use. There is no self-registration endpoint. Don't design a unified auth flow — the two roles' login UX is intentionally different, even though claim and login are backed by two Auth.js Credentials providers that both normalize into the same session shape.
 
 Product/domain context (DB schema, business rules like final-submission locking and anonymized exports) lives in project memory, not in this repo. Check `PRD Project/` at the repo root (`PRD_Platform_Gamifikasi_Pembelajaran.pdf`, `schema.sql`) for authoritative requirements before building a feature.
 
@@ -44,39 +44,57 @@ Run a single Vitest file: `npx vitest run path/to/file.test.ts`. Run a single Pl
 ```
 app/
 ├── layout.tsx            # root layout: fonts, metadata, Providers wrapper
-├── providers.tsx         # client: ThemeProvider + QueryProvider
+├── providers.tsx         # client: SessionProvider + ThemeProvider + QueryProvider + SessionSyncer
 ├── globals.css           # Tailwind @theme, HeroUI import, CSS tokens
-└── page.tsx              # not yet replaced with real routes/route groups
+├── page.tsx              # not yet replaced with real routes/route groups
+├── (auth)/               # public — login + one-time student claim
+│   ├── login/page.tsx
+│   └── claim/{page.tsx, ClaimPageContent.tsx}
+├── (dosen)/              # dosen-only, role-guarded in layout.tsx
+│   ├── layout.tsx
+│   └── dosen/page.tsx    # placeholder landing — real dashboard content out of scope here
+├── (siswa)/              # siswa-only, role-guarded in layout.tsx
+│   ├── layout.tsx
+│   └── siswa/page.tsx    # placeholder landing
+└── api/auth/[...nextauth]/route.ts   # re-exports Auth.js handlers
+auth.ts                   # root: NextAuth({...}) — exports handlers/auth/signIn/signOut
 components/
+├── auth/                 # LoginForm, ClaimStudentForm, AnonymousIdReveal
 ├── base/
-│   ├── layout/           # app shell components (not yet created)
+│   ├── layout/           # app shell components, incl. SessionSyncer.tsx
 │   ├── shared/           # generic cross-domain components (not yet created)
 │   └── icons/            # SVG icon components + AppLogo (not yet created)
 └── [domain]/             # one folder per feature domain, e.g. quiz/, leaderboard/ (not yet created)
 config/
-├── site.config.ts        # siteConfig, pageMetadata
+├── site.config.ts        # siteConfig, pageMetadata, buildTitle()
 └── constants.ts          # SCREAMING_SNAKE_CASE constants grouped by domain
 hooks/
 ├── queries/               # TanStack Query hooks (useQuery), index.ts re-exports all
-└── mutations/             # TanStack Mutation hooks (useMutation), index.ts re-exports all
+└── mutations/             # TanStack Mutation hooks (useMutation), incl. useLogout.ts
 lib/
 ├── utils.ts               # cn()
-├── validations.ts         # Zod schemas
+├── validations.ts         # Zod schemas, incl. loginSchema, claimStudentSchema
 ├── query-client.ts        # createQueryClient() factory — used by both server and client
-└── contracts/             # raw API response shapes, snake_case (not yet created)
+├── contracts/             # raw API response shapes, snake_case — auth.ts is the first file here
+└── auth/                  # Auth.js server-side pieces: credentials.ts, claim-credentials.ts,
+                            # callbacks.ts (jwt/session + refresh), guards.ts (requireAuth/requireRole),
+                            # fetch-with-retry.ts (resilient fetch for authorize()/refresh, outside axios)
 providers/
 └── query-provider.tsx     # QueryClientProvider + ReactQueryDevtools
 services/
 ├── client.ts              # single axios instance — interceptors already wired
 ├── endpoints.ts           # all API URLs — the only place URLs are written
-├── token-store.ts         # getToken / setToken / clearToken (in-memory)
-├── modules/               # async functions per domain (not yet created)
-└── adapters/               # snake_case → camelCase transforms (not yet created)
+├── token-store.ts         # sync in-memory mirror of the session's access token (see Auth & tokens)
+├── modules/               # async functions per domain — auth.service.ts is the first
+└── adapters/               # snake_case → camelCase transforms (not yet created for other domains)
 stores/
 └── ui.store.ts            # sidebarOpen, setSidebarOpen, toggleSidebar
 types/
 ├── common.types.ts        # ApiResponse<T>, Pagination, PaginatedResponse<T>
-└── index.ts               # re-exports all type files
+├── auth.types.ts          # UserRole, LoginCredentials, ClaimStudentCredentials, AuthUser
+├── next-auth.d.ts         # ambient module augmentation — NOT re-exported from index.ts (would break
+│                          # declaration merging), picked up automatically via tsconfig include
+└── index.ts               # re-exports all type files (except next-auth.d.ts)
 test/                      # Vitest + RTL + MSW (non-E2E)
 ├── setup.ts
 ├── msw/{server.ts, handlers/}
@@ -86,7 +104,7 @@ tests/                     # Playwright E2E only
 └── page-objects/BasePage.ts
 ```
 
-`components/[domain]/`, `services/modules/`, `services/adapters/`, `lib/contracts/`, and `tests/e2e/` don't exist yet — create them following the existing layer conventions when the first feature domain is built (see **Alur implementasi domain baru** below).
+`components/[domain]/`, `services/adapters/`, and `tests/e2e/` still don't exist for non-auth domains yet — create them following the existing layer conventions when the next feature domain is built (see **Alur implementasi domain baru** below). `auth` is the domain that established the `lib/contracts/`/`services/modules/` pattern; it deviates in one way — Auth.js's `authorize()` (in `lib/auth/credentials.ts`/`claim-credentials.ts`) calls the Laravel API directly server-side, not through `hooks/mutations`, since NextAuth itself is the "hook" layer for sign-in/out.
 
 ## Testing stack
 
@@ -139,8 +157,14 @@ No SSR/prefetch pattern is used here — this is a research tool for one class, 
 
 ## Auth & tokens
 
-- Token is held **in memory** via `services/token-store.ts` (`getToken`/`setToken`/`clearToken`) — not `localStorage`.
-- The axios instance in `services/client.ts` auto-injects `Authorization: Bearer <token>` and redirects to `/auth/login` on a 401.
+- Session is managed by **Auth.js v5** (`next-auth@beta`, `auth.ts` at the repo root), backed by a JWT session cookie — not a database session, since the real source of truth is the Laravel Passport token pair, not a frontend DB.
+- Two Credentials providers, both defined in `auth.ts`: `credentials` (dosen email+password, or returning siswa `anonymous_id`+password — same `/api/login` shape) and `claim-student` (one-time `class_code`+`nis`+new password via `/api/claim-student`). Both `authorize()` implementations (`lib/auth/credentials.ts`, `lib/auth/claim-credentials.ts`) call `/api/me` once right after obtaining a token and normalize into the same user shape, so the `jwt`/`session` callbacks (`lib/auth/callbacks.ts`) don't care which provider was used.
+- Token refresh happens lazily inside the `jwt` callback: when the access token is within 60s of `accessTokenExpiry`, it calls `/api/refresh` (de-duped via an in-flight `refreshPromise` so concurrent requests don't trigger duplicate refreshes). On failure, `token.error`/`session.error` is set to `"RefreshAccessTokenError"`; `lib/auth/guards.ts`'s `requireAuth()` treats that as unauthenticated and redirects to `/login`.
+- **The refresh token never reaches the client-exposed session** — the `session` callback copies `accessToken`/`accessTokenExpiry`/`error` only. `refreshToken` stays inside the server-only JWT object used by the `jwt` callback.
+- `services/token-store.ts` is a synchronous **in-memory mirror** of the session's access token (not the source of truth — the NextAuth JWT cookie is), kept in sync by `components/base/layout/SessionSyncer.tsx` (mounted once in `app/providers.tsx`). This exists because axios interceptors are synchronous and can't `await auth()`/`getSession()`; `getTokenWithFallback()` falls back to an async `getSession()` call only on cold load (e.g. a hard refresh before `SessionSyncer`'s effect has run).
+- Server Components/Server Actions/Route Handlers read the session via `auth()` (from `@/auth`); Client Components use `useSession()` from `next-auth/react`.
+- Route protection is **server-layout-based, no `middleware.ts`**: `app/(dosen)/layout.tsx` and `app/(siswa)/layout.tsx` call `await auth()` then `requireRole(session, "dosen" | "siswa")` — a mismatched role redirects to the user's own dashboard, not a raw 403.
+- Logout (`hooks/mutations/useLogout.ts`) calls Laravel's `/api/logout` to revoke the token first, then always calls Auth.js's `signOut()` in `onSettled` (not `onSuccess`) so the local session clears even if the revoke call fails.
 
 ## Component placement
 

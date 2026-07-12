@@ -1,7 +1,9 @@
 export const endpoints = {
   auth: {
-    loginDosen: "/auth/dosen/login",
-    loginSiswa: "/auth/siswa/login",
-    me: "/auth/me",
+    login: "/login",
+    claimStudent: "/claim-student",
+    refresh: "/refresh",
+    logout: "/logout",
+    me: "/me",
   },
 };
