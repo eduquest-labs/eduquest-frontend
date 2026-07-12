@@ -10,7 +10,7 @@ Frontend for **EduQuest**, a learning-gamification PWA built to support a classr
 
 Product/domain context (DB schema, business rules like final-submission locking and anonymized exports) lives in project memory, not in this repo. Check `PRD Project/` at the repo root (`PRD_Platform_Gamifikasi_Pembelajaran.pdf`, `schema.sql`) for authoritative requirements before building a feature.
 
-**Current state**: scaffolding is in place (providers, services layer, stores, testing setup) but no feature routes/components have been built yet beyond the default `app/page.tsx`. The conventions below are the target architecture for everything built from here.
+**Current state**: two feature domains are built end to end — `auth` (dosen login, siswa claim-student flow) and `kelas` (dosen creates a class, views its class_code, imports students via CSV, views the student roster), with a dosen dashboard shell (sidebar/topbar) wrapping the `(dosen)` route group. The conventions below are the target architecture for everything built from here — `kelas` is the most complete reference for the full layered pipeline (types → contracts → endpoints → adapters → services → hooks → components → routes).
 
 ## Commands
 
@@ -50,9 +50,13 @@ app/
 ├── (auth)/               # public — login + one-time student claim
 │   ├── login/page.tsx
 │   └── claim/{page.tsx, ClaimPageContent.tsx}
-├── (dosen)/              # dosen-only, role-guarded in layout.tsx
+├── (dosen)/              # dosen-only, role-guarded in layout.tsx, wrapped in DashboardShell
 │   ├── layout.tsx
-│   └── dosen/page.tsx    # placeholder landing — real dashboard content out of scope here
+│   └── dosen/
+│       ├── page.tsx      # dashboard landing (welcome + quick-links)
+│       └── kelas/
+│           ├── page.tsx      # class list (create-class modal, ClassList grid)
+│           └── [id]/page.tsx # class detail (class_code reveal, CSV import, student roster)
 ├── (siswa)/              # siswa-only, role-guarded in layout.tsx
 │   ├── layout.tsx
 │   └── siswa/page.tsx    # placeholder landing
@@ -61,10 +65,12 @@ auth.ts                   # root: NextAuth({...}) — exports handlers/auth/sign
 components/
 ├── auth/                 # LoginForm, ClaimStudentForm, AnonymousIdReveal
 ├── base/
-│   ├── layout/           # app shell components, incl. SessionSyncer.tsx
+│   ├── layout/           # DashboardShell, Sidebar, Topbar (dosen dashboard chrome), SessionSyncer.tsx
 │   ├── shared/           # generic cross-domain components (not yet created)
 │   └── icons/            # SVG icon components + AppLogo (not yet created)
-└── [domain]/             # one folder per feature domain, e.g. quiz/, leaderboard/ (not yet created)
+├── kelas/                # ClassCard, ClassList, CreateClassForm, ClassCodeReveal,
+│                         # ImportStudentsForm, ClassRosterTable, KelasPageClient, KelasDetailPageClient
+└── [domain]/             # one folder per feature domain (kelas is the first non-auth example)
 config/
 ├── site.config.ts        # siteConfig, pageMetadata, buildTitle()
 └── constants.ts          # SCREAMING_SNAKE_CASE constants grouped by domain
@@ -83,10 +89,10 @@ providers/
 └── query-provider.tsx     # QueryClientProvider + ReactQueryDevtools
 services/
 ├── client.ts              # single axios instance — interceptors already wired
-├── endpoints.ts           # all API URLs — the only place URLs are written
+├── endpoints.ts           # API_ENDPOINTS, SCREAMING_SNAKE_CASE keys grouped by domain — the only place URLs are written
 ├── token-store.ts         # sync in-memory mirror of the session's access token (see Auth & tokens)
-├── modules/               # async functions per domain — auth.service.ts is the first
-└── adapters/               # snake_case → camelCase transforms (not yet created for other domains)
+├── modules/               # async functions per domain — auth.service.ts, kelas.service.ts
+└── adapters/               # snake_case → camelCase transforms — kelas.adapter.ts is the first (non-trivial, reused across 3 service fns)
 stores/
 └── ui.store.ts            # sidebarOpen, setSidebarOpen, toggleSidebar
 types/
@@ -104,7 +110,7 @@ tests/                     # Playwright E2E only
 └── page-objects/BasePage.ts
 ```
 
-`components/[domain]/`, `services/adapters/`, and `tests/e2e/` still don't exist for non-auth domains yet — create them following the existing layer conventions when the next feature domain is built (see **Alur implementasi domain baru** below). `auth` is the domain that established the `lib/contracts/`/`services/modules/` pattern; it deviates in one way — Auth.js's `authorize()` (in `lib/auth/credentials.ts`/`claim-credentials.ts`) calls the Laravel API directly server-side, not through `hooks/mutations`, since NextAuth itself is the "hook" layer for sign-in/out.
+`kelas` is the second feature domain (after `auth`) and the first to use the full 9-step checklist end to end, including `components/kelas/` and `services/adapters/kelas.adapter.ts` — follow its layer conventions when building the next domain. `tests/e2e/` still doesn't exist for any domain yet, `kelas` included. `auth` is the domain that established the `lib/contracts/`/`services/modules/` pattern; it deviates in one way — Auth.js's `authorize()` (in `lib/auth/credentials.ts`/`claim-credentials.ts`) calls the Laravel API directly server-side, not through `hooks/mutations`, since NextAuth itself is the "hook" layer for sign-in/out.
 
 ## Testing stack
 
@@ -244,7 +250,11 @@ Every page/component is designed and built for mobile first, then scaled up — 
 
 ## Adding a new feature domain
 
-Order to follow when adding a new domain (example: `quiz`):
+Order to follow when adding a new domain (example: `quiz`; `kelas` is a real, already-built
+reference for this exact checklist — see `types/kelas.types.ts`, `lib/contracts/kelas.ts`,
+`services/adapters/kelas.adapter.ts`, `services/modules/kelas.service.ts`,
+`hooks/queries/useKelas.ts`, `hooks/mutations/useKelasMutations.ts`, `components/kelas/`,
+`app/(dosen)/dosen/kelas/`):
 
 1. `types/quiz.types.ts` → re-export from `types/index.ts`
 2. `lib/contracts/quiz.ts` (raw API shape, snake_case)

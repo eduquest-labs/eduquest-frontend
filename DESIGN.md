@@ -1,6 +1,6 @@
 # EduQuest — Design Document
 
-Status: living document, v1.0 scope. Last synced: 2026-07-12.
+Status: living document, v1.0 scope. Last synced: 2026-07-13.
 
 ## 1. Ringkasan
 
@@ -138,14 +138,20 @@ Prioritas test (jalur yang merusak validitas riset kalau salah, bukan coverage t
 
 **Dokumentasi API**: L5-Swagger (dari `darkaonline/l5-swagger`, generate OpenAPI spec dari anotasi `@OA\...` di controller) + Swagger UI. Setiap controller baru wajib disertai anotasi sejak ditulis. Dipilih di atas Scribe untuk portabilitas ke Postman/codegen frontend, meski proyek dikerjakan solo.
 
-## 9. Status Implementasi (per 2026-07-12)
+## 9. Status Implementasi (per 2026-07-13)
 
-Backend (`eduquest-backend`) baru mencakup fondasi awal:
+Backend (`eduquest-backend`) mencakup fondasi auth + manajemen kelas:
 - Migration: users, cache, jobs (default Laravel), OAuth (Passport tables), permission tables (Spatie), `classes`, `class_students`.
-- Controllers: `AuthController`, `ClassStudentController`.
-- Models: `ClassModel`, `ClassStudent`, `User`.
+- Controllers: `AuthController` (login/claim-student/refresh/logout/me), `ClassController` (index/store/show/students — create kelas, lihat class_code, lihat roster siswa), `ClassStudentController` (import CSV/Excel).
+- Models: `ClassModel` (termasuk `generateClassCode()`, retry-loop 5x untuk keunikan), `ClassStudent`, `User`.
+- Policy: `ClassPolicy` (`view`/`update`, dosen hanya bisa akses kelas miliknya sendiri).
+- Test: `tests/Feature/ClassManagementTest.php`, 13 kasus (create, list scoping, detail/ownership, validasi, import CSV happy-path + duplicate-NIS rejection, roster listing).
 
-Frontend (`eduquest-frontend`) sudah punya struktur route group `(auth)`, `(dosen)`, `(siswa)` di App Router, plus PWA shell (service worker registration, offline page).
+Frontend (`eduquest-frontend`) sudah punya:
+- Route group `(auth)`, `(dosen)`, `(siswa)` di App Router, plus PWA shell (service worker registration, offline page).
+- Domain `auth` (login dosen, klaim akun siswa) dan `kelas` (buat kelas → lihat class_code → impor siswa via CSV → lihat roster) lengkap end-to-end mengikuti 9-step domain checklist di `CLAUDE.md`.
+- Dashboard shell (`components/base/layout/DashboardShell.tsx`, `Sidebar.tsx`, `Topbar.tsx`) membungkus route group `(dosen)` — sebelumnya `(dosen)/layout.tsx` cuma guard tanpa UI apa pun.
+- `services/endpoints.ts` pakai konvensi `API_ENDPOINTS` (SCREAMING_SNAKE_CASE), disamakan dengan `gerakajar-frontend`.
 
 Domain tabel lain (topics/challenges/questions, attempts/answers, gamifikasi, GPS, activity_logs, `question_revisions`) **belum ada migration-nya** — jadi urutan kerja berikutnya yang wajar mengikuti domain di §5.1.
 
