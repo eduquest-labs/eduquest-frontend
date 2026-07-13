@@ -3,6 +3,7 @@ export * from "./ClassList";
 export * from "./CreateClassForm";
 export * from "./ClassCodeReveal";
 export * from "./ImportStudentsForm";
+export * from "./StudentForm";
 export * from "./ClassRosterTable";
 export * from "./KelasPageClient";
 export * from "./KelasDetailPageClient";

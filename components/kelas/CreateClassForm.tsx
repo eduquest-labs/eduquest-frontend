@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
 
-import { Alert, Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { Alert, Button, FieldError, Form, Input, Label, TextField, toast } from "@heroui/react";
 
 import { useCreateClass } from "@/hooks/mutations";
 import { createClassSchema } from "@/lib/validations";
@@ -36,6 +36,7 @@ export function CreateClassForm({ onCreated }: CreateClassFormProps) {
 
     try {
       const newClass = await createClass.mutateAsync(parsed.data);
+      toast.success(`Kelas "${parsed.data.name}" berhasil dibuat.`);
       onCreated(newClass);
     } catch (error) {
       if (isAxiosError(error) && error.response?.status === 422) {

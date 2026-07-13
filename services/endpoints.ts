@@ -11,6 +11,7 @@ export const API_ENDPOINTS = {
     CREATE: "/classes",
     DETAIL: (id: number) => `/classes/${id}`,
     STUDENTS: (id: number) => `/classes/${id}/students`,
+    STUDENT: (classId: number, studentId: number) => `/classes/${classId}/students/${studentId}`,
     IMPORT_STUDENTS: (id: number) => `/classes/${id}/students/import`,
   },
 };

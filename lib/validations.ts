@@ -29,6 +29,12 @@ const ACCEPTED_IMPORT_TYPES = [
 ];
 const MAX_IMPORT_FILE_SIZE_BYTES = 5120 * 1024; // mirrors backend max:5120 (KB)
 
+export const studentSchema = z.object({
+  name: z.string().min(1, "Nama siswa wajib diisi").max(150, "Nama siswa maksimal 150 karakter"),
+  nis: z.string().min(1, "NIS wajib diisi").max(20, "NIS maksimal 20 karakter"),
+});
+export type StudentFormValues = z.infer<typeof studentSchema>;
+
 export const importStudentsSchema = z.object({
   file: z
     .instanceof(File, { message: "File wajib dipilih" })

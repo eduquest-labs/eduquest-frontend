@@ -27,3 +27,13 @@ export interface ClassStudent {
   isClaimed: boolean;
   joinedAt: string | null;
 }
+
+export interface AddStudentInput {
+  name: string;
+  nis: string;
+}
+
+export interface UpdateStudentInput {
+  name: string;
+  nis: string;
+}

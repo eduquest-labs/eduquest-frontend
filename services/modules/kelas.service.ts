@@ -9,11 +9,19 @@ import {
 import type {
   ClassDetailContract,
   ClassListResponseContract,
+  ClassStudentContract,
   ClassStudentsResponseContract,
   CreateClassResponseContract,
   ImportStudentsResponseContract,
 } from "@/lib/contracts/kelas";
-import type { ClassStudent, CreateClassInput, ImportStudentsResult, KelasClass } from "@/types";
+import type {
+  AddStudentInput,
+  ClassStudent,
+  CreateClassInput,
+  ImportStudentsResult,
+  KelasClass,
+  UpdateStudentInput,
+} from "@/types";
 
 export async function listClasses(): Promise<KelasClass[]> {
   const { data } = await client.get<ClassListResponseContract>(API_ENDPOINTS.KELAS.LIST);
@@ -39,6 +47,30 @@ export async function listClassStudents(classId: number): Promise<ClassStudent[]
     API_ENDPOINTS.KELAS.STUDENTS(classId)
   );
   return data.data.map(adaptClassStudent);
+}
+
+export async function addStudent(classId: number, input: AddStudentInput): Promise<ClassStudent> {
+  const { data } = await client.post<ClassStudentContract>(
+    API_ENDPOINTS.KELAS.STUDENTS(classId),
+    input
+  );
+  return adaptClassStudent(data);
+}
+
+export async function updateStudent(
+  classId: number,
+  studentId: number,
+  input: UpdateStudentInput
+): Promise<ClassStudent> {
+  const { data } = await client.patch<ClassStudentContract>(
+    API_ENDPOINTS.KELAS.STUDENT(classId, studentId),
+    input
+  );
+  return adaptClassStudent(data);
+}
+
+export async function removeStudent(classId: number, studentId: number): Promise<void> {
+  await client.delete(API_ENDPOINTS.KELAS.STUDENT(classId, studentId));
 }
 
 export async function importStudents(classId: number, file: File): Promise<ImportStudentsResult> {
