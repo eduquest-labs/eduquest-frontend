@@ -1,7 +1,8 @@
 "use client";
 
 import { isAxiosError } from "axios";
-import { Users } from "lucide-react";
+import Link from "next/link";
+import { BookOpen, Users } from "lucide-react";
 
 import { Alert, Skeleton } from "@heroui/react";
 
@@ -65,6 +66,10 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
       <div className="max-w-sm">
         <ClassCodeReveal classCode={data.classCode} />
       </div>
+
+      <Link href={`/dosen/authoring?classId=${classId}`} className="flex w-fit items-center gap-2 rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-teal-700">
+        <BookOpen size={16} /> Kelola Materi & Tantangan
+      </Link>
 
       <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/5">
         <h2 className="text-base font-semibold text-slate-900 dark:text-white">Impor Siswa</h2>

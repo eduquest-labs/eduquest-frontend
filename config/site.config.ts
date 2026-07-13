@@ -25,6 +25,14 @@ export const pageMetadata = {
     title: "Detail Kelas",
     description: "Lihat kode kelas dan kelola daftar siswa.",
   },
+  authoring: {
+    title: "Authoring",
+    description: "Susun topic, challenge, dan soal untuk kelas.",
+  },
+  challengeEditor: {
+    title: "Editor Challenge",
+    description: "Kelola metadata challenge, soal, dan opsi jawaban.",
+  },
 } as const;
 
 export function buildTitle(title: string): string {

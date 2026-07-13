@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, School } from "lucide-react";
+import { BookOpen, LayoutDashboard, School } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site.config";
@@ -10,6 +10,7 @@ import { siteConfig } from "@/config/site.config";
 const NAV_ITEMS = [
   { href: "/dosen", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dosen/kelas", label: "Kelas", icon: School },
+  { href: "/dosen/authoring", label: "Authoring", icon: BookOpen },
 ] as const;
 
 export interface SidebarNavProps {
