@@ -15,6 +15,10 @@ import {
 import { useChallenges, useClass, useQuestions, useTopics } from "@/hooks/queries";
 import { ChallengeForm } from "@/components/authoring/ChallengeForm";
 import { QuestionForm } from "@/components/authoring/QuestionForm";
+import {
+  CHALLENGE_AVAILABILITY_CLASS_NAMES,
+  CHALLENGE_AVAILABILITY_LABELS,
+} from "@/lib/challenge-availability";
 import type { Question, QuestionInput } from "@/types";
 
 export interface ChallengeEditorPageClientProps {
@@ -90,7 +94,7 @@ export function ChallengeEditorPageClient({ classId, topicId, challengeId }: Cha
           <div>
             <div className="flex flex-wrap items-center gap-2">
               <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">{challenge.title}</h1>
-              <span className={isPublished ? "rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-400/10 dark:text-teal-300" : "rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-400/10 dark:text-amber-300"}>{isPublished ? "Published" : "Draft"}</span>
+              <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${CHALLENGE_AVAILABILITY_CLASS_NAMES[challenge.availabilityStatus]}`}>{CHALLENGE_AVAILABILITY_LABELS[challenge.availabilityStatus]}</span>
             </div>
             <p className="mt-1 text-sm text-slate-500">{challenge.description || "Tanpa deskripsi"}</p>
           </div>

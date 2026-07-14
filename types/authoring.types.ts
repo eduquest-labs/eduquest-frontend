@@ -1,4 +1,5 @@
 export type ChallengeType = "kuis" | "aktivitas_fisik";
+export type ChallengeAvailability = "draft" | "scheduled" | "active" | "ended";
 export type QuestionType = "pilihan_ganda" | "isian_singkat" | "esai";
 
 export interface Topic {
@@ -21,6 +22,7 @@ export interface Challenge {
   endTime: string | null;
   timerSeconds: number | null;
   isPublished: boolean;
+  availabilityStatus: ChallengeAvailability;
   createdAt: string;
   updatedAt: string;
 }

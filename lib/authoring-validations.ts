@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+import { BUSINESS_TIME_OFFSET, BUSINESS_TIME_ZONE } from "@/lib/business-time";
+
 const nonNegativeInteger = (label: string) =>
   z
     .string()
@@ -18,13 +20,24 @@ const positiveNullableInteger = (label: string) =>
 
 function serializeLocalDateTime(value: string): string | null {
   if (!value) return null;
-  return value.length === 16 ? `${value.replace("T", " ")}:00` : value.replace("T", " ");
+  return value.length === 16 ? `${value}:00${BUSINESS_TIME_OFFSET}` : `${value}${BUSINESS_TIME_OFFSET}`;
 }
 
 export function toDateTimeLocal(value: string | null): string {
   if (!value) return "";
-  const normalized = value.replace(" ", "T");
-  return normalized.slice(0, 16);
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: BUSINESS_TIME_ZONE,
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hourCycle: "h23",
+  }).formatToParts(new Date(value));
+  const part = (type: Intl.DateTimeFormatPartTypes) =>
+    parts.find((item) => item.type === type)?.value ?? "";
+
+  return `${part("year")}-${part("month")}-${part("day")}T${part("hour")}:${part("minute")}`;
 }
 
 export const topicFormSchema = z.object({

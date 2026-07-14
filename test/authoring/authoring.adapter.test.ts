@@ -15,8 +15,8 @@ describe("authoring adapters", () => {
     expect(adaptChallenge({
       id: 4, topic_id: 1, title: "Kuis", description: null, type: "kuis",
       points_reward: 100, start_time: null, end_time: null, timer_seconds: 600,
-      is_published: false, created_at: "a", updated_at: "b",
-    })).toMatchObject({ id: 4, topicId: 1, pointsReward: 100, timerSeconds: 600, isPublished: false });
+      is_published: false, availability_status: "draft", created_at: "a", updated_at: "b",
+    })).toMatchObject({ id: 4, topicId: 1, pointsReward: 100, timerSeconds: 600, isPublished: false, availabilityStatus: "draft" });
   });
 
   it("mengubah question beserta options", () => {
@@ -33,7 +33,7 @@ describe("authoring adapters", () => {
     const duplicate = adaptDuplicatedChallenge({
       id: 10, topic_id: 7, title: "Kuis", description: null, type: "kuis",
       points_reward: 0, start_time: null, end_time: null, timer_seconds: null,
-      is_published: false, created_at: "a", updated_at: "b",
+      is_published: false, availability_status: "draft", created_at: "a", updated_at: "b",
       questions: [{
         id: 11, challenge_id: 10, question_type: "esai", question_text: "Jelaskan",
         points: 20, sort_order: 0, time_limit_seconds: null, correct_answer_text: null, options: [],

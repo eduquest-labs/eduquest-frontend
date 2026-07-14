@@ -26,7 +26,7 @@ describe("authoring service", () => {
       return HttpResponse.json({
         id: 3, topic_id: 2, title: "Kuis", description: null, type: "kuis",
         points_reward: 100, start_time: "2026-07-20 08:00:00", end_time: null,
-        timer_seconds: 600, is_published: false, created_at: "a", updated_at: "a",
+        timer_seconds: 600, is_published: false, availability_status: "draft", created_at: "a", updated_at: "a",
       }, { status: 201 });
     }));
     const challenge = await createChallenge(2, {
@@ -69,7 +69,7 @@ describe("authoring service", () => {
       return HttpResponse.json({
         id: 20, topic_id: 8, title: "Kuis", description: null, type: "kuis",
         points_reward: 0, start_time: null, end_time: null, timer_seconds: null,
-        is_published: false, created_at: "a", updated_at: "a",
+        is_published: false, availability_status: "draft", created_at: "a", updated_at: "a",
         questions: [{ id: 21, challenge_id: 20, question_type: "esai", question_text: "Jelaskan", points: 10, sort_order: 0, time_limit_seconds: null, correct_answer_text: null, options: [] }],
       }, { status: 201 });
     }));

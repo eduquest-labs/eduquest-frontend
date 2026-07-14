@@ -15,6 +15,11 @@ import {
 import { useChallenges, useQuestions } from "@/hooks/queries";
 import { ChallengeForm } from "@/components/authoring/ChallengeForm";
 import { DuplicateChallengeDialog } from "@/components/authoring/DuplicateChallengeDialog";
+import {
+  CHALLENGE_AVAILABILITY_CLASS_NAMES,
+  CHALLENGE_AVAILABILITY_LABELS,
+} from "@/lib/challenge-availability";
+import { BUSINESS_TIME_LABEL, BUSINESS_TIME_ZONE } from "@/lib/business-time";
 import type { Challenge, KelasClass, Topic } from "@/types";
 
 export interface ChallengeListProps {
@@ -25,11 +30,15 @@ export interface ChallengeListProps {
 }
 
 function formatSchedule(challenge: Challenge): string {
-  if (!challenge.startTime && !challenge.endTime) return "Tanpa jadwal";
-  const formatter = new Intl.DateTimeFormat("id-ID", { dateStyle: "medium", timeStyle: "short" });
+  if (!challenge.startTime && !challenge.endTime) return `Tanpa jadwal (${BUSINESS_TIME_LABEL})`;
+  const formatter = new Intl.DateTimeFormat("id-ID", {
+    dateStyle: "medium",
+    timeStyle: "short",
+    timeZone: BUSINESS_TIME_ZONE,
+  });
   const start = challenge.startTime ? formatter.format(new Date(challenge.startTime)) : "sekarang";
   const end = challenge.endTime ? formatter.format(new Date(challenge.endTime)) : "tanpa batas";
-  return `${start} – ${end}`;
+  return `${start} – ${end} ${BUSINESS_TIME_LABEL}`;
 }
 
 function PublishControl({ challenge, topicId }: { challenge: Challenge; topicId: number }) {
@@ -115,7 +124,7 @@ export function ChallengeList({ classId, topic, classes, enabled }: ChallengeLis
             <div className="min-w-0">
               <div className="flex flex-wrap items-center gap-2">
                 <h3 className="font-semibold text-slate-900 dark:text-white">{challenge.title}</h3>
-                <span className={challenge.isPublished ? "rounded-full bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-700 dark:bg-teal-400/10 dark:text-teal-300" : "rounded-full bg-amber-100 px-2 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-400/10 dark:text-amber-300"}>{challenge.isPublished ? "Published" : "Draft"}</span>
+                <span className={`rounded-full px-2 py-0.5 text-xs font-medium ${CHALLENGE_AVAILABILITY_CLASS_NAMES[challenge.availabilityStatus]}`}>{CHALLENGE_AVAILABILITY_LABELS[challenge.availabilityStatus]}</span>
               </div>
               <p className="mt-1 text-sm text-slate-500">{challenge.description || "Tanpa deskripsi"}</p>
               <p className="mt-2 flex items-center gap-1.5 text-xs text-slate-500"><Clock size={13} /> {formatSchedule(challenge)} · {challenge.type === "kuis" ? "Kuis" : "Aktivitas fisik"} · {challenge.pointsReward} poin</p>

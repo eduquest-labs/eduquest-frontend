@@ -1,4 +1,4 @@
-import type { ChallengeType, QuestionType } from "@/types";
+import type { ChallengeAvailability, ChallengeType, QuestionType } from "@/types";
 
 export interface TopicContract {
   id: number;
@@ -20,6 +20,7 @@ export interface ChallengeContract {
   end_time: string | null;
   timer_seconds: number | null;
   is_published: boolean;
+  availability_status: ChallengeAvailability;
   created_at: string;
   updated_at: string;
 }

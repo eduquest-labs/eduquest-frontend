@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { challengeFormSchema, questionFormSchema } from "@/lib/authoring-validations";
+import { challengeFormSchema, questionFormSchema, toDateTimeLocal } from "@/lib/authoring-validations";
 
 const baseQuestion = {
   questionType: "pilihan_ganda" as const,
@@ -50,6 +50,11 @@ describe("authoring validation", () => {
       title: "Kuis", description: "", type: "kuis", pointsReward: "0",
       startTime: "2026-07-20T08:00", endTime: "2026-07-20T10:00", timerSeconds: "600",
     });
-    expect(valid.success && valid.data.startTime).toBe("2026-07-20 08:00:00");
+    expect(valid.success && valid.data.startTime).toBe("2026-07-20T08:00:00+07:00");
+  });
+
+  it("menampilkan waktu input selalu dalam Asia/Jakarta", () => {
+    expect(toDateTimeLocal("2026-07-20T01:00:00Z")).toBe("2026-07-20T08:00");
+    expect(toDateTimeLocal("2026-07-20T08:00:00+07:00")).toBe("2026-07-20T08:00");
   });
 });

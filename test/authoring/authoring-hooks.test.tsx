@@ -20,7 +20,7 @@ describe("authoring mutation cache", () => {
     vi.mocked(authoringService.duplicateChallenge).mockResolvedValue({
       id: 20, topicId: 8, title: "Salinan", description: null, type: "kuis",
       pointsReward: 0, startTime: null, endTime: null, timerSeconds: null,
-      isPublished: false, createdAt: "a", updatedAt: "a", questions: [],
+      isPublished: false, availabilityStatus: "draft", createdAt: "a", updatedAt: "a", questions: [],
     });
     const queryClient = createQueryClient();
     const invalidate = vi.spyOn(queryClient, "invalidateQueries");

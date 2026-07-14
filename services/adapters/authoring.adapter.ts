@@ -30,6 +30,7 @@ export function adaptChallenge(contract: ChallengeContract): Challenge {
     endTime: contract.end_time,
     timerSeconds: contract.timer_seconds,
     isPublished: contract.is_published,
+    availabilityStatus: contract.availability_status,
     createdAt: contract.created_at,
     updatedAt: contract.updated_at,
   };

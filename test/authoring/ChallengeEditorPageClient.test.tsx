@@ -14,7 +14,7 @@ describe("ChallengeEditorPageClient", () => {
       http.get("*/topics/2/challenges", () => HttpResponse.json({ data: [{
         id: 3, topic_id: 2, title: "Kuis Kebugaran", description: "Evaluasi", type: "kuis",
         points_reward: 100, start_time: null, end_time: null, timer_seconds: 600,
-        is_published: false, created_at: "a", updated_at: "a",
+        is_published: false, availability_status: "draft", created_at: "a", updated_at: "a",
       }] })),
       http.get("*/challenges/3/questions", () => HttpResponse.json({ data: [{
         id: 4, challenge_id: 3, question_type: "esai", question_text: "Jelaskan manfaat pemanasan",
@@ -27,6 +27,7 @@ describe("ChallengeEditorPageClient", () => {
 
     expect(await screen.findByRole("heading", { name: "Kuis Kebugaran" })).toBeInTheDocument();
     expect(screen.getByText("Kelas A / Minggu 1")).toBeInTheDocument();
+    expect(screen.getByText("Draft")).toBeInTheDocument();
     expect(screen.getByText("Jelaskan manfaat pemanasan")).toBeInTheDocument();
   });
 });

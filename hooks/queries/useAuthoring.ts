@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { useChallengeAvailabilityRefresh } from "@/hooks/queries/useChallengeAvailabilityRefresh";
 import { listChallenges, listQuestions, listTopics } from "@/services/modules";
 
 export const authoringKeys = {
@@ -18,11 +19,15 @@ export function useTopics(classId: number, enabled = true) {
 }
 
 export function useChallenges(topicId: number, enabled = true) {
-  return useQuery({
+  const query = useQuery({
     queryKey: authoringKeys.challenges(topicId),
     queryFn: () => listChallenges(topicId),
     enabled: enabled && Number.isFinite(topicId) && topicId > 0,
   });
+
+  useChallengeAvailabilityRefresh(query.data, query.refetch);
+
+  return query;
 }
 
 export function useQuestions(challengeId: number, enabled = true) {
