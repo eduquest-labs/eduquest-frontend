@@ -33,6 +33,14 @@ export const pageMetadata = {
     title: "Editor Challenge",
     description: "Kelola metadata challenge, soal, dan opsi jawaban.",
   },
+  studentChallenges: {
+    title: "Challenge Siswa",
+    description: "Lihat challenge aktif dan lanjutkan pengerjaan siswa.",
+  },
+  studentAttempt: {
+    title: "Pengerjaan Challenge",
+    description: "Kerjakan soal, simpan jawaban, dan selesaikan challenge.",
+  },
 } as const;
 
 export function buildTitle(title: string): string {

@@ -1,11 +1,13 @@
-import { auth } from "@/auth";
+import type { Metadata } from "next";
 
-export default async function SiswaPage() {
-  const session = await auth();
+import { StudentChallengePageClient } from "@/components/attempts";
+import { buildTitle, pageMetadata } from "@/config/site.config";
 
-  return (
-    <div className="flex flex-1 items-center justify-center p-8">
-      <p className="text-lg">Selamat datang, {session?.user.name}.</p>
-    </div>
-  );
+export const metadata: Metadata = {
+  title: buildTitle(pageMetadata.studentChallenges.title),
+  description: pageMetadata.studentChallenges.description,
+};
+
+export default function SiswaPage() {
+  return <StudentChallengePageClient />;
 }
