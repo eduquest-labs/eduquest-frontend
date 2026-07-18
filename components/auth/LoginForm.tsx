@@ -37,29 +37,33 @@ export function LoginForm() {
     setFieldErrors({});
 
     setIsPending(true);
-    const result = await signIn("credentials", {
-      identifier: parsed.data.identifier,
-      password: parsed.data.password,
-      redirect: false,
-    });
+    try {
+      const result = await signIn("credentials", {
+        identifier: parsed.data.identifier,
+        password: parsed.data.password,
+        redirect: false,
+      });
 
-    if (!result || result.error) {
-      setIsPending(false);
-      if (result?.code === "rate_limited") {
-        setFormAlert({ message: "Terlalu banyak percobaan, coba lagi dalam beberapa menit." });
-      } else {
-        setFieldErrors({ identifier: "Kredensial tidak valid." });
+      if (!result || result.error) {
+        if (result?.code === "rate_limited") {
+          setFormAlert({ message: "Terlalu banyak percobaan, coba lagi dalam beberapa menit." });
+        } else {
+          setFieldErrors({ identifier: "Kredensial tidak valid." });
+        }
+        return;
       }
-      return;
-    }
 
-    const session = await getSession();
-    setIsPending(false);
-    router.push(session?.user.role === "dosen" ? "/dosen" : "/siswa");
+      const session = await getSession();
+      router.push(session?.user.role === "dosen" ? "/dosen" : "/siswa");
+    } catch {
+      setFormAlert({ message: "Terjadi kesalahan, silakan coba lagi." });
+    } finally {
+      setIsPending(false);
+    }
   }
 
   return (
-    <Form onSubmit={handleSubmit} className="flex w-full flex-col gap-4">
+    <Form onSubmit={handleSubmit} validationBehavior="aria" className="flex w-full flex-col gap-4">
       {formAlert ? (
         <Alert status="danger">
           <Alert.Indicator />
