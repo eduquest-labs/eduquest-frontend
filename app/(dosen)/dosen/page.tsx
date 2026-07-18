@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowRight, BookOpen, School } from "lucide-react";
+import { ArrowRight, BookOpen, ClipboardCheck, School } from "lucide-react";
 
 import { auth } from "@/auth";
 
@@ -21,6 +21,7 @@ export default async function DosenPage() {
         {[
           { href: "/dosen/kelas", title: "Kelas Saya", description: "Kelola kelas dan impor siswa", icon: School },
           { href: "/dosen/authoring", title: "Authoring", description: "Susun topic, challenge, dan soal", icon: BookOpen },
+          { href: "/dosen/grading", title: "Penilaian Esai", description: "Nilai jawaban esai yang sudah dikumpulkan", icon: ClipboardCheck },
         ].map((item) => (
           <Link key={item.href} href={item.href} className="group flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20">
             <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-200"><item.icon size={19} strokeWidth={2} /></span>

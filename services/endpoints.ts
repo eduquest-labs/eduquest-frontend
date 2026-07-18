@@ -29,9 +29,12 @@ export const API_ENDPOINTS = {
     DISCOVERY: "/student/challenges",
     START: (challengeId: number) => `/challenges/${challengeId}/attempts`,
     CURRENT: (challengeId: number) => `/challenges/${challengeId}/attempts/current`,
+    LATEST: (challengeId: number) => `/challenges/${challengeId}/attempts/latest`,
     DETAIL: (attemptId: number) => `/attempts/${attemptId}`,
     SUBMIT_ANSWER: (attemptId: number) => `/attempts/${attemptId}/answers`,
     FINISH: (attemptId: number) => `/attempts/${attemptId}/finish`,
     ATTACHMENT: (answerId: number) => `/answers/${answerId}/attachment`,
+    PENDING_GRADING: (classId: number) => `/classes/${classId}/attempts/pending-grading`,
+    GRADE_ESSAY: (answerId: number) => `/answers/${answerId}/grade`,
   },
 };

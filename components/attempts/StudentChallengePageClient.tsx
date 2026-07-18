@@ -5,13 +5,13 @@ import { useRouter } from "next/navigation";
 import { BookOpen, LogOut, Play, Trophy } from "lucide-react";
 import { Alert, Button, Skeleton, toast } from "@heroui/react";
 
-import { useLogout, useStartAttempt } from "@/hooks/mutations";
+import { useLogout, useOpenChallenge } from "@/hooks/mutations";
 import { useStudentChallenges } from "@/hooks/queries";
 
 export function StudentChallengePageClient() {
   const router = useRouter();
   const challenges = useStudentChallenges();
-  const start = useStartAttempt();
+  const openChallenge = useOpenChallenge();
   const logout = useLogout();
   const challengeData = challenges.data;
   const groups = useMemo(() => {
@@ -23,12 +23,12 @@ export function StudentChallengePageClient() {
     return [...grouped.values()];
   }, [challengeData]);
 
-  async function openChallenge(challengeId: number) {
+  async function handleOpenChallenge(challengeId: number) {
     try {
-      await start.mutateAsync(challengeId);
-      router.push(`/siswa/challenges/${challengeId}`);
+      const { path } = await openChallenge.mutateAsync(challengeId);
+      router.push(path);
     } catch {
-      toast.danger("Challenge gagal dimulai. Pastikan waktu pengerjaan masih aktif.");
+      toast.danger("Challenge gagal dibuka. Pastikan waktu pengerjaan masih aktif.");
     }
   }
 
@@ -61,7 +61,7 @@ export function StudentChallengePageClient() {
                 <article key={challenge.id} className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/5">
                   <div className="flex items-start justify-between gap-3"><div><h3 className="font-semibold text-slate-900 dark:text-white">{challenge.title}</h3><p className="mt-1 text-sm text-slate-500">{challenge.description || "Tanpa deskripsi"}</p></div><Trophy className="shrink-0 text-amber-500" size={20} /></div>
                   <p className="text-xs text-slate-500">{challenge.pointsReward} poin · {challenge.timerSeconds ? `${Math.ceil(challenge.timerSeconds / 60)} menit` : "Tanpa timer"}</p>
-                  <Button isPending={start.isPending && start.variables === challenge.id} isDisabled={start.isPending} className="mt-auto bg-teal-600 text-white hover:bg-teal-700" onPress={() => openChallenge(challenge.id)}><Play size={16} /> Mulai / lanjutkan</Button>
+                  <Button isPending={openChallenge.isPending && openChallenge.variables === challenge.id} isDisabled={openChallenge.isPending} className="mt-auto bg-teal-600 text-white hover:bg-teal-700" onPress={() => handleOpenChallenge(challenge.id)}><Play size={16} /> Mulai / lanjutkan</Button>
                 </article>
               ))}
             </div>

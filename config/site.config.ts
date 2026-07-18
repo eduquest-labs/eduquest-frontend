@@ -33,6 +33,14 @@ export const pageMetadata = {
     title: "Editor Challenge",
     description: "Kelola metadata challenge, soal, dan opsi jawaban.",
   },
+  grading: {
+    title: "Penilaian Esai",
+    description: "Kelola antrean penilaian jawaban esai per kelas.",
+  },
+  gradingDetail: {
+    title: "Detail Penilaian Esai",
+    description: "Beri skor dan feedback pada jawaban esai siswa.",
+  },
   studentChallenges: {
     title: "Challenge Siswa",
     description: "Lihat challenge aktif dan lanjutkan pengerjaan siswa.",
@@ -40,6 +48,10 @@ export const pageMetadata = {
   studentAttempt: {
     title: "Pengerjaan Challenge",
     description: "Kerjakan soal, simpan jawaban, dan selesaikan challenge.",
+  },
+  studentAttemptResult: {
+    title: "Hasil Challenge",
+    description: "Lihat nilai dan feedback jawaban challenge yang sudah selesai.",
   },
 } as const;
 

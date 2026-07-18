@@ -1,5 +1,7 @@
 import type { ChallengeAvailability, ChallengeType, QuestionType } from "./authoring.types";
 
+export type GradingStatus = "pending" | "complete";
+
 export interface StudentChallenge {
   id: number;
   classId: number;
@@ -49,6 +51,8 @@ export interface AttemptAnswer {
   answerText: string | null;
   isCorrect: boolean | null;
   scoreAwarded: number | null;
+  feedback: string | null;
+  gradedAt: string | null;
   hasAttachment: boolean;
   createdAt: string;
   updatedAt: string;
@@ -63,6 +67,11 @@ export interface AttemptDetail {
   deadlineAt: string | null;
   isLocked: boolean;
   totalScore: number | null;
+  gradingStatus: GradingStatus;
+  student: {
+    id: number;
+    name: string;
+  };
   challenge: AttemptChallenge;
   questions: AttemptQuestion[];
   answers: AttemptAnswer[];
@@ -73,4 +82,45 @@ export interface SubmitAnswerInput {
   selectedOptionId?: number | null;
   answerText?: string | null;
   attachment?: File | null;
+}
+
+export interface PendingGradingAttempt {
+  id: number;
+  student: {
+    id: number;
+    name: string;
+  };
+  challenge: {
+    id: number;
+    title: string;
+  };
+  finishedAt: string | null;
+  gradingStatus: "pending";
+  essayAnswersCount: number;
+  gradedEssayAnswersCount: number;
+}
+
+export interface PendingGradingPage {
+  data: PendingGradingAttempt[];
+  nextCursor: string | null;
+  previousCursor: string | null;
+}
+
+export interface GradeEssayInput {
+  scoreAwarded: number;
+  feedback: string | null;
+}
+
+export interface GradeEssayResult {
+  answer: AttemptAnswer;
+  attempt: {
+    id: number;
+    totalScore: number | null;
+    gradingStatus: GradingStatus;
+  };
+}
+
+export interface DownloadedAttachment {
+  blob: Blob;
+  filename: string;
 }

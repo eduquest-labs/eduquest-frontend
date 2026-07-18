@@ -2,9 +2,20 @@ import type {
   AttemptAnswerContract,
   AttemptContract,
   AttemptQuestionContract,
+  GradeEssayAnswerResponseContract,
+  PendingGradingAttemptContract,
+  PendingGradingPageContract,
   StudentChallengeContract,
 } from "@/lib/contracts/attempts";
-import type { AttemptAnswer, AttemptDetail, AttemptQuestion, StudentChallenge } from "@/types";
+import type {
+  AttemptAnswer,
+  AttemptDetail,
+  AttemptQuestion,
+  GradeEssayResult,
+  PendingGradingAttempt,
+  PendingGradingPage,
+  StudentChallenge,
+} from "@/types";
 
 export function adaptStudentChallenge(contract: StudentChallengeContract): StudentChallenge {
   return {
@@ -49,6 +60,8 @@ export function adaptAttemptAnswer(contract: AttemptAnswerContract): AttemptAnsw
     answerText: contract.answer_text,
     isCorrect: contract.is_correct,
     scoreAwarded: contract.score_awarded,
+    feedback: contract.feedback,
+    gradedAt: contract.graded_at,
     hasAttachment: contract.has_attachment,
     createdAt: contract.created_at,
     updatedAt: contract.updated_at,
@@ -65,6 +78,8 @@ export function adaptAttempt(contract: AttemptContract): AttemptDetail {
     deadlineAt: contract.deadline_at,
     isLocked: contract.is_locked,
     totalScore: contract.total_score,
+    gradingStatus: contract.grading_status,
+    student: contract.student,
     challenge: {
       id: contract.challenge.id,
       title: contract.challenge.title,
@@ -75,5 +90,38 @@ export function adaptAttempt(contract: AttemptContract): AttemptDetail {
     },
     questions: contract.questions.map(adaptAttemptQuestion),
     answers: contract.answers.map(adaptAttemptAnswer),
+  };
+}
+
+export function adaptPendingGradingAttempt(
+  contract: PendingGradingAttemptContract
+): PendingGradingAttempt {
+  return {
+    id: contract.id,
+    student: contract.student,
+    challenge: contract.challenge,
+    finishedAt: contract.finished_at,
+    gradingStatus: contract.grading_status,
+    essayAnswersCount: contract.essay_answers_count,
+    gradedEssayAnswersCount: contract.graded_essay_answers_count,
+  };
+}
+
+export function adaptPendingGradingPage(contract: PendingGradingPageContract): PendingGradingPage {
+  return {
+    data: contract.data.map(adaptPendingGradingAttempt),
+    nextCursor: contract.next_cursor,
+    previousCursor: contract.prev_cursor,
+  };
+}
+
+export function adaptGradeEssayResult(contract: GradeEssayAnswerResponseContract): GradeEssayResult {
+  return {
+    answer: adaptAttemptAnswer(contract.answer),
+    attempt: {
+      id: contract.attempt.id,
+      totalScore: contract.attempt.total_score,
+      gradingStatus: contract.attempt.grading_status,
+    },
   };
 }

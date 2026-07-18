@@ -34,6 +34,23 @@ export const attemptAnswerSchema = z
 
 export type AttemptAnswerFormInput = z.input<typeof attemptAnswerSchema>;
 
+export const essayGradeSchema = (maximumScore: number) =>
+  z
+    .object({
+      scoreAwarded: z
+        .string()
+        .trim()
+        .min(1, "Skor wajib diisi")
+        .refine((value) => /^\d+$/.test(value), "Skor harus berupa bilangan bulat")
+        .transform(Number)
+        .refine((value) => value <= maximumScore, `Skor maksimal ${maximumScore}`),
+      feedback: z.string(),
+    })
+    .transform((value) => ({
+      scoreAwarded: value.scoreAwarded,
+      feedback: value.feedback.trim() || null,
+    }));
+
 export function remainingAttemptSeconds(deadlineAt: string | null, nowMs: number): number | null {
   if (deadlineAt === null) return null;
   return Math.max(0, Math.ceil((new Date(deadlineAt).getTime() - nowMs) / 1000));

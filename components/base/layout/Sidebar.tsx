@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, LayoutDashboard, School } from "lucide-react";
+import { BookOpen, ClipboardCheck, LayoutDashboard, School } from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site.config";
@@ -11,6 +11,7 @@ const NAV_ITEMS = [
   { href: "/dosen", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dosen/kelas", label: "Kelas", icon: School },
   { href: "/dosen/authoring", label: "Authoring", icon: BookOpen },
+  { href: "/dosen/grading", label: "Penilaian Esai", icon: ClipboardCheck },
 ] as const;
 
 export interface SidebarNavProps {

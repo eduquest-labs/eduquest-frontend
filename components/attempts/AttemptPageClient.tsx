@@ -40,11 +40,6 @@ export function AttemptPageClient({ challengeId }: AttemptPageClientProps) {
     <div className="flex min-h-dvh items-center justify-center p-4"><div className="max-w-md rounded-2xl border border-slate-200 bg-white p-8 text-center dark:border-white/10 dark:bg-white/5"><h1 className="text-xl font-semibold">Tidak ada attempt aktif</h1><p className="mt-2 text-sm text-slate-500">Mulai challenge dari halaman siswa atau pastikan timer belum berakhir.</p><Link href="/siswa" className="mt-5 inline-flex rounded-lg bg-teal-600 px-4 py-2 text-sm font-medium text-white">Kembali ke challenge</Link></div></div>
   );
 
-  const pendingEssayCount = attempt.questions.filter((question) => question.questionType === "esai").filter((question) => {
-    const answer = attempt.answers.find((item) => item.questionId === question.id);
-    return answer && answer.scoreAwarded === null;
-  }).length;
-
   return (
     <div className="min-h-dvh bg-slate-50 dark:bg-black">
       <header className="sticky top-0 z-20 border-b border-slate-200 bg-white/95 px-4 py-3 backdrop-blur dark:border-white/10 dark:bg-black/90">
@@ -55,8 +50,11 @@ export function AttemptPageClient({ challengeId }: AttemptPageClientProps) {
         {attempt.isLocked ? (
           <section className="rounded-2xl border border-teal-200 bg-teal-50 p-6 dark:border-teal-400/20 dark:bg-teal-400/5">
             <p className="text-sm font-medium text-teal-700">Attempt selesai dan sudah dikunci</p>
-            <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{attempt.totalScore ?? 0} poin</p>
-            {pendingEssayCount > 0 ? <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">{pendingEssayCount} jawaban esai masih menunggu penilaian dosen.</p> : null}
+            {attempt.gradingStatus === "complete" ? (
+              <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{attempt.totalScore} poin</p>
+            ) : (
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Jawaban esai masih menunggu penilaian dosen. Nilai akhir akan muncul setelah penilaian selesai.</p>
+            )}
           </section>
         ) : <Alert status="warning"><Alert.Indicator /><Alert.Content><Alert.Description>Simpan setiap jawaban sebelum menekan selesai. Saat timer habis, backend akan mengunci jawaban yang sudah tersimpan.</Alert.Description></Alert.Content></Alert>}
 

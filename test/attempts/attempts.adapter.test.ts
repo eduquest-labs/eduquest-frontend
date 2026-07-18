@@ -15,9 +15,10 @@ describe("attempt adapters", () => {
     const result = adaptAttempt({
       id: 4, challenge_id: 1, student_id: 8, started_at: "2026-07-20T08:00:00+07:00",
       finished_at: null, deadline_at: "2026-07-20T08:10:00+07:00", is_locked: false, total_score: null,
+      grading_status: "complete", student: { id: 8, name: "Siswa" },
       challenge: { id: 1, title: "Kuis", description: null, type: "kuis", timer_seconds: 600, availability_status: "active" },
       questions: [{ id: 9, question_type: "pilihan_ganda", question_text: "Pilih", points: 10, sort_order: 0, time_limit_seconds: null, options: [{ id: 10, option_text: "A", sort_order: 0 }] }],
-      answers: [{ id: 11, attempt_id: 4, question_id: 9, selected_option_id: 10, answer_text: null, is_correct: null, score_awarded: null, has_attachment: false, created_at: "a", updated_at: "a" }],
+      answers: [{ id: 11, attempt_id: 4, question_id: 9, selected_option_id: 10, answer_text: null, is_correct: null, score_awarded: null, feedback: null, graded_at: null, has_attachment: false, created_at: "a", updated_at: "a" }],
     });
     expect(result).toMatchObject({ id: 4, challengeId: 1, deadlineAt: "2026-07-20T08:10:00+07:00" });
     expect(result.questions[0].options[0]).toEqual({ id: 10, optionText: "A", sortOrder: 0 });

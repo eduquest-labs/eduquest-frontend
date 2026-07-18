@@ -1,4 +1,5 @@
 import type { ChallengeAvailability, ChallengeType, QuestionType } from "@/types";
+import type { GradingStatus } from "@/types";
 
 export interface StudentChallengeContract {
   id: number;
@@ -40,6 +41,8 @@ export interface AttemptAnswerContract {
   answer_text: string | null;
   is_correct: boolean | null;
   score_awarded: number | null;
+  feedback: string | null;
+  graded_at: string | null;
   has_attachment: boolean;
   created_at: string;
   updated_at: string;
@@ -54,6 +57,11 @@ export interface AttemptContract {
   deadline_at: string | null;
   is_locked: boolean;
   total_score: number | null;
+  grading_status: GradingStatus;
+  student: {
+    id: number;
+    name: string;
+  };
   challenge: {
     id: number;
     title: string;
@@ -68,4 +76,35 @@ export interface AttemptContract {
 
 export interface AttemptListContract<T> {
   data: T[];
+}
+
+export interface PendingGradingAttemptContract {
+  id: number;
+  student: {
+    id: number;
+    name: string;
+  };
+  challenge: {
+    id: number;
+    title: string;
+  };
+  finished_at: string | null;
+  grading_status: "pending";
+  essay_answers_count: number;
+  graded_essay_answers_count: number;
+}
+
+export interface PendingGradingPageContract {
+  data: PendingGradingAttemptContract[];
+  next_cursor: string | null;
+  prev_cursor: string | null;
+}
+
+export interface GradeEssayAnswerResponseContract {
+  answer: AttemptAnswerContract;
+  attempt: {
+    id: number;
+    total_score: number | null;
+    grading_status: GradingStatus;
+  };
 }

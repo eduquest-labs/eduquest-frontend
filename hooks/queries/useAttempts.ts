@@ -1,12 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 
-import { getAttempt, getCurrentAttempt, listStudentChallenges } from "@/services/modules";
+import {
+  getAttempt,
+  getCurrentAttempt,
+  getLatestAttempt,
+  listPendingGradingAttempts,
+  listStudentChallenges,
+} from "@/services/modules";
 
 export const attemptKeys = {
   all: ["attempts"] as const,
   discovery: () => [...attemptKeys.all, "discovery"] as const,
   current: (challengeId: number) => [...attemptKeys.all, "current", challengeId] as const,
+  latest: (challengeId: number) => [...attemptKeys.all, "latest", challengeId] as const,
   detail: (attemptId: number) => [...attemptKeys.all, "detail", attemptId] as const,
+  pendingGradingRoot: () => [...attemptKeys.all, "pending-grading"] as const,
+  pendingGrading: (classId: number) => [...attemptKeys.pendingGradingRoot(), classId] as const,
 };
 
 export function useStudentChallenges() {
@@ -24,10 +33,28 @@ export function useCurrentAttempt(challengeId: number, enabled = true) {
   });
 }
 
+export function useLatestAttempt(challengeId: number, enabled = true) {
+  return useQuery({
+    queryKey: attemptKeys.latest(challengeId),
+    queryFn: () => getLatestAttempt(challengeId),
+    enabled: enabled && Number.isFinite(challengeId) && challengeId > 0,
+  });
+}
+
 export function useAttemptDetail(attemptId: number, enabled = true) {
   return useQuery({
     queryKey: attemptKeys.detail(attemptId),
     queryFn: () => getAttempt(attemptId),
     enabled: enabled && Number.isFinite(attemptId) && attemptId > 0,
+  });
+}
+
+export function usePendingGradingAttempts(classId: number, enabled = true) {
+  return useInfiniteQuery({
+    queryKey: attemptKeys.pendingGrading(classId),
+    queryFn: ({ pageParam }) => listPendingGradingAttempts(classId, pageParam),
+    initialPageParam: null as string | null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
+    enabled: enabled && Number.isFinite(classId) && classId > 0,
   });
 }
