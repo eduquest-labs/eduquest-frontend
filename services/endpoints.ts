@@ -37,4 +37,15 @@ export const API_ENDPOINTS = {
     PENDING_GRADING: (classId: number) => `/classes/${classId}/attempts/pending-grading`,
     GRADE_ESSAY: (answerId: number) => `/answers/${answerId}/grade`,
   },
+  POINTS_BADGES: {
+    STUDENT_POINTS: (classId: number, classStudentId: number) =>
+      `/classes/${classId}/students/${classStudentId}/points`,
+    ADJUSTMENTS: (classId: number, classStudentId: number) =>
+      `/classes/${classId}/students/${classStudentId}/point-adjustments`,
+    AWARD_BADGE: (classId: number, classStudentId: number, badgeId: number) =>
+      `/classes/${classId}/students/${classStudentId}/badges/${badgeId}`,
+    MY_POINTS: "/students/me/points",
+    BADGES: "/badges",
+    MY_BADGES: "/students/me/badges",
+  },
 };

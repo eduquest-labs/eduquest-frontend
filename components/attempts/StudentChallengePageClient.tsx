@@ -7,6 +7,7 @@ import { Alert, Button, Skeleton, toast } from "@heroui/react";
 
 import { useLogout, useOpenChallenge } from "@/hooks/mutations";
 import { useStudentChallenges } from "@/hooks/queries";
+import { StudentGamificationSummary } from "@/components/points-badges";
 
 export function StudentChallengePageClient() {
   const router = useRouter();
@@ -39,6 +40,8 @@ export function StudentChallengePageClient() {
         <Button variant="tertiary" size="sm" isPending={logout.isPending} onPress={() => logout.mutate()}><LogOut size={16} /> Keluar</Button>
       </header>
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-4 sm:p-8">
+        <StudentGamificationSummary />
+
         <div>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Challenge aktif</h1>
           <p className="mt-1 text-sm text-slate-500">Pilih challenge untuk mulai atau melanjutkan attempt yang tersimpan.</p>

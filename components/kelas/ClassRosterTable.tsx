@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Pencil, Plus, Trash2, Users } from "lucide-react";
+import { Pencil, Plus, Trash2, Trophy, Users } from "lucide-react";
 
 import {
   AlertDialog,
@@ -18,6 +18,7 @@ import { useAddStudent, useRemoveStudent, useUpdateStudent } from "@/hooks/mutat
 import { useClassStudents } from "@/hooks/queries";
 import { cn } from "@/lib/utils";
 import { StudentForm } from "@/components/kelas/StudentForm";
+import { StudentPointsPanel } from "@/components/points-badges";
 import type { ClassStudent } from "@/types";
 
 export interface ClassRosterTableProps {
@@ -34,6 +35,7 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
   const editModal = useOverlayState();
   const [studentToEdit, setStudentToEdit] = useState<ClassStudent | null>(null);
   const [studentToDelete, setStudentToDelete] = useState<ClassStudent | null>(null);
+  const [studentForPoints, setStudentForPoints] = useState<ClassStudent | null>(null);
 
   if (isLoading) {
     return (
@@ -106,6 +108,14 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
                     </Table.Cell>
                     <Table.Cell>
                       <div className="flex items-center gap-1">
+                        <button
+                          type="button"
+                          onClick={() => setStudentForPoints(student)}
+                          className="flex size-7 cursor-pointer items-center justify-center rounded-md text-amber-500 transition-colors hover:bg-amber-50 hover:text-amber-700 dark:hover:bg-amber-400/10 dark:hover:text-amber-300"
+                          aria-label={`Poin dan badge ${student.name}`}
+                        >
+                          <Trophy size={14} />
+                        </button>
                         <button
                           type="button"
                           onClick={() => {
@@ -239,6 +249,34 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
           </AlertDialog.Dialog>
         </AlertDialog.Container>
       </AlertDialog.Backdrop>
+
+      <Modal.Backdrop
+        isOpen={studentForPoints !== null}
+        onOpenChange={(isOpen) => {
+          if (!isOpen) {
+            setStudentForPoints(null);
+          }
+        }}
+      >
+        <Modal.Container>
+          <Modal.Dialog className="max-h-[90dvh] overflow-y-auto sm:max-w-140">
+            <Modal.CloseTrigger />
+            <Modal.Header>
+              <Modal.Heading className="text-base font-semibold">
+                Poin & Badge {studentForPoints?.name}
+              </Modal.Heading>
+            </Modal.Header>
+            <Modal.Body>
+              {studentForPoints ? (
+                <StudentPointsPanel
+                  classId={classId}
+                  classStudentId={studentForPoints.id}
+                />
+              ) : null}
+            </Modal.Body>
+          </Modal.Dialog>
+        </Modal.Container>
+      </Modal.Backdrop>
     </div>
   );
 }
