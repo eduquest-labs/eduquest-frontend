@@ -43,9 +43,14 @@ export function StudentGamificationSummary() {
           <Trophy size={18} />
           <span className="text-sm font-medium">Total poin</span>
         </div>
-        <p className="text-3xl font-bold text-teal-950 dark:text-teal-100">
-          {points.data.totalPoints.toLocaleString("id-ID")}
-        </p>
+        <div className="flex items-baseline gap-2">
+          <p className="text-3xl font-bold text-teal-950 dark:text-teal-100">
+            {points.data.totalPoints.toLocaleString("id-ID")}
+          </p>
+          <Chip color="success" size="sm" variant="solid">
+            Level {points.data.level.level}
+          </Chip>
+        </div>
         <div className="flex flex-wrap gap-1.5">
           {points.data.classes.map((classPoints) => (
             <Chip key={classPoints.id} size="sm" variant="soft">
@@ -53,6 +58,22 @@ export function StudentGamificationSummary() {
             </Chip>
           ))}
         </div>
+        <ProgressBar
+          aria-label={`Progres menuju level ${points.data.level.level + 1}`}
+          value={points.data.level.progressPercentage}
+          maxValue={100}
+          color="success"
+          size="sm"
+        >
+          <Label>
+            Menuju Level {points.data.level.level + 1} ({points.data.level.pointsToNextLevel}{" "}
+            poin lagi)
+          </Label>
+          <ProgressBar.Output />
+          <ProgressBar.Track>
+            <ProgressBar.Fill />
+          </ProgressBar.Track>
+        </ProgressBar>
         {nextBadge?.criteriaValue ? (
           <ProgressBar
             aria-label={`Progres menuju badge ${nextBadge.name}`}

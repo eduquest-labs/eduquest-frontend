@@ -24,7 +24,7 @@ test("dosen opens student points panel without mobile overflow", async ({ page }
 
   await expect(page.getByRole("heading", { name: /Poin & Badge/ })).toBeVisible();
   await expect(page.getByText("Koreksi poin manual")).toBeVisible();
-  await expect(page.getByText("Katalog badge belum tersedia.")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Badge tersedia" })).toBeVisible();
   await expect
     .poll(() =>
       page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)
@@ -41,7 +41,7 @@ test("dosen opens student points panel without mobile overflow", async ({ page }
   expect(consoleErrors).toEqual([]);
 });
 
-test("student sees points and badge summary at 375px", async ({ page }) => {
+test("student sees gamification summary, leaderboard, and progress at 375px", async ({ page }) => {
   const identifier = process.env.E2E_STUDENT_IDENTIFIER;
   test.skip(!identifier, "E2E_STUDENT_IDENTIFIER is required for student verification.");
 
@@ -57,6 +57,10 @@ test("student sees points and badge summary at 375px", async ({ page }) => {
   await expect(page).toHaveURL(/\/siswa$/);
   await expect(page.getByText("Total poin")).toBeVisible();
   await expect(page.getByText("Badge saya")).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Leaderboard" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Progress challenge" })).toBeVisible();
+  await expect(page.getByRole("grid", { name: "Peringkat siswa dalam kelas" })).toBeVisible();
+  await expect(page.getByRole("progressbar")).toBeVisible();
   await expect
     .poll(() =>
       page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)

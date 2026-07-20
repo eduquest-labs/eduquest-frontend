@@ -12,6 +12,12 @@ describe("StudentGamificationSummary", () => {
       http.get("*/students/me/points", () =>
         HttpResponse.json({
           total_points: 80,
+          level: {
+            level: 3,
+            current_level_points: 0,
+            points_to_next_level: 100,
+            progress_percentage: 0,
+          },
           classes: [
             {
               id: 2,
@@ -54,6 +60,7 @@ describe("StudentGamificationSummary", () => {
     renderWithProviders(<StudentGamificationSummary />);
 
     expect(await screen.findByText("80")).toBeInTheDocument();
+    expect(screen.getByText("Level 3")).toBeInTheDocument();
     expect(screen.getByText("Kelas A: 80")).toBeInTheDocument();
     expect(screen.getByText("Menuju Poin 100")).toBeInTheDocument();
     expect(screen.getByText("Pemula")).toBeInTheDocument();

@@ -7,6 +7,7 @@ import { Alert, Button, Skeleton, toast } from "@heroui/react";
 
 import { useLogout, useOpenChallenge } from "@/hooks/mutations";
 import { useStudentChallenges } from "@/hooks/queries";
+import { StudentLeaderboardProgress } from "@/components/leaderboard";
 import { StudentGamificationSummary } from "@/components/points-badges";
 
 export function StudentChallengePageClient() {
@@ -41,6 +42,7 @@ export function StudentChallengePageClient() {
       </header>
       <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-4 sm:p-8">
         <StudentGamificationSummary />
+        <StudentLeaderboardProgress />
 
         <div>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Challenge aktif</h1>

@@ -36,8 +36,16 @@ export interface StudentPointsDetailContract {
   badges: StudentBadgeContract[];
 }
 
+export interface StudentLevelContract {
+  level: number;
+  current_level_points: number;
+  points_to_next_level: number;
+  progress_percentage: number;
+}
+
 export interface MyPointsResponseContract {
   total_points: number;
+  level: StudentLevelContract;
   classes: {
     id: number;
     class_student_id: number;

@@ -42,8 +42,16 @@ export interface StudentClassPoints {
   lastSyncedAt: string | null;
 }
 
+export interface StudentLevel {
+  level: number;
+  currentLevelPoints: number;
+  pointsToNextLevel: number;
+  progressPercentage: number;
+}
+
 export interface MyPointsSummary {
   totalPoints: number;
+  level: StudentLevel;
   classes: StudentClassPoints[];
   nextBadge: BadgeDefinition | null;
 }

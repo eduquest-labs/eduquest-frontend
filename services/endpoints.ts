@@ -48,4 +48,9 @@ export const API_ENDPOINTS = {
     BADGES: "/badges",
     MY_BADGES: "/students/me/badges",
   },
+  LEADERBOARD: {
+    RANKING: (classId: number) => `/classes/${classId}/leaderboard`,
+    PROGRESS: (classId: number, classStudentId: number) =>
+      `/classes/${classId}/students/${classStudentId}/progress`,
+  },
 };

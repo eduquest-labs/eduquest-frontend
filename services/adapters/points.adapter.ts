@@ -3,6 +3,7 @@ import type {
   MyPointsResponseContract,
   PointAdjustmentContract,
   StudentBadgeContract,
+  StudentLevelContract,
   StudentPointsDetailContract,
 } from "@/lib/contracts/points";
 import type {
@@ -10,6 +11,7 @@ import type {
   MyPointsSummary,
   PointAdjustment,
   StudentBadge,
+  StudentLevel,
   StudentPointsDetail,
 } from "@/types";
 
@@ -60,9 +62,19 @@ export function adaptStudentPointsDetail(
   };
 }
 
+export function adaptStudentLevel(contract: StudentLevelContract): StudentLevel {
+  return {
+    level: contract.level,
+    currentLevelPoints: contract.current_level_points,
+    pointsToNextLevel: contract.points_to_next_level,
+    progressPercentage: contract.progress_percentage,
+  };
+}
+
 export function adaptMyPoints(contract: MyPointsResponseContract): MyPointsSummary {
   return {
     totalPoints: contract.total_points,
+    level: adaptStudentLevel(contract.level),
     classes: contract.classes.map((classPoints) => ({
       id: classPoints.id,
       classStudentId: classPoints.class_student_id,

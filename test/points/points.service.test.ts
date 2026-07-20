@@ -71,6 +71,12 @@ describe("points service", () => {
       http.get("*/students/me/points", () =>
         HttpResponse.json({
           total_points: 80,
+          level: {
+            level: 3,
+            current_level_points: 0,
+            points_to_next_level: 100,
+            progress_percentage: 0,
+          },
           classes: [
             {
               id: 2,

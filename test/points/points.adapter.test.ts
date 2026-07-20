@@ -69,6 +69,12 @@ describe("points adapters", () => {
   it("mengadaptasi ringkasan poin per kelas dan next badge", () => {
     const summary = adaptMyPoints({
       total_points: 120,
+      level: {
+        level: 3,
+        current_level_points: 40,
+        points_to_next_level: 60,
+        progress_percentage: 40,
+      },
       classes: [
         {
           id: 2,
@@ -89,6 +95,7 @@ describe("points adapters", () => {
 
     expect(summary).toMatchObject({
       totalPoints: 120,
+      level: { level: 3, pointsToNextLevel: 60 },
       classes: [{ classStudentId: 4, totalPoints: 120 }],
       nextBadge: { criteriaValue: 200 },
     });
