@@ -106,6 +106,38 @@ export interface PendingGradingPage {
   previousCursor: string | null;
 }
 
+export interface AttemptHistoryItem {
+  id: number;
+  challenge: {
+    id: number;
+    title: string;
+  };
+  topic: {
+    id: number;
+    name: string;
+  };
+  class: {
+    id: number;
+    name: string;
+  };
+  startedAt: string;
+  finishedAt: string | null;
+  isLocked: boolean;
+  totalScore: number | null;
+  gradingStatus: GradingStatus;
+}
+
+export interface AttemptHistoryPage {
+  data: AttemptHistoryItem[];
+  nextCursor: string | null;
+  previousCursor: string | null;
+}
+
+export interface AttemptHistoryFilters {
+  classId?: number;
+  topicId?: number;
+}
+
 export interface GradeEssayInput {
   scoreAwarded: number;
   feedback: string | null;

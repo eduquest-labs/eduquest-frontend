@@ -4,9 +4,11 @@ import {
   getAttempt,
   getCurrentAttempt,
   getLatestAttempt,
+  listAttemptHistory,
   listPendingGradingAttempts,
   listStudentChallenges,
 } from "@/services/modules";
+import type { AttemptHistoryFilters } from "@/types";
 
 export const attemptKeys = {
   all: ["attempts"] as const,
@@ -14,6 +16,7 @@ export const attemptKeys = {
   current: (challengeId: number) => [...attemptKeys.all, "current", challengeId] as const,
   latest: (challengeId: number) => [...attemptKeys.all, "latest", challengeId] as const,
   detail: (attemptId: number) => [...attemptKeys.all, "detail", attemptId] as const,
+  history: (filters: AttemptHistoryFilters) => [...attemptKeys.all, "history", filters] as const,
   pendingGradingRoot: () => [...attemptKeys.all, "pending-grading"] as const,
   pendingGrading: (classId: number) => [...attemptKeys.pendingGradingRoot(), classId] as const,
 };
@@ -56,5 +59,14 @@ export function usePendingGradingAttempts(classId: number, enabled = true) {
     initialPageParam: null as string | null,
     getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
     enabled: enabled && Number.isFinite(classId) && classId > 0,
+  });
+}
+
+export function useAttemptHistory(filters: AttemptHistoryFilters = {}) {
+  return useInfiniteQuery({
+    queryKey: attemptKeys.history(filters),
+    queryFn: ({ pageParam }) => listAttemptHistory(filters, pageParam),
+    initialPageParam: null as string | null,
+    getNextPageParam: (lastPage) => lastPage.nextCursor ?? undefined,
   });
 }

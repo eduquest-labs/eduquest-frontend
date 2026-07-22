@@ -1,6 +1,8 @@
 import type {
   AttemptAnswerContract,
   AttemptContract,
+  AttemptHistoryItemContract,
+  AttemptHistoryPageContract,
   AttemptQuestionContract,
   GradeEssayAnswerResponseContract,
   PendingGradingAttemptContract,
@@ -10,6 +12,8 @@ import type {
 import type {
   AttemptAnswer,
   AttemptDetail,
+  AttemptHistoryItem,
+  AttemptHistoryPage,
   AttemptQuestion,
   GradeEssayResult,
   PendingGradingAttempt,
@@ -110,6 +114,32 @@ export function adaptPendingGradingAttempt(
 export function adaptPendingGradingPage(contract: PendingGradingPageContract): PendingGradingPage {
   return {
     data: contract.data.map(adaptPendingGradingAttempt),
+    nextCursor: contract.next_cursor,
+    previousCursor: contract.prev_cursor,
+  };
+}
+
+export function adaptAttemptHistoryItem(
+  contract: AttemptHistoryItemContract
+): AttemptHistoryItem {
+  return {
+    id: contract.id,
+    challenge: contract.challenge,
+    topic: contract.topic,
+    class: contract.class,
+    startedAt: contract.started_at,
+    finishedAt: contract.finished_at,
+    isLocked: contract.is_locked,
+    totalScore: contract.total_score,
+    gradingStatus: contract.grading_status,
+  };
+}
+
+export function adaptAttemptHistoryPage(
+  contract: AttemptHistoryPageContract
+): AttemptHistoryPage {
+  return {
+    data: contract.data.map(adaptAttemptHistoryItem),
     nextCursor: contract.next_cursor,
     previousCursor: contract.prev_cursor,
   };

@@ -53,6 +53,10 @@ export const pageMetadata = {
     title: "Hasil Challenge",
     description: "Lihat nilai dan feedback jawaban challenge yang sudah selesai.",
   },
+  attemptHistory: {
+    title: "Riwayat Aktivitas",
+    description: "Lihat seluruh riwayat pengerjaan challenge dan status nilainya.",
+  },
 } as const;
 
 export function buildTitle(title: string): string {

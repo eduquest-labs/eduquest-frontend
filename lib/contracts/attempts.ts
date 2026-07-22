@@ -100,6 +100,33 @@ export interface PendingGradingPageContract {
   prev_cursor: string | null;
 }
 
+export interface AttemptHistoryItemContract {
+  id: number;
+  challenge: {
+    id: number;
+    title: string;
+  };
+  topic: {
+    id: number;
+    name: string;
+  };
+  class: {
+    id: number;
+    name: string;
+  };
+  started_at: string;
+  finished_at: string | null;
+  is_locked: boolean;
+  total_score: number | null;
+  grading_status: GradingStatus;
+}
+
+export interface AttemptHistoryPageContract {
+  data: AttemptHistoryItemContract[];
+  next_cursor: string | null;
+  prev_cursor: string | null;
+}
+
 export interface GradeEssayAnswerResponseContract {
   answer: AttemptAnswerContract;
   attempt: {

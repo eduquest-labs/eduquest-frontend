@@ -1,6 +1,7 @@
 import type {
   AttemptAnswerContract,
   AttemptContract,
+  AttemptHistoryPageContract,
   AttemptListContract,
   GradeEssayAnswerResponseContract,
   PendingGradingPageContract,
@@ -9,6 +10,7 @@ import type {
 import {
   adaptAttempt,
   adaptAttemptAnswer,
+  adaptAttemptHistoryPage,
   adaptGradeEssayResult,
   adaptPendingGradingPage,
   adaptStudentChallenge,
@@ -18,6 +20,8 @@ import { API_ENDPOINTS } from "@/services/endpoints";
 import type {
   AttemptAnswer,
   AttemptDetail,
+  AttemptHistoryFilters,
+  AttemptHistoryPage,
   DownloadedAttachment,
   GradeEssayInput,
   GradeEssayResult,
@@ -93,6 +97,21 @@ export async function listPendingGradingAttempts(
     { params: cursor ? { cursor } : undefined }
   );
   return adaptPendingGradingPage(data);
+}
+
+export async function listAttemptHistory(
+  filters: AttemptHistoryFilters = {},
+  cursor: string | null = null
+): Promise<AttemptHistoryPage> {
+  const { data } = await client.get<AttemptHistoryPageContract>(API_ENDPOINTS.ATTEMPTS.HISTORY, {
+    params: {
+      ...(cursor ? { cursor } : {}),
+      ...(filters.classId ? { class_id: filters.classId } : {}),
+      ...(filters.topicId ? { topic_id: filters.topicId } : {}),
+    },
+  });
+
+  return adaptAttemptHistoryPage(data);
 }
 
 export async function gradeEssayAnswer(

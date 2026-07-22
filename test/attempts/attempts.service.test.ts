@@ -5,6 +5,7 @@ import {
   downloadAnswerAttachment,
   getCurrentAttempt,
   gradeEssayAnswer,
+  listAttemptHistory,
   listPendingGradingAttempts,
   listStudentChallenges,
   submitAttemptAnswer,
@@ -96,6 +97,43 @@ describe("attempt services", () => {
         answer: { id: 11, scoreAwarded: 8, feedback: "Bagus" },
         attempt: { id: 4, totalScore: null, gradingStatus: "pending" },
       });
+  });
+
+  it("mengirim filter dan cursor riwayat lalu mengadaptasi response", async () => {
+    server.use(
+      http.get("*/api/auth/session", () => HttpResponse.json({ accessToken: "test-token" })),
+      http.get("*/students/me/attempts", ({ request }) => {
+      const params = new URL(request.url).searchParams;
+      expect(params.get("cursor")).toBe("history-token");
+      expect(params.get("class_id")).toBe("2");
+      expect(params.get("topic_id")).toBe("3");
+
+      return HttpResponse.json({
+        data: [{
+          id: 12,
+          challenge: { id: 1, title: "Kuis Lama" },
+          topic: { id: 3, name: "Kebugaran" },
+          class: { id: 2, name: "Kelas A" },
+          started_at: "2026-07-20T08:00:00+07:00",
+          finished_at: null,
+          is_locked: false,
+          total_score: null,
+          grading_status: "complete",
+        }],
+        next_cursor: "after-token",
+        prev_cursor: null,
+      });
+      })
+    );
+
+    await expect(listAttemptHistory(
+      { classId: 2, topicId: 3 },
+      "history-token"
+    )).resolves.toEqual({
+      data: [expect.objectContaining({ id: 12, isLocked: false })],
+      nextCursor: "after-token",
+      previousCursor: null,
+    });
   });
 
   it("mengunduh lampiran terautentikasi sebagai blob", async () => {

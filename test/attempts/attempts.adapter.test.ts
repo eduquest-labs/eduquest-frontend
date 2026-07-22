@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { adaptAttempt, adaptStudentChallenge } from "@/services/adapters";
+import { adaptAttempt, adaptAttemptHistoryPage, adaptStudentChallenge } from "@/services/adapters";
 
 describe("attempt adapters", () => {
   it("mengadaptasi discovery challenge ke camelCase", () => {
@@ -22,5 +22,34 @@ describe("attempt adapters", () => {
     });
     expect(result).toMatchObject({ id: 4, challengeId: 1, deadlineAt: "2026-07-20T08:10:00+07:00" });
     expect(result.questions[0].options[0]).toEqual({ id: 10, optionText: "A", sortOrder: 0 });
+  });
+
+  it("mengadaptasi cursor page riwayat attempt ke camelCase", () => {
+    expect(adaptAttemptHistoryPage({
+      data: [{
+        id: 12,
+        challenge: { id: 1, title: "Kuis Lama" },
+        topic: { id: 2, name: "Kebugaran" },
+        class: { id: 3, name: "Kelas A" },
+        started_at: "2026-07-20T08:00:00+07:00",
+        finished_at: null,
+        is_locked: false,
+        total_score: null,
+        grading_status: "complete",
+      }],
+      next_cursor: "next-token",
+      prev_cursor: null,
+    })).toEqual({
+      data: [expect.objectContaining({
+        id: 12,
+        startedAt: "2026-07-20T08:00:00+07:00",
+        finishedAt: null,
+        isLocked: false,
+        totalScore: null,
+        gradingStatus: "complete",
+      })],
+      nextCursor: "next-token",
+      previousCursor: null,
+    });
   });
 });

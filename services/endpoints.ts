@@ -30,6 +30,7 @@ export const API_ENDPOINTS = {
     START: (challengeId: number) => `/challenges/${challengeId}/attempts`,
     CURRENT: (challengeId: number) => `/challenges/${challengeId}/attempts/current`,
     LATEST: (challengeId: number) => `/challenges/${challengeId}/attempts/latest`,
+    HISTORY: "/students/me/attempts",
     DETAIL: (attemptId: number) => `/attempts/${attemptId}`,
     SUBMIT_ANSWER: (attemptId: number) => `/attempts/${attemptId}/answers`,
     FINISH: (attemptId: number) => `/attempts/${attemptId}/finish`,
