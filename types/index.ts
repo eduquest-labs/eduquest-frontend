@@ -5,3 +5,4 @@ export * from "./authoring.types";
 export * from "./attempts.types";
 export * from "./points.types";
 export * from "./leaderboard.types";
+export * from "./dashboard.types";

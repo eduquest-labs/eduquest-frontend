@@ -54,4 +54,7 @@ export const API_ENDPOINTS = {
     PROGRESS: (classId: number, classStudentId: number) =>
       `/classes/${classId}/students/${classStudentId}/progress`,
   },
+  DASHBOARD: {
+    DOSEN: "/dosen/dashboard",
+  },
 };
