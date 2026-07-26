@@ -153,5 +153,8 @@ describe("DosenDashboard", () => {
     expect(
       screen.getByRole("link", { name: /Penilaian Esai/i })
     ).toHaveAttribute("href", "/dosen/grading");
+    expect(
+      screen.getByRole("link", { name: /Monitoring Live/i })
+    ).toHaveAttribute("href", "/dosen/monitoring");
   });
 });

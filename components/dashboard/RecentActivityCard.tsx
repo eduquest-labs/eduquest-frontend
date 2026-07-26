@@ -2,6 +2,7 @@ import { Card, Chip, Skeleton } from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Activity, Clock3 } from "lucide-react";
 
+import { formatTimeID } from "@/lib/utils";
 import type { DashboardActivity } from "@/types";
 
 import {

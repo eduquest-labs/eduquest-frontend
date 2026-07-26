@@ -6,6 +6,7 @@ import { ArrowRight, ClipboardCheck } from "lucide-react";
 import { Alert, Button, Card, Chip, Skeleton } from "@heroui/react";
 
 import { useClasses, usePendingGradingAttempts } from "@/hooks/queries";
+import { formatTimeID } from "@/lib/utils";
 
 const LAST_CLASS_KEY = "eduquest:grading:last-class";
 
@@ -121,11 +122,14 @@ export function EssayGradingQueuePageClient({ initialClassId }: EssayGradingQueu
                 </p>
                 {attempt.finishedAt ? (
                   <p className="text-xs text-slate-500">
-                    Dikumpulkan {new Intl.DateTimeFormat("id-ID", {
-                      dateStyle: "medium",
-                      timeStyle: "short",
-                      timeZone: "Asia/Jakarta",
-                    }).format(new Date(attempt.finishedAt))}
+                    Dikumpulkan {formatTimeID(
+                      new Intl.DateTimeFormat("id-ID", {
+                        dateStyle: "medium",
+                        timeStyle: "short",
+                        timeZone: "Asia/Jakarta",
+                      }),
+                      new Date(attempt.finishedAt)
+                    )}
                   </p>
                 ) : null}
               </Card.Content>

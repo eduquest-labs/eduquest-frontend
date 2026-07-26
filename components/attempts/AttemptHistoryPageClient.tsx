@@ -5,6 +5,7 @@ import { CalendarClock, History } from "lucide-react";
 import { Alert, Button, Card, Chip, Skeleton } from "@heroui/react";
 
 import { useAttemptHistory } from "@/hooks/queries";
+import { formatTimeID } from "@/lib/utils";
 import type { AttemptHistoryItem } from "@/types";
 
 const DATE_FORMATTER = new Intl.DateTimeFormat("id-ID", {
@@ -14,7 +15,7 @@ const DATE_FORMATTER = new Intl.DateTimeFormat("id-ID", {
 });
 
 function formatDate(value: string | null): string {
-  return value ? DATE_FORMATTER.format(new Date(value)) : "Belum selesai";
+  return value ? formatTimeID(DATE_FORMATTER, new Date(value)) : "Belum selesai";
 }
 
 function AttemptStatus({ attempt }: { attempt: AttemptHistoryItem }) {

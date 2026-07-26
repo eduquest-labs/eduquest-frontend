@@ -43,6 +43,6 @@ describe("ChallengeList", () => {
 
     expect(await screen.findByText("Kuis Terjadwal")).toBeInTheDocument();
     expect(screen.getByText("Terjadwal")).toBeInTheDocument();
-    expect(screen.getByText(/20 Jul 2026, 08\.00.*20 Jul 2026, 10\.00 WIB/)).toBeInTheDocument();
+    expect(screen.getByText(/20 Jul 2026, 08:00.*20 Jul 2026, 10:00 WIB/)).toBeInTheDocument();
   });
 });

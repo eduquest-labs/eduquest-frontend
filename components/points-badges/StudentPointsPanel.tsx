@@ -9,6 +9,7 @@ import {
   useCreatePointAdjustment,
 } from "@/hooks/mutations";
 import { useBadges, useStudentPoints } from "@/hooks/queries";
+import { formatTimeID } from "@/lib/utils";
 import { PointAdjustmentForm } from "@/components/points-badges/PointAdjustmentForm";
 
 type StudentPointsPanelProps = {

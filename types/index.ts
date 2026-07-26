@@ -6,3 +6,4 @@ export * from "./attempts.types";
 export * from "./points.types";
 export * from "./leaderboard.types";
 export * from "./dashboard.types";
+export * from "./monitoring.types";

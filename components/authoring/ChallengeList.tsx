@@ -20,6 +20,7 @@ import {
   CHALLENGE_AVAILABILITY_LABELS,
 } from "@/lib/challenge-availability";
 import { BUSINESS_TIME_LABEL, BUSINESS_TIME_ZONE } from "@/lib/business-time";
+import { formatTimeID } from "@/lib/utils";
 import type { Challenge, KelasClass, Topic } from "@/types";
 
 export interface ChallengeListProps {
@@ -36,8 +37,8 @@ function formatSchedule(challenge: Challenge): string {
     timeStyle: "short",
     timeZone: BUSINESS_TIME_ZONE,
   });
-  const start = challenge.startTime ? formatter.format(new Date(challenge.startTime)) : "sekarang";
-  const end = challenge.endTime ? formatter.format(new Date(challenge.endTime)) : "tanpa batas";
+  const start = challenge.startTime ? formatTimeID(formatter, new Date(challenge.startTime)) : "sekarang";
+  const end = challenge.endTime ? formatTimeID(formatter, new Date(challenge.endTime)) : "tanpa batas";
   return `${start} – ${end} ${BUSINESS_TIME_LABEL}`;
 }
 

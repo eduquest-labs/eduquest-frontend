@@ -1,7 +1,13 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, BookOpen, ClipboardCheck, School } from "lucide-react";
+import {
+  Activity,
+  ArrowRight,
+  BookOpen,
+  ClipboardCheck,
+  School,
+} from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -28,6 +34,12 @@ const QUICK_LINKS = [
     description: "Nilai jawaban esai yang sudah dikumpulkan",
     icon: ClipboardCheck,
   },
+  {
+    href: "/dosen/monitoring",
+    title: "Monitoring Live",
+    description: "Pantau pengerjaan dan submit siswa",
+    icon: Activity,
+  },
 ] as const;
 
 export function DashboardQuickLinks() {
@@ -48,7 +60,7 @@ export function DashboardQuickLinks() {
       </motion.h2>
       <motion.div
         variants={dashboardContainerVariants}
-        className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3"
+        className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4"
       >
         {QUICK_LINKS.map((item) => (
           <motion.div
@@ -56,7 +68,7 @@ export function DashboardQuickLinks() {
             variants={dashboardItemVariants}
             whileHover={{ y: -3, scale: 1.01 }}
             whileTap={{ scale: 0.985 }}
-            className="min-w-0 sm:last:col-span-2 lg:last:col-span-1"
+            className="min-w-0"
           >
             <Link
               href={item.href}

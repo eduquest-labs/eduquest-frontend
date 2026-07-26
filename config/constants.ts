@@ -20,3 +20,8 @@ export const LEADERBOARD_REFETCH_INTERVAL_MS = 15_000 as const;
 export const DASHBOARD_REFETCH_INTERVAL_MS = 60_000 as const;
 export const DASHBOARD_MOTION_DURATION_SECONDS = 0.32 as const;
 export const DASHBOARD_MOTION_STAGGER_SECONDS = 0.07 as const;
+
+// ============================================================
+// MONITORING
+// ============================================================
+export const MONITORING_REFETCH_INTERVAL_MS = 5_000 as const;

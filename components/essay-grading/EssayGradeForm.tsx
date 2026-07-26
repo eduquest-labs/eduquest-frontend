@@ -110,11 +110,14 @@ export function EssayGradeForm({ classId, attemptId, question, answer }: EssayGr
         </Button>
         {answer.gradedAt ? (
           <span className="text-xs text-slate-500">
-            Terakhir dinilai {new Intl.DateTimeFormat("id-ID", {
-              dateStyle: "medium",
-              timeStyle: "short",
-              timeZone: "Asia/Jakarta",
-            }).format(new Date(answer.gradedAt))}
+            Terakhir dinilai {formatTimeID(
+              new Intl.DateTimeFormat("id-ID", {
+                dateStyle: "medium",
+                timeStyle: "short",
+                timeZone: "Asia/Jakarta",
+              }),
+              new Date(answer.gradedAt)
+            )}
           </span>
         ) : null}
       </div>

@@ -57,4 +57,7 @@ export const API_ENDPOINTS = {
   DASHBOARD: {
     DOSEN: "/dosen/dashboard",
   },
+  MONITORING: {
+    DOSEN: "/dosen/monitoring",
+  },
 };

@@ -41,6 +41,11 @@ export const pageMetadata = {
     title: "Detail Penilaian Esai",
     description: "Beri skor dan feedback pada jawaban esai siswa.",
   },
+  monitoring: {
+    title: "Monitoring Live",
+    description:
+      "Pantau aktivitas siswa yang sedang mengerjakan atau baru mengumpulkan challenge.",
+  },
   studentChallenges: {
     title: "Challenge Siswa",
     description: "Lihat challenge aktif dan lanjutkan pengerjaan siswa.",
