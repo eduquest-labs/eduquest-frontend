@@ -86,10 +86,10 @@ export function MonitoringFeed({
                   className="flex min-w-0 flex-col gap-3 py-4 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="min-w-0">
-                    <p className="break-words text-sm font-semibold text-slate-900 dark:text-white">
+                    <p className="wrap-break-word text-sm font-semibold text-slate-900 dark:text-white">
                       {activity.studentName}
                     </p>
-                    <p className="mt-0.5 break-words text-sm text-slate-600 dark:text-slate-300">
+                    <p className="mt-0.5 wrap-break-word text-sm text-slate-600 dark:text-slate-300">
                       {activity.challengeTitle}
                     </p>
                     <p className="mt-1 text-xs text-slate-500">

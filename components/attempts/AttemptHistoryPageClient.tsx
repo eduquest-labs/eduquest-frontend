@@ -89,8 +89,8 @@ export function AttemptHistoryPageClient() {
                 <Card.Header>
                   <div className="flex min-w-0 flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
                     <div className="min-w-0">
-                      <Card.Title className="break-words">{attempt.challenge.title}</Card.Title>
-                      <Card.Description className="break-words">
+                      <Card.Title className="wrap-break-word">{attempt.challenge.title}</Card.Title>
+                      <Card.Description className="wrap-break-word">
                         {attempt.class.name} · {attempt.topic.name}
                       </Card.Description>
                     </div>
@@ -100,11 +100,11 @@ export function AttemptHistoryPageClient() {
                 <Card.Content className="grid gap-4 text-sm sm:grid-cols-3">
                   <div className="min-w-0">
                     <p className="text-xs font-medium uppercase tracking-wide text-slate-400">Mulai</p>
-                    <p className="mt-1 break-words text-slate-700 dark:text-slate-200">{formatDate(attempt.startedAt)}</p>
+                    <p className="mt-1 wrap-break-word text-slate-700 dark:text-slate-200">{formatDate(attempt.startedAt)}</p>
                   </div>
                   <div className="min-w-0">
                     <p className="text-xs font-medium uppercase tracking-wide text-slate-400">Selesai</p>
-                    <p className="mt-1 break-words text-slate-700 dark:text-slate-200">{formatDate(attempt.finishedAt)}</p>
+                    <p className="mt-1 wrap-break-word text-slate-700 dark:text-slate-200">{formatDate(attempt.finishedAt)}</p>
                   </div>
                   <div>
                     <p className="text-xs font-medium uppercase tracking-wide text-slate-400">Skor</p>
