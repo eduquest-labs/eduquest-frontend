@@ -107,7 +107,8 @@ export function RecentActivityCard({
                       </p>
                       <p className="mt-1 text-xs text-slate-500">
                         {activity.className} ·{" "}
-                        {WIB_DATE_FORMATTER.format(
+                        {formatTimeID(
+                          WIB_DATE_FORMATTER,
                           new Date(activity.startedAt)
                         )}{" "}
                         WIB

@@ -47,7 +47,7 @@ export function StudentGamificationSummary() {
           <p className="text-3xl font-bold text-teal-950 dark:text-teal-100">
             {points.data.totalPoints.toLocaleString("id-ID")}
           </p>
-          <Chip color="success" size="sm" variant="solid">
+          <Chip color="success" size="sm" variant="primary">
             Level {points.data.level.level}
           </Chip>
         </div>

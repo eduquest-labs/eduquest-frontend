@@ -6,7 +6,7 @@ import { Alert, Button, Skeleton } from "@heroui/react";
 
 import { AttemptAnswerForm } from "@/components/attempts/AttemptAnswerForm";
 import { AttemptTimer } from "@/components/attempts/AttemptTimer";
-import { useFinishAttempt } from "@/hooks/mutations";
+import { useFinishAttempt, useSettledAttempt } from "@/hooks/mutations";
 import { useCurrentAttempt } from "@/hooks/queries";
 import type { AttemptDetail } from "@/types";
 
@@ -18,8 +18,10 @@ export function AttemptPageClient({ challengeId }: AttemptPageClientProps) {
   const current = useCurrentAttempt(challengeId);
   const [finishedAttempt, setFinishedAttempt] = useState<AttemptDetail | null>(null);
   const [finishError, setFinishError] = useState<string | null>(null);
+  const [autoLocked, setAutoLocked] = useState(false);
   const attempt = finishedAttempt ?? current.data ?? null;
   const finish = useFinishAttempt(challengeId, attempt?.id ?? 0);
+  const { mutateAsync: readSettledAttempt } = useSettledAttempt(challengeId);
   const finishingRef = useRef(false);
 
   const handleFinish = useCallback(async () => {
@@ -29,10 +31,20 @@ export function AttemptPageClient({ challengeId }: AttemptPageClientProps) {
     try {
       setFinishedAttempt(await finish.mutateAsync());
     } catch {
+      // The scheduler may have already locked this attempt while the tab sat open.
+      // That is a settled attempt with saved answers, not a failure to report.
+      const settled = await readSettledAttempt().catch(() => null);
+
+      if (settled) {
+        setAutoLocked(true);
+        setFinishedAttempt(settled);
+        return;
+      }
+
       setFinishError("Attempt gagal diselesaikan. Muat ulang untuk memeriksa status terbaru.");
       finishingRef.current = false;
     }
-  }, [attempt, finish]);
+  }, [attempt, finish, readSettledAttempt]);
 
   if (current.isLoading) return <div className="mx-auto flex max-w-4xl flex-col gap-4 p-4 sm:p-8"><Skeleton className="h-24 rounded-2xl" /><Skeleton className="h-72 rounded-2xl" /></div>;
   if (current.isError) return <div className="p-4 sm:p-8"><Alert status="danger"><Alert.Indicator /><Alert.Content><Alert.Description>Attempt gagal dimuat.</Alert.Description></Alert.Content></Alert></div>;
@@ -49,7 +61,11 @@ export function AttemptPageClient({ challengeId }: AttemptPageClientProps) {
         {finishError ? <Alert status="danger"><Alert.Indicator /><Alert.Content><Alert.Description>{finishError}</Alert.Description></Alert.Content></Alert> : null}
         {attempt.isLocked ? (
           <section className="rounded-2xl border border-teal-200 bg-teal-50 p-6 dark:border-teal-400/20 dark:bg-teal-400/5">
-            <p className="text-sm font-medium text-teal-700">Attempt selesai dan sudah dikunci</p>
+            <p className="text-sm font-medium text-teal-700">
+              {autoLocked
+                ? "Waktu pengerjaan sudah habis. Attempt dikunci otomatis dan jawaban yang tersimpan tetap aman."
+                : "Attempt selesai dan sudah dikunci"}
+            </p>
             {attempt.gradingStatus === "complete" ? (
               <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{attempt.totalScore} poin</p>
             ) : (

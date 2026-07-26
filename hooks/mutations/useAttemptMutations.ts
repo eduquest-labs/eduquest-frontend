@@ -44,6 +44,20 @@ export function useOpenChallenge() {
   });
 }
 
+/**
+ * Reads back the settled attempt after a finish attempt fails or the current
+ * attempt disappears, so the UI can tell "locked by the scheduler" apart from
+ * a genuine error. Resolves to null when the attempt is still open.
+ */
+export function useSettledAttempt(challengeId: number) {
+  return useMutation({
+    mutationFn: async (): Promise<AttemptDetail | null> => {
+      const latest = await getLatestAttempt(challengeId);
+      return latest?.isLocked ? latest : null;
+    },
+  });
+}
+
 export function useSubmitAttemptAnswer(attemptId: number) {
   const queryClient = useQueryClient();
   return useMutation({

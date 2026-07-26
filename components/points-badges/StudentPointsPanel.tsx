@@ -65,7 +65,7 @@ export function StudentPointsPanel({
           {points.data.totalPoints.toLocaleString("id-ID")} poin
         </p>
         <p className="mt-1 text-xs text-teal-700/70 dark:text-teal-300/70">
-          Sinkron terakhir {dateFormatter.format(new Date(points.data.lastSyncedAt))}
+          Sinkron terakhir {formatTimeID(dateFormatter, new Date(points.data.lastSyncedAt))}
         </p>
       </section>
 
@@ -167,7 +167,7 @@ export function StudentPointsPanel({
                 <div>
                   <p className="text-sm">{item.reason}</p>
                   <p className="mt-0.5 text-xs text-slate-500">
-                    {item.adjustedBy.name} · {dateFormatter.format(new Date(item.createdAt))}
+                    {item.adjustedBy.name} · {formatTimeID(dateFormatter, new Date(item.createdAt))}
                   </p>
                 </div>
                 <span
