@@ -20,6 +20,7 @@ import type {
   CreateClassInput,
   ImportStudentsResult,
   KelasClass,
+  UpdateClassInput,
   UpdateStudentInput,
 } from "@/types";
 
@@ -40,6 +41,17 @@ export async function createClass(
     name: input.name,
   });
   return adaptCreatedClass(data);
+}
+
+export async function updateClass(id: number, input: UpdateClassInput): Promise<KelasClass> {
+  const { data } = await client.patch<ClassDetailContract>(API_ENDPOINTS.KELAS.DETAIL(id), {
+    name: input.name,
+  });
+  return adaptClassDetail(data);
+}
+
+export async function deleteClass(id: number): Promise<void> {
+  await client.delete(API_ENDPOINTS.KELAS.DETAIL(id));
 }
 
 export async function listClassStudents(classId: number): Promise<ClassStudent[]> {

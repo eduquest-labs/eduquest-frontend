@@ -1,6 +1,7 @@
 export * from "./ClassCard";
 export * from "./ClassList";
 export * from "./CreateClassForm";
+export * from "./EditClassForm";
 export * from "./ClassCodeReveal";
 export * from "./ImportStudentsForm";
 export * from "./StudentForm";

@@ -10,6 +10,10 @@ export interface CreateClassInput {
   name: string;
 }
 
+export interface UpdateClassInput {
+  name: string;
+}
+
 export interface ImportFailure {
   row: number;
   errors: string[];
