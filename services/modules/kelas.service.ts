@@ -18,6 +18,8 @@ import type {
   AddStudentInput,
   ClassStudent,
   CreateClassInput,
+  DownloadedGradeExport,
+  GradeExportOptions,
   ImportStudentsResult,
   KelasClass,
   UpdateClassInput,
@@ -94,4 +96,27 @@ export async function importStudents(classId: number, file: File): Promise<Impor
     { headers: { "Content-Type": "multipart/form-data" } }
   );
   return { imported: data.imported, failures: data.failures };
+}
+
+export async function exportClassGrades(
+  classId: number,
+  { format, topicId }: GradeExportOptions
+): Promise<DownloadedGradeExport> {
+  const response = await client.get<Blob>(API_ENDPOINTS.KELAS.EXPORT_GRADES(classId), {
+    params: {
+      format,
+      ...(topicId ? { topic_id: topicId } : {}),
+    },
+    responseType: "blob",
+  });
+  const disposition = response.headers["content-disposition"] as string | undefined;
+  const encodedFilename = disposition?.match(/filename\*=UTF-8''([^;]+)/i)?.[1];
+  const quotedFilename = disposition?.match(/filename="?([^";]+)"?/i)?.[1];
+
+  return {
+    blob: response.data,
+    filename: encodedFilename
+      ? decodeURIComponent(encodedFilename)
+      : quotedFilename ?? `nilai-kelas-${classId}.${format}`,
+  };
 }

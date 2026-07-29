@@ -3,14 +3,19 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { act, renderHook } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { useDeleteClass, useUpdateClass } from "@/hooks/mutations";
+import { useDeleteClass, useExportClassGrades, useUpdateClass } from "@/hooks/mutations";
 import { kelasKeys } from "@/hooks/queries";
 import { createQueryClient } from "@/lib/query-client";
 import * as kelasService from "@/services/modules/kelas.service";
 
 vi.mock("@/services/modules/kelas.service", async (importOriginal) => {
   const actual = await importOriginal<typeof kelasService>();
-  return { ...actual, updateClass: vi.fn(), deleteClass: vi.fn() };
+  return {
+    ...actual,
+    updateClass: vi.fn(),
+    deleteClass: vi.fn(),
+    exportClassGrades: vi.fn(),
+  };
 });
 
 function renderWithQueryClient<T>(hook: () => T) {
@@ -54,5 +59,41 @@ describe("kelas mutation cache — update/delete", () => {
     expect(kelasService.deleteClass).toHaveBeenCalledWith(5);
     expect(invalidate).toHaveBeenCalledWith({ queryKey: kelasKeys.lists() });
     expect(invalidate).not.toHaveBeenCalledWith({ queryKey: kelasKeys.detail(5) });
+  });
+
+  it("useExportClassGrades memicu download browser tanpa invalidasi cache", async () => {
+    const blob = new Blob(["grade-data"]);
+    const anchor = document.createElement("a");
+    const click = vi.spyOn(anchor, "click").mockImplementation(() => {});
+    const originalCreateElement = document.createElement.bind(document);
+    const createElement = vi
+      .spyOn(document, "createElement")
+      .mockImplementation((tagName, options) =>
+        tagName === "a" ? anchor : originalCreateElement(tagName, options)
+      );
+    const createObjectURL = vi.fn(() => "blob:grade-export");
+    const revokeObjectURL = vi.fn();
+    Object.defineProperty(URL, "createObjectURL", { configurable: true, value: createObjectURL });
+    Object.defineProperty(URL, "revokeObjectURL", { configurable: true, value: revokeObjectURL });
+    vi.mocked(kelasService.exportClassGrades).mockResolvedValue({
+      blob,
+      filename: "nilai-STAT2026.csv",
+    });
+
+    const { result, invalidate } = renderWithQueryClient(() => useExportClassGrades(5));
+
+    try {
+      await act(() => result.current.mutateAsync({ format: "csv" }));
+
+      expect(kelasService.exportClassGrades).toHaveBeenCalledWith(5, { format: "csv" });
+      expect(createObjectURL).toHaveBeenCalledWith(blob);
+      expect(anchor.download).toBe("nilai-STAT2026.csv");
+      expect(anchor.href).toBe("blob:grade-export");
+      expect(click).toHaveBeenCalledOnce();
+      expect(revokeObjectURL).toHaveBeenCalledWith("blob:grade-export");
+      expect(invalidate).not.toHaveBeenCalled();
+    } finally {
+      createElement.mockRestore();
+    }
   });
 });

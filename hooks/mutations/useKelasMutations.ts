@@ -5,12 +5,19 @@ import {
   addStudent,
   createClass,
   deleteClass,
+  exportClassGrades,
   importStudents,
   removeStudent,
   updateClass,
   updateStudent,
 } from "@/services/modules";
-import type { AddStudentInput, CreateClassInput, UpdateClassInput, UpdateStudentInput } from "@/types";
+import type {
+  AddStudentInput,
+  CreateClassInput,
+  GradeExportOptions,
+  UpdateClassInput,
+  UpdateStudentInput,
+} from "@/types";
 
 export function useCreateClass() {
   const queryClient = useQueryClient();
@@ -50,6 +57,24 @@ export function useImportStudents(classId: number) {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: kelasKeys.detail(classId) });
       queryClient.invalidateQueries({ queryKey: kelasKeys.students(classId) });
+    },
+  });
+}
+
+export function useExportClassGrades(classId: number) {
+  return useMutation({
+    mutationFn: (options: GradeExportOptions) => exportClassGrades(classId, options),
+    onSuccess: (file) => {
+      const url = URL.createObjectURL(file.blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = file.filename;
+
+      try {
+        anchor.click();
+      } finally {
+        URL.revokeObjectURL(url);
+      }
     },
   });
 }

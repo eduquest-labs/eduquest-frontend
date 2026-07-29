@@ -24,6 +24,18 @@ export interface ImportStudentsResult {
   failures: ImportFailure[];
 }
 
+export type GradeExportFormat = "csv" | "xlsx";
+
+export interface GradeExportOptions {
+  format: GradeExportFormat;
+  topicId?: number;
+}
+
+export interface DownloadedGradeExport {
+  blob: Blob;
+  filename: string;
+}
+
 export interface ClassStudent {
   id: number;
   name: string;

@@ -1,10 +1,16 @@
 import { http, HttpResponse } from "msw";
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { server } from "@/test/msw/server";
-import { deleteClass, updateClass } from "@/services/modules";
+import { client } from "@/services/client";
+import { API_ENDPOINTS } from "@/services/endpoints";
+import { deleteClass, exportClassGrades, updateClass } from "@/services/modules";
+import { clearToken, setToken } from "@/services/token-store";
 
 describe("kelas service — update/delete", () => {
+  beforeEach(() => setToken("test-access-token"));
+  afterEach(clearToken);
+
   it("mengirim hanya name saat update dan mengadaptasi response", async () => {
     server.use(
       http.patch("*/classes/5", async ({ request }) => {
@@ -83,5 +89,45 @@ describe("kelas service — update/delete", () => {
     );
 
     await expect(deleteClass(5)).rejects.toBeDefined();
+  });
+
+  it("mengunduh ekspor nilai sebagai blob dengan format dan topic opsional", async () => {
+    const blob = new Blob(["grade-data"], { type: "text/csv" });
+    const get = vi.spyOn(client, "get").mockResolvedValueOnce({
+      data: blob,
+      headers: {
+        "content-disposition": "attachment; filename*=UTF-8''nilai-STAT2026.csv",
+      },
+    });
+
+    try {
+      const result = await exportClassGrades(5, { format: "csv", topicId: 9 });
+
+      expect(result).toEqual({ blob, filename: "nilai-STAT2026.csv" });
+      expect(get).toHaveBeenCalledWith(API_ENDPOINTS.KELAS.EXPORT_GRADES(5), {
+        params: { format: "csv", topic_id: 9 },
+        responseType: "blob",
+      });
+    } finally {
+      get.mockRestore();
+    }
+  });
+
+  it("memakai fallback filename dan meneruskan error ekspor", async () => {
+    const blob = new Blob(["grade-data"]);
+    const get = vi
+      .spyOn(client, "get")
+      .mockResolvedValueOnce({ data: blob, headers: {} })
+      .mockRejectedValueOnce(new Error("export failed"));
+
+    try {
+      await expect(exportClassGrades(5, { format: "xlsx" })).resolves.toEqual({
+        blob,
+        filename: "nilai-kelas-5.xlsx",
+      });
+      await expect(exportClassGrades(5, { format: "xlsx" })).rejects.toThrow("export failed");
+    } finally {
+      get.mockRestore();
+    }
   });
 });
