@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { BarChart, ScatterChart } from "echarts/charts";
+import { BarChart, LineChart, ScatterChart } from "echarts/charts";
 import {
   AriaComponent,
   GridComponent,
@@ -20,6 +20,7 @@ registerEChartsModules([
   BarChart,
   CanvasRenderer,
   GridComponent,
+  LineChart,
   ScatterChart,
   TooltipComponent,
 ]);

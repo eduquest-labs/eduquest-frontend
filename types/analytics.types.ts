@@ -9,3 +9,16 @@ export interface ClassComparison {
   maximumScore: number | null;
   medianScore: number | null;
 }
+
+export type ProgressChartMode = "class" | "student";
+
+export interface ProgressChartPoint {
+  finishedAt: string;
+  score: number;
+  challengeTitle: string;
+}
+
+export interface ProgressChartData {
+  mode: ProgressChartMode;
+  points: ProgressChartPoint[];
+}

@@ -16,6 +16,7 @@ vi.mock("echarts/core", () => ({
 }));
 vi.mock("echarts/charts", () => ({
   BarChart: {},
+  LineChart: {},
   ScatterChart: {},
 }));
 vi.mock("echarts/components", () => ({
@@ -65,7 +66,19 @@ function useAnalyticsHandlers() {
     ),
     http.get("*/dosen/class-comparison", () =>
       HttpResponse.json(response)
-    )
+    ),
+    http.get("*/classes/1/students", () => HttpResponse.json({ data: [] })),
+    http.get("*/classes/1/progress-chart", () =>
+      HttpResponse.json({
+        data: [
+          {
+            finished_at: "2026-07-01T08:00:00+07:00",
+            average_score: 78.25,
+            challenge_title: "Pre-test",
+          },
+        ],
+      })
+    ),
   );
 }
 
@@ -73,6 +86,7 @@ describe("AnalyticsPageClient", () => {
   beforeAll(() => {
     class ResizeObserverMock {
       observe() {}
+      unobserve() {}
       disconnect() {}
     }
 
@@ -87,8 +101,8 @@ describe("AnalyticsPageClient", () => {
     expect(
       screen.getByLabelText("Memuat perbandingan kelas")
     ).toBeInTheDocument();
-    expect(await screen.findByText("Sekolah A")).toBeInTheDocument();
-    expect(screen.getByText("Sekolah B")).toBeInTheDocument();
+    expect((await screen.findAllByText("Sekolah A")).length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Sekolah B").length).toBeGreaterThan(0);
     expect(
       screen.getByRole("img", {
         name: "Perbandingan rata-rata skor mentah final per kelas",
@@ -102,7 +116,12 @@ describe("AnalyticsPageClient", () => {
     expect(screen.getByText("78,25")).toBeInTheDocument();
     expect(screen.getByText("2 pending")).toBeInTheDocument();
     expect(screen.getAllByText("—")).toHaveLength(4);
-    expect(setOption).toHaveBeenCalledTimes(2);
+    expect(
+      await screen.findByRole("img", {
+        name: "Progres rata-rata skor mentah kelas dari waktu ke waktu",
+      })
+    ).toBeInTheDocument();
+    expect(setOption).toHaveBeenCalledTimes(3);
   });
 
   it("membedakan empty class dan belum ada skor final", async () => {

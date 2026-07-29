@@ -13,3 +13,23 @@ export interface ClassComparisonContract {
 export interface ClassComparisonResponseContract {
   data: ClassComparisonContract[];
 }
+
+export interface ClassProgressChartPointContract {
+  finished_at: string;
+  average_score: number;
+  challenge_title: string;
+}
+
+export interface StudentProgressChartPointContract {
+  finished_at: string;
+  score: number;
+  challenge_title: string;
+}
+
+export interface ClassProgressChartResponseContract {
+  data: ClassProgressChartPointContract[];
+}
+
+export interface StudentProgressChartResponseContract {
+  data: StudentProgressChartPointContract[];
+}

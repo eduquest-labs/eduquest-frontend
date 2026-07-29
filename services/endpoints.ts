@@ -63,5 +63,7 @@ export const API_ENDPOINTS = {
   },
   ANALYTICS: {
     CLASS_COMPARISON: "/dosen/class-comparison",
+    PROGRESS_CHART: (classId: number) =>
+      `/classes/${classId}/progress-chart`,
   },
 };

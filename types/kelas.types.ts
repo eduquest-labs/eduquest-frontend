@@ -38,6 +38,8 @@ export interface DownloadedGradeExport {
 
 export interface ClassStudent {
   id: number;
+  studentId: number;
+  anonymousId: string;
   name: string;
   nis: string;
   isClaimed: boolean;

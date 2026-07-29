@@ -1,6 +1,10 @@
 import { describe, expect, it } from "vitest";
 
-import { adaptClassComparison } from "@/services/adapters";
+import {
+  adaptClassComparison,
+  adaptClassProgressPoint,
+  adaptStudentProgressPoint,
+} from "@/services/adapters";
 
 describe("analytics adapter", () => {
   it("mengubah contract snake_case dan mempertahankan statistik nullable", () => {
@@ -45,6 +49,32 @@ describe("analytics adapter", () => {
       minimumScore: null,
       maximumScore: null,
       medianScore: null,
+    });
+  });
+
+  it("menyatukan skor rata-rata kelas dan skor mentah siswa", () => {
+    expect(
+      adaptClassProgressPoint({
+        finished_at: "2026-07-01T08:00:00+07:00",
+        average_score: 78.25,
+        challenge_title: "Pre-test",
+      })
+    ).toEqual({
+      finishedAt: "2026-07-01T08:00:00+07:00",
+      score: 78.25,
+      challengeTitle: "Pre-test",
+    });
+
+    expect(
+      adaptStudentProgressPoint({
+        finished_at: "2026-07-08T08:00:00+07:00",
+        score: 90,
+        challenge_title: "Post-test",
+      })
+    ).toEqual({
+      finishedAt: "2026-07-08T08:00:00+07:00",
+      score: 90,
+      challengeTitle: "Post-test",
     });
   });
 });

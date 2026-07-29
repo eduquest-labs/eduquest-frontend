@@ -34,6 +34,8 @@ export function adaptCreatedClass(
 export function adaptClassStudent(contract: ClassStudentContract): ClassStudent {
   return {
     id: contract.id,
+    studentId: contract.student_id,
+    anonymousId: contract.anonymous_id,
     name: contract.name,
     nis: contract.nis,
     isClaimed: contract.is_claimed,

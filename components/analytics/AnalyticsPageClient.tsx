@@ -7,6 +7,7 @@ import { useClassComparison } from "@/hooks/queries";
 
 import { AverageScoreChart } from "./AverageScoreChart";
 import { ClassComparisonDetails } from "./ClassComparisonDetails";
+import { ProgressChart } from "./ProgressChart";
 import { ScoreDistributionChart } from "./ScoreDistributionChart";
 
 function AnalyticsSkeleton() {
@@ -124,6 +125,8 @@ export function AnalyticsPageClient() {
               </Alert.Content>
             </Alert>
           )}
+
+          <ProgressChart classes={comparisons} />
 
           <ClassComparisonDetails comparisons={comparisons} />
         </>

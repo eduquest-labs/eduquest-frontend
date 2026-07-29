@@ -4,7 +4,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { server } from "@/test/msw/server";
 import { client } from "@/services/client";
 import { API_ENDPOINTS } from "@/services/endpoints";
-import { deleteClass, exportClassGrades, updateClass } from "@/services/modules";
+import {
+  deleteClass,
+  exportClassGrades,
+  listClassStudents,
+  updateClass,
+} from "@/services/modules";
 import { clearToken, setToken } from "@/services/token-store";
 
 describe("kelas service — update/delete", () => {
@@ -36,6 +41,38 @@ describe("kelas service — update/delete", () => {
       studentCount: 3,
       createdAt: "2026-07-13",
     });
+  });
+
+  it("mempertahankan enrollment id serta identitas anonim siswa", async () => {
+    server.use(
+      http.get("*/classes/5/students", () =>
+        HttpResponse.json({
+          data: [
+            {
+              id: 11,
+              student_id: 27,
+              anonymous_id: "01ANONYMOUSSTUDENT00000001",
+              name: "Nama Internal",
+              nis: "2001",
+              is_claimed: true,
+              joined_at: "2026-07-01T08:00:00+07:00",
+            },
+          ],
+        })
+      )
+    );
+
+    await expect(listClassStudents(5)).resolves.toEqual([
+      {
+        id: 11,
+        studentId: 27,
+        anonymousId: "01ANONYMOUSSTUDENT00000001",
+        name: "Nama Internal",
+        nis: "2001",
+        isClaimed: true,
+        joinedAt: "2026-07-01T08:00:00+07:00",
+      },
+    ]);
   });
 
   it("tidak mengirim field lain selain name walau dipanggil dengan classCode", async () => {
