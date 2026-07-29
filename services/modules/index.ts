@@ -6,3 +6,4 @@ export * from "./points.service";
 export * from "./leaderboard.service";
 export * from "./dashboard.service";
 export * from "./monitoring.service";
+export * from "./analytics.service";

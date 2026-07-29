@@ -2,7 +2,13 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, ClipboardCheck, LayoutDashboard, School } from "lucide-react";
+import {
+  BarChart3,
+  BookOpen,
+  ClipboardCheck,
+  LayoutDashboard,
+  School,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site.config";
@@ -11,6 +17,7 @@ const NAV_ITEMS = [
   { href: "/dosen", label: "Dashboard", icon: LayoutDashboard },
   { href: "/dosen/kelas", label: "Kelas", icon: School },
   { href: "/dosen/authoring", label: "Authoring", icon: BookOpen },
+  { href: "/dosen/analytics", label: "Analitik", icon: BarChart3 },
   { href: "/dosen/grading", label: "Penilaian Esai", icon: ClipboardCheck },
 ] as const;
 

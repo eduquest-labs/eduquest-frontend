@@ -5,3 +5,4 @@ export * from "./points.adapter";
 export * from "./leaderboard.adapter";
 export * from "./dashboard.adapter";
 export * from "./monitoring.adapter";
+export * from "./analytics.adapter";

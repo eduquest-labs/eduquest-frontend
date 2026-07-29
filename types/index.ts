@@ -7,3 +7,4 @@ export * from "./points.types";
 export * from "./leaderboard.types";
 export * from "./dashboard.types";
 export * from "./monitoring.types";
+export * from "./analytics.types";

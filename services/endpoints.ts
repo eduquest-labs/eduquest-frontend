@@ -61,4 +61,7 @@ export const API_ENDPOINTS = {
   MONITORING: {
     DOSEN: "/dosen/monitoring",
   },
+  ANALYTICS: {
+    CLASS_COMPARISON: "/dosen/class-comparison",
+  },
 };

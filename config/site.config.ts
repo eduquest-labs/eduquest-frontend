@@ -46,6 +46,11 @@ export const pageMetadata = {
     description:
       "Pantau aktivitas siswa yang sedang mengerjakan atau baru mengumpulkan challenge.",
   },
+  analytics: {
+    title: "Analitik Antar Kelas",
+    description:
+      "Bandingkan rata-rata dan distribusi skor mentah final antar kelas atau sekolah.",
+  },
   studentChallenges: {
     title: "Challenge Siswa",
     description: "Lihat challenge aktif dan lanjutkan pengerjaan siswa.",
