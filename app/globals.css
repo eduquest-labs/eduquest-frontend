@@ -1,5 +1,31 @@
 @import "tailwindcss";
 @import "@heroui/styles";
+@import "leaflet/dist/leaflet.css";
+
+@keyframes gps-location-pulse {
+  0% {
+    opacity: 0.42;
+    stroke-width: 1;
+  }
+  70%,
+  100% {
+    opacity: 0;
+    stroke-width: 10;
+  }
+}
+
+.gps-current-location-pulse {
+  animation: gps-location-pulse 1.8s ease-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gps-current-location-pulse {
+    animation: none;
+    opacity: 0.25;
+  }
+}
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 

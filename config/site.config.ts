@@ -67,6 +67,10 @@ export const pageMetadata = {
     title: "Riwayat Aktivitas",
     description: "Lihat seluruh riwayat pengerjaan challenge dan status nilainya.",
   },
+  physicalActivity: {
+    title: "Rekam Aktivitas Fisik",
+    description: "Rekam rute, jarak, dan durasi tantangan fisik dengan GPS.",
+  },
 } as const;
 
 export function buildTitle(title: string): string {

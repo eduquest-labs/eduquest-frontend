@@ -7,3 +7,4 @@ export * from "./useProgress";
 export * from "./useDashboard";
 export * from "./useMonitoring";
 export * from "./useAnalytics";
+export * from "./usePhysicalActivity";

@@ -3,3 +3,4 @@ export * from "./useKelasMutations";
 export * from "./useAuthoringMutations";
 export * from "./useAttemptMutations";
 export * from "./usePointMutations";
+export * from "./usePhysicalActivityMutations";

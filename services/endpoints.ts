@@ -39,6 +39,13 @@ export const API_ENDPOINTS = {
     PENDING_GRADING: (classId: number) => `/classes/${classId}/attempts/pending-grading`,
     GRADE_ESSAY: (answerId: number) => `/answers/${answerId}/grade`,
   },
+  PHYSICAL_ACTIVITIES: {
+    START: "/physical-activities",
+    DETAIL: (activityId: number) => `/physical-activities/${activityId}`,
+    POINTS: (activityId: number) => `/physical-activities/${activityId}/points`,
+    FINISH: (activityId: number) => `/physical-activities/${activityId}/finish`,
+    ROUTE: (activityId: number) => `/physical-activities/${activityId}/route`,
+  },
   POINTS_BADGES: {
     STUDENT_POINTS: (classId: number, classStudentId: number) =>
       `/classes/${classId}/students/${classStudentId}/points`,

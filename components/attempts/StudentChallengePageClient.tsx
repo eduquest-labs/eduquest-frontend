@@ -26,7 +26,15 @@ export function StudentChallengePageClient() {
     return [...grouped.values()];
   }, [challengeData]);
 
-  async function handleOpenChallenge(challengeId: number) {
+  async function handleOpenChallenge(
+    challengeId: number,
+    challengeType: "kuis" | "aktivitas_fisik"
+  ) {
+    if (challengeType === "aktivitas_fisik") {
+      router.push(`/siswa/challenges/${challengeId}/physical-activity`);
+      return;
+    }
+
     try {
       const { path } = await openChallenge.mutateAsync(challengeId);
       router.push(path);
@@ -69,8 +77,30 @@ export function StudentChallengePageClient() {
               {group.map((challenge) => (
                 <article key={challenge.id} className="flex flex-col gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/5">
                   <div className="flex items-start justify-between gap-3"><div><h3 className="font-semibold text-slate-900 dark:text-white">{challenge.title}</h3><p className="mt-1 text-sm text-slate-500">{challenge.description || "Tanpa deskripsi"}</p></div><Trophy className="shrink-0 text-amber-500" size={20} /></div>
-                  <p className="text-xs text-slate-500">{challenge.pointsReward} poin · {challenge.timerSeconds ? `${Math.ceil(challenge.timerSeconds / 60)} menit` : "Tanpa timer"}</p>
-                  <Button isPending={openChallenge.isPending && openChallenge.variables === challenge.id} isDisabled={openChallenge.isPending} className="mt-auto bg-teal-600 text-white hover:bg-teal-700" onPress={() => handleOpenChallenge(challenge.id)}><Play size={16} /> Mulai / lanjutkan</Button>
+                  <p className="text-xs text-slate-500">
+                    {challenge.type === "aktivitas_fisik"
+                      ? "Pelacakan GPS · Rute dan jarak"
+                      : `${challenge.pointsReward} poin · ${
+                          challenge.timerSeconds
+                            ? `${Math.ceil(challenge.timerSeconds / 60)} menit`
+                            : "Tanpa timer"
+                        }`}
+                  </p>
+                  <Button
+                    isPending={
+                      challenge.type === "kuis" &&
+                      openChallenge.isPending &&
+                      openChallenge.variables === challenge.id
+                    }
+                    isDisabled={challenge.type === "kuis" && openChallenge.isPending}
+                    className="mt-auto bg-teal-600 text-white hover:bg-teal-700"
+                    onPress={() => handleOpenChallenge(challenge.id, challenge.type)}
+                  >
+                    <Play size={16} />
+                    {challenge.type === "aktivitas_fisik"
+                      ? "Rekam aktivitas"
+                      : "Mulai / lanjutkan"}
+                  </Button>
                 </article>
               ))}
             </div>
