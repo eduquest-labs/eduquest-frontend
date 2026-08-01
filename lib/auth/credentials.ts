@@ -14,11 +14,14 @@ export class RateLimitedError extends CredentialsSignin {
   code = "rate_limited";
 }
 
+export class EmailUnverifiedError extends CredentialsSignin {
+  code = "email_unverified";
+}
+
 interface AuthorizedUser {
   userId: number;
   name: string;
   role: "dosen" | "siswa";
-  anonymousId: string | null;
   permissions: string[];
   accessToken: string;
   refreshToken: string;
@@ -49,6 +52,16 @@ export function createAuthorizeCredentials() {
       throw new RateLimitedError();
     }
 
+    if (loginResponse.status === 422) {
+      const body = (await loginResponse.json().catch(() => null)) as
+        | { errors?: { identifier?: string[] } }
+        | null;
+      if (body?.errors?.identifier?.[0]?.includes("belum diverifikasi")) {
+        throw new EmailUnverifiedError();
+      }
+      throw new InvalidCredentialsError();
+    }
+
     if (!loginResponse.ok) {
       throw new InvalidCredentialsError();
     }
@@ -69,7 +82,6 @@ export function createAuthorizeCredentials() {
       userId: me.id,
       name: me.name,
       role: me.role,
-      anonymousId: me.anonymous_id,
       permissions: me.permissions,
       accessToken: tokenPair.access_token,
       refreshToken: tokenPair.refresh_token,

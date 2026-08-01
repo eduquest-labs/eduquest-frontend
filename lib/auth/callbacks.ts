@@ -51,7 +51,6 @@ export function createAuthCallbacks(): Callbacks {
         token.userId = user.userId;
         token.name = user.name;
         token.role = user.role;
-        token.anonymousId = user.anonymousId;
         token.permissions = user.permissions;
         token.accessToken = user.accessToken;
         token.refreshToken = user.refreshToken;
@@ -86,7 +85,6 @@ export function createAuthCallbacks(): Callbacks {
         session.user.userId = token.userId;
         session.user.name = token.name;
         session.user.role = token.role;
-        session.user.anonymousId = token.anonymousId ?? null;
         session.user.permissions = token.permissions ?? [];
       }
       // NEVER copy token.refreshToken here — it must stay server-only.

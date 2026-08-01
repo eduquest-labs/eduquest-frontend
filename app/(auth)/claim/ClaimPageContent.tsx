@@ -1,21 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
-import { AnonymousIdReveal, AuthShell, ClaimStudentForm } from "@/components/auth";
+import { AuthShell, ClaimStudentForm } from "@/components/auth";
 import { siteConfig } from "@/config/site.config";
 
 export function ClaimPageContent() {
-  const [anonymousId, setAnonymousId] = useState<string | null>(null);
-
-  if (anonymousId) {
-    return (
-      <AuthShell>
-        <AnonymousIdReveal anonymousId={anonymousId} />
-      </AuthShell>
-    );
-  }
+  const router = useRouter();
 
   return (
     <AuthShell>
@@ -25,11 +17,10 @@ export function ClaimPageContent() {
         </span>
         <h1 className="text-2xl font-semibold">Aktivasi akun siswa</h1>
         <p className="text-sm text-muted-foreground">
-          Masukkan kode kelas dan NIS yang diberikan dosen, lalu buat kata sandi baru. Aktivasi
-          hanya bisa dilakukan sekali.
+          Siapkan kode kelas dan NISN, lalu tambahkan email serta kata sandi untuk mengamankan akunmu.
         </p>
       </div>
-      <ClaimStudentForm onClaimed={setAnonymousId} />
+      <ClaimStudentForm onClaimed={() => router.replace("/siswa?claimed=1")} />
       <p className="text-center text-sm text-muted-foreground">
         Sudah pernah aktivasi?{" "}
         <Link href="/login" className="font-medium text-teal-700 underline dark:text-teal-300">

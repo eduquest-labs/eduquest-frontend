@@ -185,7 +185,7 @@ export function ProgressChart({ classes }: ProgressChartProps) {
 
               {students.isLoading ? (
                 <Skeleton
-                  aria-label="Memuat pilihan siswa anonim"
+                  aria-label="Memuat pilihan siswa"
                   className="h-14 w-full rounded-xl lg:w-64"
                 />
               ) : (
@@ -219,9 +219,9 @@ export function ProgressChart({ classes }: ProgressChartProps) {
                         <ListBox.Item
                           key={student.studentId}
                           id={student.studentId}
-                          textValue={student.anonymousId}
+                          textValue={student.name}
                         >
-                          {student.anonymousId}
+                          {student.name}
                           <ListBox.ItemIndicator />
                         </ListBox.Item>
                       ))}

@@ -41,7 +41,7 @@ describe("ProgressChart", () => {
     vi.stubGlobal("ResizeObserver", ResizeObserverMock);
   });
 
-  it("menampilkan progres kelas lalu memfilter siswa hanya dengan ID anonim", async () => {
+  it("menampilkan progres kelas lalu memfilter siswa dengan nama", async () => {
     const studentFilters: Array<string | null> = [];
     server.use(
       http.get("*/api/auth/session", () => HttpResponse.json({})),
@@ -51,9 +51,8 @@ describe("ProgressChart", () => {
             {
               id: 11,
               student_id: 27,
-              anonymous_id: "01ANONYMOUSSTUDENT00000001",
               name: "Nama Rahasia",
-              nis: "2001",
+              nisn: "0000002001",
               is_claimed: true,
               joined_at: "2026-07-01T08:00:00+07:00",
             },
@@ -99,13 +98,13 @@ describe("ProgressChart", () => {
         name: "Progres rata-rata skor mentah kelas dari waktu ke waktu",
       })
     ).toBeInTheDocument();
-    expect(screen.queryByText("Nama Rahasia")).not.toBeInTheDocument();
-    expect(screen.queryByText("2001")).not.toBeInTheDocument();
+    expect(screen.getByText("Nama Rahasia")).toBeInTheDocument();
+    expect(screen.queryByText("0000002001")).not.toBeInTheDocument();
 
     fireEvent.click(screen.getByLabelText("Pilih mode progres siswa"));
     fireEvent.click(
       await screen.findByRole("option", {
-        name: "01ANONYMOUSSTUDENT00000001",
+        name: "Nama Rahasia",
       })
     );
 

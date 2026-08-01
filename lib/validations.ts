@@ -1,14 +1,15 @@
 import { z } from "zod";
 
 export const loginSchema = z.object({
-  identifier: z.string().min(1, "Email atau ID wajib diisi"),
+  identifier: z.string().trim().min(1, "Email atau NISN wajib diisi"),
   password: z.string().min(1, "Kata sandi wajib diisi"),
 });
 
 export const claimStudentSchema = z
   .object({
     classCode: z.string().min(1, "Kode kelas wajib diisi"),
-    nis: z.string().min(1, "NIS wajib diisi").max(20, "NIS maksimal 20 karakter"),
+    nisn: z.string().trim().regex(/^\d{10}$/, "NISN harus terdiri dari tepat 10 digit"),
+    email: z.string().trim().toLowerCase().email("Format email tidak valid"),
     password: z.string().min(8, "Kata sandi minimal 8 karakter"),
     passwordConfirmation: z.string().min(1, "Konfirmasi kata sandi wajib diisi"),
   })
@@ -31,7 +32,7 @@ const MAX_IMPORT_FILE_SIZE_BYTES = 5120 * 1024; // mirrors backend max:5120 (KB)
 
 export const studentSchema = z.object({
   name: z.string().min(1, "Nama siswa wajib diisi").max(150, "Nama siswa maksimal 150 karakter"),
-  nis: z.string().min(1, "NIS wajib diisi").max(20, "NIS maksimal 20 karakter"),
+  nisn: z.string().trim().regex(/^\d{10}$/, "NISN harus terdiri dari tepat 10 digit"),
 });
 export type StudentFormValues = z.infer<typeof studentSchema>;
 

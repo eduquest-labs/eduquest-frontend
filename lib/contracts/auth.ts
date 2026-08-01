@@ -9,7 +9,9 @@ export interface MeResponseContract {
   id: number;
   name: string;
   role: "dosen" | "siswa";
-  anonymous_id: string | null;
+  nisn: string | null;
+  email: string | null;
+  email_verified: boolean;
   permissions: string[];
 }
 
@@ -25,7 +27,8 @@ export interface ClaimStudentErrorContract {
   message: string;
   errors: {
     class_code?: string[];
-    nis?: string[];
+    nisn?: string[];
+    email?: string[];
     password?: string[];
   };
 }

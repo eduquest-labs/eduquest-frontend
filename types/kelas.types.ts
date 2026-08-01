@@ -25,9 +25,11 @@ export interface ImportStudentsResult {
 }
 
 export type GradeExportFormat = "csv" | "xlsx";
+export type GradeExportIdentity = "anonymous" | "named";
 
 export interface GradeExportOptions {
   format: GradeExportFormat;
+  identity?: GradeExportIdentity;
   topicId?: number;
 }
 
@@ -39,19 +41,18 @@ export interface DownloadedGradeExport {
 export interface ClassStudent {
   id: number;
   studentId: number;
-  anonymousId: string;
   name: string;
-  nis: string;
+  nisn: string;
   isClaimed: boolean;
   joinedAt: string | null;
 }
 
 export interface AddStudentInput {
   name: string;
-  nis: string;
+  nisn: string;
 }
 
 export interface UpdateStudentInput {
   name: string;
-  nis: string;
+  nisn: string;
 }

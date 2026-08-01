@@ -93,7 +93,7 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
                 {data.map((student) => (
                   <Table.Row key={student.id}>
                     <Table.Cell>{student.name}</Table.Cell>
-                    <Table.Cell className="font-mono text-sm">{student.nis}</Table.Cell>
+                    <Table.Cell className="font-mono text-sm">{student.nisn}</Table.Cell>
                     <Table.Cell>
                       <span
                         className={cn(
@@ -186,7 +186,7 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
             <Modal.Body>
               {studentToEdit ? (
                 <StudentForm
-                  initialValues={{ name: studentToEdit.name, nis: studentToEdit.nis }}
+                  initialValues={{ name: studentToEdit.name, nisn: studentToEdit.nisn }}
                   submitLabel="Simpan Perubahan"
                   pendingLabel="Menyimpan..."
                   isPending={updateStudent.isPending}

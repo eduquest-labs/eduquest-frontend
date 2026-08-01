@@ -5,6 +5,8 @@ export const API_ENDPOINTS = {
     REFRESH: "/refresh",
     LOGOUT: "/logout",
     ME: "/me",
+    STUDENT_PROFILE: "/students/me/profile",
+    RESEND_VERIFICATION: "/email/verification-notification",
   },
   KELAS: {
     LIST: "/classes",

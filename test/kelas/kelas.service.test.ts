@@ -43,7 +43,7 @@ describe("kelas service — update/delete", () => {
     });
   });
 
-  it("mempertahankan enrollment id serta identitas anonim siswa", async () => {
+  it("mempertahankan enrollment id serta identitas roster siswa", async () => {
     server.use(
       http.get("*/classes/5/students", () =>
         HttpResponse.json({
@@ -51,9 +51,8 @@ describe("kelas service — update/delete", () => {
             {
               id: 11,
               student_id: 27,
-              anonymous_id: "01ANONYMOUSSTUDENT00000001",
               name: "Nama Internal",
-              nis: "2001",
+              nisn: "0000002001",
               is_claimed: true,
               joined_at: "2026-07-01T08:00:00+07:00",
             },
@@ -66,9 +65,8 @@ describe("kelas service — update/delete", () => {
       {
         id: 11,
         studentId: 27,
-        anonymousId: "01ANONYMOUSSTUDENT00000001",
         name: "Nama Internal",
-        nis: "2001",
+        nisn: "0000002001",
         isClaimed: true,
         joinedAt: "2026-07-01T08:00:00+07:00",
       },
@@ -142,7 +140,7 @@ describe("kelas service — update/delete", () => {
 
       expect(result).toEqual({ blob, filename: "nilai-STAT2026.csv" });
       expect(get).toHaveBeenCalledWith(API_ENDPOINTS.KELAS.EXPORT_GRADES(5), {
-        params: { format: "csv", topic_id: 9 },
+        params: { format: "csv", identity: "anonymous", topic_id: 9 },
         responseType: "blob",
       });
     } finally {

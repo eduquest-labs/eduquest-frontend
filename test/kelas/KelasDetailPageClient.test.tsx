@@ -131,7 +131,7 @@ describe("KelasDetailPageClient — edit & delete kelas", () => {
 
     await waitFor(() => expect(downloadClick).toHaveBeenCalledOnce());
     expect(get).toHaveBeenCalledWith(API_ENDPOINTS.KELAS.EXPORT_GRADES(5), {
-      params: { format: "xlsx" },
+      params: { format: "xlsx", identity: "anonymous" },
       responseType: "blob",
     });
     expect(
@@ -160,7 +160,7 @@ describe("KelasDetailPageClient — edit & delete kelas", () => {
 
     expect(await screen.findByRole("button", { name: "Menyiapkan file..." })).toBeDisabled();
     expect(get).toHaveBeenCalledWith(API_ENDPOINTS.KELAS.EXPORT_GRADES(5), {
-      params: { format: "csv" },
+      params: { format: "csv", identity: "anonymous" },
       responseType: "blob",
     });
     resolveExport?.();

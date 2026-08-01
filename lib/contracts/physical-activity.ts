@@ -6,7 +6,7 @@ export interface PhysicalActivityContract {
     type: "aktivitas_fisik";
   };
   student: {
-    anonymous_id: string;
+    name: string;
   };
   start_time: string | null;
   end_time: string | null;

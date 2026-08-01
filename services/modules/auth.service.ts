@@ -13,7 +13,27 @@ export async function getMe(): Promise<AuthUser> {
     id: data.id,
     name: data.name,
     role: data.role,
-    anonymousId: data.anonymous_id,
+    nisn: data.nisn,
+    email: data.email,
+    emailVerified: data.email_verified,
     permissions: data.permissions,
   };
+}
+
+export async function updateStudentProfile(email: string): Promise<AuthUser> {
+  const { data } = await client.patch<{ user: MeResponseContract }>(API_ENDPOINTS.AUTH.STUDENT_PROFILE, { email });
+  const user = data.user;
+  return {
+    id: user.id,
+    name: user.name,
+    role: "siswa",
+    nisn: user.nisn,
+    email: user.email,
+    emailVerified: user.email_verified,
+    permissions: [],
+  };
+}
+
+export async function resendEmailVerification(): Promise<void> {
+  await client.post(API_ENDPOINTS.AUTH.RESEND_VERIFICATION);
 }

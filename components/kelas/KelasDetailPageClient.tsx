@@ -25,7 +25,7 @@ import { ClassCodeReveal } from "@/components/kelas/ClassCodeReveal";
 import { ClassRosterTable } from "@/components/kelas/ClassRosterTable";
 import { EditClassForm } from "@/components/kelas/EditClassForm";
 import { ImportStudentsForm } from "@/components/kelas/ImportStudentsForm";
-import type { GradeExportFormat } from "@/types";
+import type { GradeExportFormat, GradeExportIdentity } from "@/types";
 
 export interface KelasDetailPageClientProps {
   classId: number;
@@ -36,6 +36,7 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
   const { data, isLoading, isError, error } = useClass(classId);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [exportFormat, setExportFormat] = useState<GradeExportFormat>("xlsx");
+  const [exportIdentity, setExportIdentity] = useState<GradeExportIdentity>("anonymous");
   const editOverlay = useOverlayState();
   const deleteClass = useDeleteClass();
   const exportGrades = useExportClassGrades(classId);
@@ -114,7 +115,7 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
             Ekspor Data Nilai
           </h2>
           <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            Unduh attempt terkunci untuk analisis riset. File hanya memakai ID anonim siswa.
+            Mode anonim adalah pilihan aman bawaan. Gunakan mode bernama hanya saat identitas siswa memang dibutuhkan.
           </p>
         </div>
         <div className="flex flex-col gap-3 sm:flex-row sm:items-end">
@@ -147,6 +148,24 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
               </ListBox>
             </Select.Popover>
           </Select>
+          <Select
+            aria-label="Identitas pada ekspor data nilai"
+            className="w-full sm:w-56"
+            value={exportIdentity}
+            variant="secondary"
+            onChange={(key) => {
+              if (key === "anonymous" || key === "named") setExportIdentity(key);
+            }}
+          >
+            <Label>Identitas siswa</Label>
+            <Select.Trigger><Select.Value /><Select.Indicator /></Select.Trigger>
+            <Select.Popover>
+              <ListBox>
+                <ListBox.Item id="anonymous" textValue="Anonim (disarankan)">Anonim (disarankan)<ListBox.ItemIndicator /></ListBox.Item>
+                <ListBox.Item id="named" textValue="Nama dan NISN">Nama dan NISN<ListBox.ItemIndicator /></ListBox.Item>
+              </ListBox>
+            </Select.Popover>
+          </Select>
           <Button
             fullWidth
             className="bg-teal-600 text-white hover:bg-teal-700 sm:w-auto"
@@ -154,7 +173,7 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
             isPending={exportGrades.isPending}
             onPress={async () => {
               try {
-                await exportGrades.mutateAsync({ format: exportFormat });
+                await exportGrades.mutateAsync({ format: exportFormat, identity: exportIdentity });
                 toast.success("Data nilai berhasil diunduh.");
               } catch {
                 toast.danger("Data nilai gagal diekspor. Silakan coba lagi.");

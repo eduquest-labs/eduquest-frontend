@@ -12,7 +12,7 @@ export function adaptPhysicalActivity(contract: PhysicalActivityContract): Physi
     id: contract.id,
     challenge: contract.challenge,
     student: {
-      anonymousId: contract.student.anonymous_id,
+      name: contract.student.name,
     },
     startTime: contract.start_time,
     endTime: contract.end_time,

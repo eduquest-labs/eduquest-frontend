@@ -26,7 +26,7 @@ export function StudentForm({
   isPending,
   onSubmit,
 }: StudentFormProps) {
-  const [values, setValues] = useState<StudentFormValues>(initialValues ?? { name: "", nis: "" });
+  const [values, setValues] = useState<StudentFormValues>(initialValues ?? { name: "", nisn: "" });
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formAlert, setFormAlert] = useState<FormAlert>(null);
 
@@ -37,7 +37,7 @@ export function StudentForm({
     const parsed = studentSchema.safeParse(values);
     if (!parsed.success) {
       const errors = parsed.error.flatten().fieldErrors;
-      setFieldErrors({ name: errors.name?.[0], nis: errors.nis?.[0] });
+      setFieldErrors({ name: errors.name?.[0], nisn: errors.nisn?.[0] });
       return;
     }
     setFieldErrors({});
@@ -48,7 +48,7 @@ export function StudentForm({
       if (isAxiosError(error) && error.response?.status === 422) {
         setFieldErrors({
           name: error.response.data?.errors?.name?.[0],
-          nis: error.response.data?.errors?.nis?.[0],
+          nisn: error.response.data?.errors?.nisn?.[0],
         });
         return;
       }
@@ -80,15 +80,15 @@ export function StudentForm({
       </TextField>
 
       <TextField
-        name="nis"
-        value={values.nis}
-        onChange={(value) => setValues((prev) => ({ ...prev, nis: value }))}
-        isInvalid={Boolean(fieldErrors.nis)}
+        name="nisn"
+        value={values.nisn}
+        onChange={(value) => setValues((prev) => ({ ...prev, nisn: value.replace(/\D/g, "").slice(0, 10) }))}
+        isInvalid={Boolean(fieldErrors.nisn)}
         isDisabled={isPending}
       >
-        <Label>NIS</Label>
-        <Input fullWidth placeholder="Contoh: 2001" />
-        {fieldErrors.nis ? <FieldError>{fieldErrors.nis}</FieldError> : null}
+        <Label>NISN</Label>
+        <Input fullWidth inputMode="numeric" placeholder="Contoh: 0012345678" />
+        {fieldErrors.nisn ? <FieldError>{fieldErrors.nisn}</FieldError> : null}
       </TextField>
 
       <Button

@@ -7,7 +7,8 @@ export interface LoginCredentials {
 
 export interface ClaimStudentCredentials {
   classCode: string;
-  nis: string;
+  nisn: string;
+  email: string;
   password: string;
   passwordConfirmation: string;
 }
@@ -16,6 +17,8 @@ export interface AuthUser {
   id: number;
   name: string;
   role: UserRole;
-  anonymousId: string | null;
+  nisn: string | null;
+  email: string | null;
+  emailVerified: boolean;
   permissions: string[];
 }

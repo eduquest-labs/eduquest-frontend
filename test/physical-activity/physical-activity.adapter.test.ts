@@ -10,7 +10,7 @@ describe("physical activity adapters", () => {
     const activity = adaptPhysicalActivity({
       id: 7,
       challenge: { id: 3, title: "Lari pagi", type: "aktivitas_fisik" },
-      student: { anonymous_id: "STU-001" },
+      student: { name: "Budi Santoso" },
       start_time: "2026-07-31T08:00:00+07:00",
       end_time: null,
       distance_meters: "1234.50",
@@ -24,7 +24,7 @@ describe("physical activity adapters", () => {
 
     expect(activity).toMatchObject({
       id: 7,
-      student: { anonymousId: "STU-001" },
+      student: { name: "Budi Santoso" },
       distanceMeters: 1234.5,
       averageSpeedKmh: 14.81,
       gpsPointsCount: 12,

@@ -47,6 +47,8 @@ export function LoginForm() {
       if (!result || result.error) {
         if (result?.code === "rate_limited") {
           setFormAlert({ message: "Terlalu banyak percobaan, coba lagi dalam beberapa menit." });
+        } else if (result?.code === "email_unverified") {
+          setFieldErrors({ identifier: "Email belum diverifikasi. Masuk dengan NISN atau verifikasi email terlebih dahulu." });
         } else {
           setFieldErrors({ identifier: "Kredensial tidak valid." });
         }
@@ -80,8 +82,8 @@ export function LoginForm() {
         isInvalid={Boolean(fieldErrors.identifier)}
         isDisabled={isPending}
       >
-        <Label>Email atau ID</Label>
-        <Input fullWidth placeholder="Masukkan email atau ID" autoComplete="username" />
+        <Label>Email atau NISN</Label>
+        <Input fullWidth placeholder="Masukkan email atau 10 digit NISN" autoComplete="username" />
         {fieldErrors.identifier ? <FieldError>{fieldErrors.identifier}</FieldError> : null}
       </TextField>
 

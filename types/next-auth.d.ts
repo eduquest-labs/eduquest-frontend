@@ -8,7 +8,6 @@ declare module "next-auth" {
     user: {
       userId: number;
       role: "dosen" | "siswa";
-      anonymousId: string | null;
       permissions: string[];
     } & DefaultSession["user"];
   }
@@ -16,7 +15,6 @@ declare module "next-auth" {
   interface User {
     userId: number;
     role: "dosen" | "siswa";
-    anonymousId: string | null;
     permissions: string[];
     accessToken: string;
     refreshToken: string;
@@ -29,7 +27,6 @@ declare module "next-auth/jwt" {
     userId?: number;
     name?: string | null;
     role?: "dosen" | "siswa";
-    anonymousId?: string | null;
     permissions?: string[];
     accessToken?: string;
     accessTokenExpiry?: number;
@@ -43,7 +40,6 @@ declare module "@auth/core/jwt" {
     userId?: number;
     name?: string | null;
     role?: "dosen" | "siswa";
-    anonymousId?: string | null;
     permissions?: string[];
     accessToken?: string;
     accessTokenExpiry?: number;

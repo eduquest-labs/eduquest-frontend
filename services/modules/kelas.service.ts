@@ -100,11 +100,12 @@ export async function importStudents(classId: number, file: File): Promise<Impor
 
 export async function exportClassGrades(
   classId: number,
-  { format, topicId }: GradeExportOptions
+  { format, identity = "anonymous", topicId }: GradeExportOptions
 ): Promise<DownloadedGradeExport> {
   const response = await client.get<Blob>(API_ENDPOINTS.KELAS.EXPORT_GRADES(classId), {
     params: {
       format,
+      identity,
       ...(topicId ? { topic_id: topicId } : {}),
     },
     responseType: "blob",

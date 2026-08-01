@@ -1,21 +1,20 @@
 "use client";
 
 import { useMemo } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { BookOpen, History, LogOut, Play, Trophy } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { BookOpen, Play, Trophy } from "lucide-react";
 import { Alert, Button, Skeleton, toast } from "@heroui/react";
 
-import { useLogout, useOpenChallenge } from "@/hooks/mutations";
+import { useOpenChallenge } from "@/hooks/mutations";
 import { useStudentChallenges } from "@/hooks/queries";
 import { StudentLeaderboardProgress } from "@/components/leaderboard";
 import { StudentGamificationSummary } from "@/components/points-badges";
 
 export function StudentChallengePageClient() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const challenges = useStudentChallenges();
   const openChallenge = useOpenChallenge();
-  const logout = useLogout();
   const challengeData = challenges.data;
   const groups = useMemo(() => {
     const grouped = new Map<string, NonNullable<typeof challengeData>>();
@@ -44,15 +43,8 @@ export function StudentChallengePageClient() {
   }
 
   return (
-    <div className="min-h-dvh bg-slate-50 dark:bg-black">
-      <header className="flex items-center justify-between border-b border-slate-200 bg-white px-4 py-3 dark:border-white/10 dark:bg-black">
-        <span className="font-bold text-slate-900 dark:text-white">EduQuest Siswa</span>
-        <div className="flex items-center gap-1">
-          <Link href="/siswa/riwayat" className="inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium text-teal-700 hover:bg-teal-50 dark:hover:bg-teal-400/10"><History size={16} /> Riwayat</Link>
-          <Button variant="tertiary" size="sm" isPending={logout.isPending} onPress={() => logout.mutate()}><LogOut size={16} /> Keluar</Button>
-        </div>
-      </header>
-      <main className="mx-auto flex w-full max-w-5xl flex-col gap-6 p-4 sm:p-8">
+    <div className="flex w-full flex-col gap-6">
+        {searchParams.get("claimed") === "1" ? <Alert status="success"><Alert.Indicator /><Alert.Content><Alert.Description>Akun aktif. Cek email untuk verifikasi; kamu tetap bisa langsung belajar.</Alert.Description></Alert.Content></Alert> : null}
         <StudentGamificationSummary />
         <StudentLeaderboardProgress />
 
@@ -106,7 +98,6 @@ export function StudentChallengePageClient() {
             </div>
           </section>
         ))}
-      </main>
     </div>
   );
 }

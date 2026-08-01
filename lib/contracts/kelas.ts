@@ -33,9 +33,8 @@ export interface ImportStudentsResponseContract {
 export interface ClassStudentContract {
   id: number;
   student_id: number;
-  anonymous_id: string;
   name: string;
-  nis: string;
+  nisn: string;
   is_claimed: boolean;
   joined_at: string | null;
 }

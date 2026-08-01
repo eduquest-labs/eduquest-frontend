@@ -22,7 +22,6 @@ interface AuthorizedUser {
   userId: number;
   name: string;
   role: "dosen" | "siswa";
-  anonymousId: string | null;
   permissions: string[];
   accessToken: string;
   refreshToken: string;
@@ -36,7 +35,7 @@ function apiUrl(path: string): string {
 
 export function createAuthorizeClaimStudent() {
   return async function authorize(
-    credentials: Partial<Record<"classCode" | "nis" | "password" | "passwordConfirmation", unknown>>
+    credentials: Partial<Record<"classCode" | "nisn" | "email" | "password" | "passwordConfirmation", unknown>>
   ): Promise<AuthorizedUser | null> {
     const parsed = claimStudentSchema.safeParse(credentials);
     if (!parsed.success) {
@@ -48,7 +47,8 @@ export function createAuthorizeClaimStudent() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         class_code: parsed.data.classCode,
-        nis: parsed.data.nis,
+        nisn: parsed.data.nisn,
+        email: parsed.data.email,
         password: parsed.data.password,
         password_confirmation: parsed.data.passwordConfirmation,
       }),
@@ -60,10 +60,10 @@ export function createAuthorizeClaimStudent() {
 
     if (claimResponse.status === 422) {
       const body = (await claimResponse.json().catch(() => null)) as
-        | { errors?: { nis?: string[] } }
+        | { errors?: { nisn?: string[] } }
         | null;
-      const nisMessage = body?.errors?.nis?.[0];
-      if (nisMessage?.includes("sudah pernah diaktifkan")) {
+      const nisnMessage = body?.errors?.nisn?.[0];
+      if (nisnMessage?.includes("sudah pernah diaktifkan")) {
         throw new AlreadyClaimedError();
       }
       throw new ClaimFailedError();
@@ -89,7 +89,6 @@ export function createAuthorizeClaimStudent() {
       userId: me.id,
       name: me.name,
       role: me.role,
-      anonymousId: me.anonymous_id,
       permissions: me.permissions,
       accessToken: tokenPair.access_token,
       refreshToken: tokenPair.refresh_token,

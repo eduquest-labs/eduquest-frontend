@@ -10,7 +10,7 @@ export interface PhysicalActivity {
   id: number;
   challenge: PhysicalActivityChallenge;
   student: {
-    anonymousId: string;
+    name: string;
   };
   startTime: string | null;
   endTime: string | null;

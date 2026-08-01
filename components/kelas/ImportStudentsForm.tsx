@@ -14,7 +14,7 @@ export interface ImportStudentsFormProps {
   classId: number;
 }
 
-const TEMPLATE_CSV_CONTENT = "name,nis\nBudi Santoso,1001\nSiti Aminah,1002\n";
+const TEMPLATE_CSV_CONTENT = "name,nisn\nBudi Santoso,0012345678\nSiti Aminah,0012345679\n";
 
 function downloadTemplateCsv() {
   const blob = new Blob([TEMPLATE_CSV_CONTENT], { type: "text/csv;charset=utf-8;" });
@@ -113,7 +113,7 @@ export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
             </span>
           </div>
           <p className="text-xs text-slate-400 dark:text-slate-500">
-            Format: CSV/XLSX/XLS, kolom <code>name</code> dan <code>nis</code>, maksimal 5 MB.
+            Format: CSV/XLSX/XLS, kolom <code>name</code> dan <code>nisn</code> (10 digit), maksimal 5 MB.
           </p>
           {fileError ? <p className="text-sm text-danger">{fileError}</p> : null}
         </div>
