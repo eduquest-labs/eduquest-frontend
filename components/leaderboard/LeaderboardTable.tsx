@@ -1,16 +1,20 @@
 "use client";
 
+import { useState } from "react";
+
 import {
   Alert,
   Avatar,
   Button,
   Label,
   ListBox,
+  Pagination,
   Select,
   Skeleton,
   Table,
 } from "@heroui/react";
 
+import { LEADERBOARD_PAGE_SIZE } from "@/config/constants";
 import type {
   LeaderboardData,
   StudentClassPoints,
@@ -48,6 +52,21 @@ export function LeaderboardTable({
   onTopicChange,
   onRetry,
 }: LeaderboardTableProps) {
+  const [page, setPage] = useState(1);
+  const [scopeKey, setScopeKey] = useState(`${selectedClassId}:${selectedTopicId}`);
+  const currentScopeKey = `${selectedClassId}:${selectedTopicId}`;
+  if (scopeKey !== currentScopeKey) {
+    setScopeKey(currentScopeKey);
+    setPage(1);
+  }
+
+  const entries = data?.entries ?? [];
+  const totalPages = Math.max(1, Math.ceil(entries.length / LEADERBOARD_PAGE_SIZE));
+  const pagedEntries = entries.slice(
+    (page - 1) * LEADERBOARD_PAGE_SIZE,
+    page * LEADERBOARD_PAGE_SIZE
+  );
+
   return (
     <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/5">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
@@ -170,7 +189,7 @@ export function LeaderboardTable({
                           </Table.Cell>
                         </Table.Row>
                       ))
-                    : data?.entries.map((entry) => (
+                    : pagedEntries.map((entry) => (
                         <Table.Row key={entry.classStudentId}>
                           <Table.Cell className="font-semibold">
                             #{entry.rank}
@@ -197,10 +216,46 @@ export function LeaderboardTable({
             </Table.ScrollContainer>
           </Table>
         )}
-        {!isLoading && !isError && data?.entries.length === 0 ? (
+        {!isLoading && !isError && entries.length === 0 ? (
           <p className="py-8 text-center text-sm text-slate-500">
             Belum ada siswa pada kelas ini.
           </p>
+        ) : null}
+        {!isLoading && !isError && entries.length > LEADERBOARD_PAGE_SIZE ? (
+          <Pagination className="mt-4 justify-center">
+            <Pagination.Content>
+              <Pagination.Item>
+                <Pagination.Previous
+                  isDisabled={page === 1}
+                  onPress={() => setPage((current) => current - 1)}
+                >
+                  <Pagination.PreviousIcon />
+                  <span>Sebelumnya</span>
+                </Pagination.Previous>
+              </Pagination.Item>
+              {Array.from({ length: totalPages }, (_, index) => index + 1).map(
+                (pageNumber) => (
+                  <Pagination.Item key={pageNumber}>
+                    <Pagination.Link
+                      isActive={pageNumber === page}
+                      onPress={() => setPage(pageNumber)}
+                    >
+                      {pageNumber}
+                    </Pagination.Link>
+                  </Pagination.Item>
+                )
+              )}
+              <Pagination.Item>
+                <Pagination.Next
+                  isDisabled={page === totalPages}
+                  onPress={() => setPage((current) => current + 1)}
+                >
+                  <span>Berikutnya</span>
+                  <Pagination.NextIcon />
+                </Pagination.Next>
+              </Pagination.Item>
+            </Pagination.Content>
+          </Pagination>
         ) : null}
       </div>
     </section>

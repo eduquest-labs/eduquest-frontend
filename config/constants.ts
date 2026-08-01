@@ -13,6 +13,7 @@ export const ESSAY_ATTACHMENT_MAX_MB = 20 as const;
 // LEADERBOARD
 // ============================================================
 export const LEADERBOARD_REFETCH_INTERVAL_MS = 15_000 as const;
+export const LEADERBOARD_PAGE_SIZE = 10 as const;
 
 // ============================================================
 // DASHBOARD

@@ -62,7 +62,36 @@ describe("StudentGamificationSummary", () => {
     expect(await screen.findByText("80")).toBeInTheDocument();
     expect(screen.getByText("Level 3")).toBeInTheDocument();
     expect(screen.getByText("Kelas A: 80")).toBeInTheDocument();
-    expect(screen.getByText("Menuju Poin 100")).toBeInTheDocument();
+    expect(screen.getByText("Next drop · Poin 100")).toBeInTheDocument();
     expect(screen.getByText("Pemula")).toBeInTheDocument();
+    expect(screen.getByText("20 Jul 2026")).toBeInTheDocument();
+    expect(screen.getByText("1 terbuka")).toBeInTheDocument();
+    expect(
+      screen.getByRole("region", { name: "Ringkasan pencapaian siswa" })
+    ).toBeInTheDocument();
+  });
+
+  it("menampilkan empty state yang memotivasi saat koleksi masih kosong", async () => {
+    server.use(
+      http.get("*/students/me/points", () =>
+        HttpResponse.json({
+          total_points: 0,
+          level: {
+            level: 1,
+            current_level_points: 0,
+            points_to_next_level: 100,
+            progress_percentage: 0,
+          },
+          classes: [],
+          next_badge: null,
+        })
+      ),
+      http.get("*/students/me/badges", () => HttpResponse.json({ data: [] }))
+    );
+
+    renderWithProviders(<StudentGamificationSummary />);
+
+    expect(await screen.findByText("Badge pertamamu menunggu")).toBeInTheDocument();
+    expect(screen.getByText("0 terbuka")).toBeInTheDocument();
   });
 });

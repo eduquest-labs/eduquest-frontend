@@ -3,14 +3,19 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { BookOpen, History, LogOut, UserRound } from "lucide-react";
-import { Alert, Button } from "@heroui/react";
+import { Alert } from "@heroui/react";
 
 import { useLogout } from "@/hooks/mutations";
 import { useMe } from "@/hooks/queries";
+import { UserMenu } from "@/components/base/shared/UserMenu";
 
 const navigation = [
   { href: "/siswa", label: "Dashboard", icon: BookOpen },
   { href: "/siswa/riwayat", label: "Riwayat", icon: History },
+  { href: "/siswa/profil", label: "Profil", icon: UserRound },
+];
+
+const accountMenuLinks = [
   { href: "/siswa/profil", label: "Profil", icon: UserRound },
 ];
 
@@ -25,8 +30,10 @@ export function StudentShell({ children }: { children: React.ReactNode }) {
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
           <Link href="/siswa" className="font-bold tracking-tight text-teal-700 dark:text-teal-300">EduQuest Siswa</Link>
           <nav className="hidden items-center gap-1 md:flex" aria-label="Navigasi siswa">
-            {navigation.map(({ href, label, icon: Icon }) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} className={`inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium ${pathname === href ? "bg-teal-50 text-teal-800 dark:bg-teal-400/10 dark:text-teal-200" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/5"}`}><Icon size={16} />{label}</Link>)}
-            <Button variant="tertiary" size="sm" isPending={logout.isPending} onPress={() => logout.mutate()}><LogOut size={16} />Keluar</Button>
+            {navigation
+              .filter(({ href }) => href !== "/siswa/profil")
+              .map(({ href, label, icon: Icon }) => <Link key={href} href={href} aria-current={pathname === href ? "page" : undefined} className={`inline-flex min-h-11 items-center gap-2 rounded-lg px-3 text-sm font-medium ${pathname === href ? "bg-teal-50 text-teal-800 dark:bg-teal-400/10 dark:text-teal-200" : "text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/5"}`}><Icon size={16} />{label}</Link>)}
+            <UserMenu links={accountMenuLinks} />
           </nav>
         </div>
       </header>

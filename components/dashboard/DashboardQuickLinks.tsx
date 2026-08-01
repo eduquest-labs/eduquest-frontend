@@ -72,7 +72,7 @@ export function DashboardQuickLinks() {
           >
             <Link
               href={item.href}
-              className="group flex min-h-16 min-w-0 items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-[border-color,box-shadow] hover:border-teal-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/5 dark:hover:border-teal-400/40 dark:focus-visible:ring-offset-slate-950"
+              className="group flex h-full min-h-16 min-w-0 items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-[border-color,box-shadow] hover:border-teal-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/5 dark:hover:border-teal-400/40 dark:focus-visible:ring-offset-slate-950"
             >
               <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 transition-colors group-hover:bg-teal-50 group-hover:text-teal-700 dark:bg-white/10 dark:text-slate-200 dark:group-hover:bg-teal-400/10 dark:group-hover:text-teal-300">
                 <item.icon aria-hidden="true" size={19} strokeWidth={2} />
