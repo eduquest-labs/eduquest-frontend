@@ -25,6 +25,12 @@
     animation: none;
     opacity: 0.25;
   }
+
+  [data-marketing-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
 }
 
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
@@ -35,6 +41,8 @@
   --color-primary: #0d9488;
   --color-primary-foreground: #ffffff;
   --color-secondary: #2dd4bf;
+  --color-accent: #f5a623;
+  --background-warm: #f7f5f0;
   --glass-surface: rgba(255, 255, 255, 0.9);
   --glass-border: #e2e8f0;
   --glass-shadow: rgba(15, 23, 42, 0.06);
@@ -46,11 +54,15 @@
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-jakarta-sans);
+  --color-accent: #f5a623;
+  --color-background-warm: var(--background-warm);
 }
 
 [data-theme="dark"] {
   --background: #0a0a0a;
   --foreground: #ededed;
+  --color-accent: #f7b84b;
+  --background-warm: #102321;
   --glass-surface: rgba(23, 23, 23, 0.9);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-shadow: rgba(0, 0, 0, 0.4);
@@ -60,6 +72,8 @@
   :root:not([data-theme="light"]) {
     --background: #0a0a0a;
     --foreground: #ededed;
+    --color-accent: #f7b84b;
+    --background-warm: #102321;
     --glass-surface: rgba(23, 23, 23, 0.9);
     --glass-border: rgba(255, 255, 255, 0.1);
     --glass-shadow: rgba(0, 0, 0, 0.4);
@@ -70,4 +84,14 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 }

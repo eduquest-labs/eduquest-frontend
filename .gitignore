@@ -50,5 +50,7 @@ next-env.d.ts
 # AI tooling
 .claude/
 .codex/
+.superpowers/
 CLAUDE.md
 AGENTS.md
+docs/superpowers*
