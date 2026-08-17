@@ -5,6 +5,7 @@ import {
   addStudent,
   createClass,
   deleteClass,
+  downloadImportTemplate,
   exportClassGrades,
   importStudents,
   removeStudent,
@@ -46,6 +47,24 @@ export function useDeleteClass() {
     mutationFn: (classId: number) => deleteClass(classId),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: kelasKeys.lists() });
+    },
+  });
+}
+
+export function useDownloadImportTemplate() {
+  return useMutation({
+    mutationFn: downloadImportTemplate,
+    onSuccess: (blob) => {
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = "template-import-siswa.xlsx";
+
+      try {
+        anchor.click();
+      } finally {
+        URL.revokeObjectURL(url);
+      }
     },
   });
 }

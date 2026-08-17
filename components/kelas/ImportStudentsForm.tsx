@@ -6,24 +6,12 @@ import { Download, Upload } from "lucide-react";
 
 import { Alert, Button, Table } from "@heroui/react";
 
-import { useImportStudents } from "@/hooks/mutations";
+import { useDownloadImportTemplate, useImportStudents } from "@/hooks/mutations";
 import { importStudentsSchema } from "@/lib/validations";
 import type { ImportStudentsResult } from "@/types";
 
 export interface ImportStudentsFormProps {
   classId: number;
-}
-
-const TEMPLATE_CSV_CONTENT = "name,nisn\nBudi Santoso,0012345678\nSiti Aminah,0012345679\n";
-
-function downloadTemplateCsv() {
-  const blob = new Blob([TEMPLATE_CSV_CONTENT], { type: "text/csv;charset=utf-8;" });
-  const url = URL.createObjectURL(blob);
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = "template-import-siswa.csv";
-  link.click();
-  URL.revokeObjectURL(url);
 }
 
 export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
@@ -33,6 +21,7 @@ export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
   const [formAlert, setFormAlert] = useState<string | null>(null);
   const [result, setResult] = useState<ImportStudentsResult | null>(null);
   const importStudents = useImportStudents(classId);
+  const downloadTemplate = useDownloadImportTemplate();
 
   function handleFileChange(event: React.ChangeEvent<HTMLInputElement>) {
     const selected = event.target.files?.[0] ?? null;
@@ -88,11 +77,12 @@ export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
             </label>
             <button
               type="button"
-              onClick={downloadTemplateCsv}
-              className="flex cursor-pointer items-center gap-1.5 text-xs font-medium text-teal-700 hover:underline dark:text-teal-300"
+              onClick={() => downloadTemplate.mutate()}
+              disabled={downloadTemplate.isPending}
+              className="flex cursor-pointer items-center gap-1.5 text-xs font-medium text-teal-700 hover:underline disabled:cursor-not-allowed disabled:opacity-60 dark:text-teal-300"
             >
               <Download size={13} />
-              Unduh template
+              {downloadTemplate.isPending ? "Menyiapkan..." : "Unduh template"}
             </button>
           </div>
           <div className="flex flex-wrap items-center gap-3">
@@ -113,7 +103,8 @@ export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
             </span>
           </div>
           <p className="text-xs text-slate-400 dark:text-slate-500">
-            Format: CSV/XLSX/XLS, kolom <code>name</code> dan <code>nisn</code> (10 digit), maksimal 5 MB.
+            Format: CSV/XLSX/XLS, kolom <code>name</code>, <code>nisn</code> (10 digit), dan{" "}
+            <code>jenis_kelamin</code> (L/P), maksimal 5 MB.
           </p>
           {fileError ? <p className="text-sm text-danger">{fileError}</p> : null}
         </div>

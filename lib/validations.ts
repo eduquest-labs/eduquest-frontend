@@ -33,6 +33,7 @@ const MAX_IMPORT_FILE_SIZE_BYTES = 5120 * 1024; // mirrors backend max:5120 (KB)
 export const studentSchema = z.object({
   name: z.string().min(1, "Nama siswa wajib diisi").max(150, "Nama siswa maksimal 150 karakter"),
   nisn: z.string().trim().regex(/^\d{10}$/, "NISN harus terdiri dari tepat 10 digit"),
+  jenisKelamin: z.enum(["L", "P"], { message: "Jenis kelamin wajib diisi" }),
 });
 export type StudentFormValues = z.infer<typeof studentSchema>;
 

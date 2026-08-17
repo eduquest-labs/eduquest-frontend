@@ -35,6 +35,7 @@ export interface ClassStudentContract {
   student_id: number;
   name: string;
   nisn: string;
+  jenis_kelamin: "L" | "P" | null;
   is_claimed: boolean;
   joined_at: string | null;
 }

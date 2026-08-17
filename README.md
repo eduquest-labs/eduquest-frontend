@@ -1,8 +1,8 @@
 # EduQuest — Frontend
 
-Frontend PWA untuk **EduQuest**, platform gamifikasi pembelajaran yang dibangun untuk mendukung riset eksperimen kelas di Universitas Pendidikan Indonesia (UPI). Siswa berinteraksi lewat tantangan, kuis, poin, badge, dan leaderboard; seluruh interaksi tercatat untuk kebutuhan analisis data penelitian (perbandingan kelompok eksperimen vs kontrol).
+Frontend PWA untuk **EduQuest**, platform gamifikasi pembelajaran yang dibangun untuk mendukung riset eksperimen kelas multi-sekolah di Universitas Pendidikan Indonesia (UPI). Siswa berinteraksi lewat tantangan, kuis, poin, badge, dan leaderboard; seluruh interaksi tercatat untuk kebutuhan analisis data penelitian.
 
-Repo ini adalah frontend saja. Backend API ada di `../eduquest-backend` (Laravel + MySQL). Dokumen produk (PRD & skema database) ada di `../PRD Project/`.
+Repo ini adalah frontend saja. Backend API ada di `../eduquest-backend` (Laravel + MySQL). Dokumen produk (PRD & skema database) ada di `../PRD Project/` — beberapa keputusan (alur auth, NISN sebagai identitas, dll.) sudah berevolusi melampaui dokumen itu; lihat `EduQuest_PRD_Notion.md` untuk revisi yang tercatat inline.
 
 ## Stack
 
@@ -34,8 +34,12 @@ npm run test:e2e  # playwright (E2E)
 
 ## Dua peran pengguna
 
-- **Siswa** — masuk cukup dengan kode kelas + nama, tanpa registrasi/password. Akses: daftar tantangan, kuis, leaderboard, progress, riwayat.
-- **Dosen** — login email + password. Akses penuh: dashboard admin, authoring soal, manajemen kelas & siswa, penjadwalan, monitoring real-time, koreksi poin manual, ekspor data riset.
+- **Siswa** — tidak ada self-registration. Dosen pre-register siswa per kelas lewat impor CSV/XLSX (`name`, `nisn`, `jenis_kelamin`). Siswa klaim akun sekali pakai `class_code` + `nisn`, set email + password sendiri, lalu login berikutnya pakai NISN (atau email terverifikasi) + password. Akses: daftar tantangan, kuis, upload jawaban esai (foto/video), leaderboard, progress, riwayat aktivitas, profil (ganti email).
+- **Dosen** — login email + password. Akses penuh: dashboard admin, authoring soal (topic/challenge/question), impor & manajemen roster siswa, penjadwalan tantangan, monitoring real-time, koreksi poin manual & badge, penilaian esai manual, ekspor data riset, analitik (perbandingan antar kelas, grafik progres).
+
+## Status implementasi
+
+Seluruh scope PRD v1.0 sudah selesai dibangun dan diverifikasi (test otomatis + sebagian besar juga lewat browser sungguhan) — modul siswa, modul dosen, gamifikasi, GPS tracking, dan analitik riset. Satu item produk masih terbuka: apakah batas waktu per soal (`question.time_limit_seconds`, tersimpan tapi belum di-enforce) perlu diimplementasikan atau di-drop dari spec — lihat `../PRD Project/Pertanyaan_Timer_Per_Soal.md`.
 
 ## Konvensi & arsitektur
 

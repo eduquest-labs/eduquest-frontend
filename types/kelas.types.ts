@@ -38,11 +38,14 @@ export interface DownloadedGradeExport {
   filename: string;
 }
 
+export type JenisKelamin = "L" | "P";
+
 export interface ClassStudent {
   id: number;
   studentId: number;
   name: string;
   nisn: string;
+  jenisKelamin: JenisKelamin | null;
   isClaimed: boolean;
   joinedAt: string | null;
 }
@@ -50,9 +53,11 @@ export interface ClassStudent {
 export interface AddStudentInput {
   name: string;
   nisn: string;
+  jenisKelamin: JenisKelamin;
 }
 
 export interface UpdateStudentInput {
   name: string;
   nisn: string;
+  jenisKelamin: JenisKelamin;
 }

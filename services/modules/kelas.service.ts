@@ -64,10 +64,11 @@ export async function listClassStudents(classId: number): Promise<ClassStudent[]
 }
 
 export async function addStudent(classId: number, input: AddStudentInput): Promise<ClassStudent> {
-  const { data } = await client.post<ClassStudentContract>(
-    API_ENDPOINTS.KELAS.STUDENTS(classId),
-    input
-  );
+  const { data } = await client.post<ClassStudentContract>(API_ENDPOINTS.KELAS.STUDENTS(classId), {
+    name: input.name,
+    nisn: input.nisn,
+    jenis_kelamin: input.jenisKelamin,
+  });
   return adaptClassStudent(data);
 }
 
@@ -78,13 +79,24 @@ export async function updateStudent(
 ): Promise<ClassStudent> {
   const { data } = await client.patch<ClassStudentContract>(
     API_ENDPOINTS.KELAS.STUDENT(classId, studentId),
-    input
+    {
+      name: input.name,
+      nisn: input.nisn,
+      jenis_kelamin: input.jenisKelamin,
+    }
   );
   return adaptClassStudent(data);
 }
 
 export async function removeStudent(classId: number, studentId: number): Promise<void> {
   await client.delete(API_ENDPOINTS.KELAS.STUDENT(classId, studentId));
+}
+
+export async function downloadImportTemplate(): Promise<Blob> {
+  const response = await client.get<Blob>(API_ENDPOINTS.KELAS.IMPORT_TEMPLATE, {
+    responseType: "blob",
+  });
+  return response.data;
 }
 
 export async function importStudents(classId: number, file: File): Promise<ImportStudentsResult> {

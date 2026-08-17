@@ -3,13 +3,27 @@
 import { useState } from "react";
 import { isAxiosError } from "axios";
 
-import { Alert, Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import {
+  Alert,
+  Button,
+  FieldError,
+  Form,
+  Input,
+  Label,
+  Radio,
+  RadioGroup,
+  TextField,
+} from "@heroui/react";
 
 import { studentSchema } from "@/lib/validations";
 import type { StudentFormValues } from "@/lib/validations";
 
+type StudentFormDraft = Omit<StudentFormValues, "jenisKelamin"> & {
+  jenisKelamin: StudentFormValues["jenisKelamin"] | undefined;
+};
+
 export interface StudentFormProps {
-  initialValues?: StudentFormValues;
+  initialValues?: StudentFormDraft;
   submitLabel: string;
   pendingLabel: string;
   isPending: boolean;
@@ -26,7 +40,9 @@ export function StudentForm({
   isPending,
   onSubmit,
 }: StudentFormProps) {
-  const [values, setValues] = useState<StudentFormValues>(initialValues ?? { name: "", nisn: "" });
+  const [values, setValues] = useState<StudentFormDraft>(
+    initialValues ?? { name: "", nisn: "", jenisKelamin: undefined }
+  );
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [formAlert, setFormAlert] = useState<FormAlert>(null);
 
@@ -37,7 +53,11 @@ export function StudentForm({
     const parsed = studentSchema.safeParse(values);
     if (!parsed.success) {
       const errors = parsed.error.flatten().fieldErrors;
-      setFieldErrors({ name: errors.name?.[0], nisn: errors.nisn?.[0] });
+      setFieldErrors({
+        name: errors.name?.[0],
+        nisn: errors.nisn?.[0],
+        jenisKelamin: errors.jenisKelamin?.[0],
+      });
       return;
     }
     setFieldErrors({});
@@ -49,6 +69,7 @@ export function StudentForm({
         setFieldErrors({
           name: error.response.data?.errors?.name?.[0],
           nisn: error.response.data?.errors?.nisn?.[0],
+          jenisKelamin: error.response.data?.errors?.jenis_kelamin?.[0],
         });
         return;
       }
@@ -90,6 +111,38 @@ export function StudentForm({
         <Input fullWidth inputMode="numeric" placeholder="Contoh: 0012345678" />
         {fieldErrors.nisn ? <FieldError>{fieldErrors.nisn}</FieldError> : null}
       </TextField>
+
+      <RadioGroup
+        value={values.jenisKelamin}
+        onChange={(value) =>
+          setValues((prev) => ({
+            ...prev,
+            jenisKelamin: value as StudentFormDraft["jenisKelamin"],
+          }))
+        }
+        orientation="horizontal"
+        isInvalid={Boolean(fieldErrors.jenisKelamin)}
+        isDisabled={isPending}
+      >
+        <Label>Jenis Kelamin</Label>
+        <Radio value="L">
+          <Radio.Content>
+            <Radio.Control>
+              <Radio.Indicator />
+            </Radio.Control>
+            Laki-laki
+          </Radio.Content>
+        </Radio>
+        <Radio value="P">
+          <Radio.Content>
+            <Radio.Control>
+              <Radio.Indicator />
+            </Radio.Control>
+            Perempuan
+          </Radio.Content>
+        </Radio>
+        {fieldErrors.jenisKelamin ? <FieldError>{fieldErrors.jenisKelamin}</FieldError> : null}
+      </RadioGroup>
 
       <Button
         type="submit"

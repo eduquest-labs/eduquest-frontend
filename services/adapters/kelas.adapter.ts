@@ -37,6 +37,7 @@ export function adaptClassStudent(contract: ClassStudentContract): ClassStudent 
     studentId: contract.student_id,
     name: contract.name,
     nisn: contract.nisn,
+    jenisKelamin: contract.jenis_kelamin,
     isClaimed: contract.is_claimed,
     joinedAt: contract.joined_at,
   };

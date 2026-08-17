@@ -86,6 +86,7 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
               <Table.Header>
                 <Table.Column isRowHeader>Nama</Table.Column>
                 <Table.Column>NIS</Table.Column>
+                <Table.Column>Jenis Kelamin</Table.Column>
                 <Table.Column>Status</Table.Column>
                 <Table.Column>Aksi</Table.Column>
               </Table.Header>
@@ -94,6 +95,13 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
                   <Table.Row key={student.id}>
                     <Table.Cell>{student.name}</Table.Cell>
                     <Table.Cell className="font-mono text-sm">{student.nisn}</Table.Cell>
+                    <Table.Cell>
+                      {student.jenisKelamin === "L"
+                        ? "Laki-laki"
+                        : student.jenisKelamin === "P"
+                          ? "Perempuan"
+                          : "-"}
+                    </Table.Cell>
                     <Table.Cell>
                       <span
                         className={cn(
@@ -186,7 +194,11 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
             <Modal.Body>
               {studentToEdit ? (
                 <StudentForm
-                  initialValues={{ name: studentToEdit.name, nisn: studentToEdit.nisn }}
+                  initialValues={{
+                    name: studentToEdit.name,
+                    nisn: studentToEdit.nisn,
+                    jenisKelamin: studentToEdit.jenisKelamin ?? undefined,
+                  }}
                   submitLabel="Simpan Perubahan"
                   pendingLabel="Menyimpan..."
                   isPending={updateStudent.isPending}

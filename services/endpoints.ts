@@ -15,6 +15,7 @@ export const API_ENDPOINTS = {
     STUDENTS: (id: number) => `/classes/${id}/students`,
     STUDENT: (classId: number, studentId: number) => `/classes/${classId}/students/${studentId}`,
     IMPORT_STUDENTS: (id: number) => `/classes/${id}/students/import`,
+    IMPORT_TEMPLATE: "/students/import-template",
     EXPORT_GRADES: (id: number) => `/classes/${id}/export`,
   },
   AUTHORING: {
