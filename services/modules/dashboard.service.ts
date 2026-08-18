@@ -1,18 +1,18 @@
-import type { DosenDashboardContract } from "@/lib/contracts/dashboard";
-import { adaptDosenDashboard } from "@/services/adapters";
+import type { GuruDashboardContract } from "@/lib/contracts/dashboard";
+import { adaptGuruDashboard } from "@/services/adapters";
 import { client } from "@/services/client";
 import { API_ENDPOINTS } from "@/services/endpoints";
-import type { DosenDashboard } from "@/types";
+import type { GuruDashboard } from "@/types";
 
-export async function getDosenDashboard(
+export async function getGuruDashboard(
   classId: number | null
-): Promise<DosenDashboard> {
-  const { data } = await client.get<DosenDashboardContract>(
+): Promise<GuruDashboard> {
+  const { data } = await client.get<GuruDashboardContract>(
     API_ENDPOINTS.DASHBOARD.DOSEN,
     {
       params: classId === null ? undefined : { class_id: classId },
     }
   );
 
-  return adaptDosenDashboard(data);
+  return adaptGuruDashboard(data);
 }

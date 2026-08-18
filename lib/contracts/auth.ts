@@ -8,7 +8,7 @@ export interface TokenPairContract {
 export interface MeResponseContract {
   id: number;
   name: string;
-  role: "dosen" | "siswa";
+  role: "superadmin" | "guru" | "siswa";
   nisn: string | null;
   email: string | null;
   email_verified: boolean;

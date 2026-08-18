@@ -1,11 +1,11 @@
 import { describe, expect, it } from "vitest";
 
-import { adaptDosenDashboard } from "@/services/adapters";
+import { adaptGuruDashboard } from "@/services/adapters";
 
 describe("dashboard adapter", () => {
   it("mengubah response dashboard snake_case menjadi camelCase", () => {
     expect(
-      adaptDosenDashboard({
+      adaptGuruDashboard({
         total_students: 12,
         active_challenges: 3,
         average_score: 82.5,

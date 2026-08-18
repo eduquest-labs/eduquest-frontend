@@ -3,17 +3,17 @@ import {
   DashboardMotionProvider,
   DashboardPageHeader,
   DashboardQuickLinks,
-  DosenDashboard,
+  GuruDashboard,
 } from "@/components/dashboard";
 
-export default async function DosenPage() {
+export default async function GuruPage() {
   const session = await auth();
 
   return (
     <DashboardMotionProvider>
       <div className="flex min-w-0 flex-col gap-8 overflow-x-hidden p-4 sm:p-8">
         <DashboardPageHeader lecturerName={session?.user.name} />
-        <DosenDashboard />
+        <GuruDashboard />
         <DashboardQuickLinks />
       </div>
     </DashboardMotionProvider>

@@ -93,7 +93,7 @@ describe("KelasDetailPageClient — edit & delete kelas", () => {
     await waitFor(() => expect(screen.queryByRole("textbox", { name: "Nama Kelas" })).not.toBeInTheDocument());
   });
 
-  it("menghapus kelas setelah konfirmasi dan redirect ke /dosen/kelas", async () => {
+  it("menghapus kelas setelah konfirmasi dan redirect ke /guru/kelas", async () => {
     mockClassDetail();
     server.use(http.delete("*/classes/5", () => new HttpResponse(null, { status: 204 })));
 
@@ -102,7 +102,7 @@ describe("KelasDetailPageClient — edit & delete kelas", () => {
     fireEvent.click(await screen.findByRole("button", { name: /hapus/i }));
     fireEvent.click(await screen.findByRole("button", { name: "Hapus" }));
 
-    await waitFor(() => expect(pushMock).toHaveBeenCalledWith("/dosen/kelas"));
+    await waitFor(() => expect(pushMock).toHaveBeenCalledWith("/guru/kelas"));
   });
 
   it("tetap menampilkan skeleton/error state seperti semula saat data belum siap", () => {

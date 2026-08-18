@@ -88,7 +88,7 @@ export function ChallengeEditorPageClient({ classId, topicId, challengeId }: Cha
   return (
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div className="flex flex-col gap-3">
-        <Link href={`/dosen/authoring?classId=${classId}`} className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-teal-700 hover:text-teal-800 dark:text-teal-300"><ArrowLeft size={15} /> Kembali ke Authoring</Link>
+        <Link href={`/guru/authoring?classId=${classId}`} className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-teal-700 hover:text-teal-800 dark:text-teal-300"><ArrowLeft size={15} /> Kembali ke Authoring</Link>
         <div className="text-xs text-slate-500">{kelas.data.name} / {topic.name}</div>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>

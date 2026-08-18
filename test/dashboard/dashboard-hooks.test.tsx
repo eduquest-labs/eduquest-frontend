@@ -13,7 +13,7 @@ vi.mock("@/services/modules/dashboard.service", async (importOriginal) => {
 
   return {
     ...actual,
-    getDosenDashboard: vi.fn(),
+    getGuruDashboard: vi.fn(),
   };
 });
 
@@ -34,7 +34,7 @@ describe("dashboard query", () => {
   }
 
   it("memisahkan cache berdasarkan filter kelas", async () => {
-    vi.mocked(dashboardService.getDosenDashboard).mockResolvedValue({
+    vi.mocked(dashboardService.getGuruDashboard).mockResolvedValue({
       totalStudents: 4,
       activeChallenges: 2,
       averageScore: 75,
@@ -47,7 +47,7 @@ describe("dashboard query", () => {
 
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-    expect(dashboardService.getDosenDashboard).toHaveBeenCalledWith(3);
+    expect(dashboardService.getGuruDashboard).toHaveBeenCalledWith(3);
     expect(queryClient.getQueryData(dashboardKeys.summary(3))).toBeDefined();
     expect(dashboardKeys.summary(null)).toEqual([
       "dashboard",

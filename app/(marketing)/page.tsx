@@ -53,14 +53,14 @@ const VALUE_PROPS = [
     icon: School,
     title: "Mudah dikelola untuk kelas",
     description:
-      "Dosen menyiapkan tantangan, memantau aktivitas, dan membaca perkembangan lintas sekolah dalam satu alur.",
+      "Guru menyiapkan tantangan, memantau aktivitas, dan membaca perkembangan lintas sekolah dalam satu alur.",
   },
 ] as const;
 
 const RESEARCH_STATS = [
   { value: "75–100", label: "target siswa" },
   { value: "5", label: "sekolah sasaran" },
-  { value: "1", label: "dosen peneliti" },
+  { value: "1", label: "peneliti" },
 ] as const;
 
 const TESTIMONIALS = [
@@ -82,7 +82,7 @@ const TESTIMONIALS = [
   },
   {
     name: "Bu Mira",
-    role: "Dosen",
+    role: "Guru",
     quote:
       "Aktivitas kelas lebih mudah diamati, sementara pengalaman siswa tetap terasa ringan dan suportif.",
     avatarSrc: TEACHER_IMAGE,

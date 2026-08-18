@@ -105,7 +105,7 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
         <ClassCodeReveal classCode={data.classCode} />
       </div>
 
-      <Link href={`/dosen/authoring?classId=${classId}`} className="flex w-fit items-center gap-2 rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-teal-700">
+      <Link href={`/guru/authoring?classId=${classId}`} className="flex w-fit items-center gap-2 rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-teal-700">
         <BookOpen size={16} /> Kelola Materi & Tantangan
       </Link>
 
@@ -234,7 +234,7 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
                     await deleteClass.mutateAsync(classId);
                     setConfirmDelete(false);
                     toast.success("Kelas berhasil dihapus.");
-                    router.push("/dosen/kelas");
+                    router.push("/guru/kelas");
                   } catch {
                     toast.danger("Kelas gagal dihapus.");
                   }

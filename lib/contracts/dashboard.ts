@@ -9,7 +9,7 @@ export interface DashboardActivityContract {
   total_score: number | null;
 }
 
-export interface DosenDashboardContract {
+export interface GuruDashboardContract {
   total_students: number;
   active_challenges: number;
   average_score: number;

@@ -56,7 +56,8 @@ export function LoginForm() {
       }
 
       const session = await getSession();
-      router.push(session?.user.role === "dosen" ? "/dosen" : "/siswa");
+      const role = session?.user.role;
+      router.push(role === "superadmin" ? "/superadmin" : role === "guru" ? "/guru" : "/siswa");
     } catch {
       setFormAlert({ message: "Terjadi kesalahan, silakan coba lagi." });
     } finally {

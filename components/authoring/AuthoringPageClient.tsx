@@ -34,12 +34,12 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
     }
     const remembered = Number(sessionStorage.getItem(LAST_CLASS_KEY));
     const nextId = validClassIds.has(remembered) ? remembered : classes.data[0].id;
-    router.replace(`/dosen/authoring?classId=${nextId}`);
+    router.replace(`/guru/authoring?classId=${nextId}`);
   }, [classId, classes.data, router, validClassIds]);
 
   function selectClass(nextClassId: number) {
     sessionStorage.setItem(LAST_CLASS_KEY, String(nextClassId));
-    router.replace(`/dosen/authoring?classId=${nextClassId}`);
+    router.replace(`/guru/authoring?classId=${nextClassId}`);
   }
 
   return (

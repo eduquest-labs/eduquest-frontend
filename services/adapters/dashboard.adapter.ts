@@ -1,8 +1,8 @@
 import type {
   DashboardActivityContract,
-  DosenDashboardContract,
+  GuruDashboardContract,
 } from "@/lib/contracts/dashboard";
-import type { DashboardActivity, DosenDashboard } from "@/types";
+import type { DashboardActivity, GuruDashboard } from "@/types";
 
 export function adaptDashboardActivity(
   contract: DashboardActivityContract
@@ -19,9 +19,9 @@ export function adaptDashboardActivity(
   };
 }
 
-export function adaptDosenDashboard(
-  contract: DosenDashboardContract
-): DosenDashboard {
+export function adaptGuruDashboard(
+  contract: GuruDashboardContract
+): GuruDashboard {
   return {
     totalStudents: contract.total_students,
     activeChallenges: contract.active_challenges,

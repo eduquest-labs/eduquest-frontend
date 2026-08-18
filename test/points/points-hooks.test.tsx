@@ -22,7 +22,7 @@ describe("points mutation cache", () => {
         id: 1,
         points: 10,
         reason: "Bonus",
-        adjustedBy: { id: 2, name: "Dosen" },
+        adjustedBy: { id: 2, name: "Guru" },
         createdAt: "2026-07-20",
       },
       totalPoints: 10,

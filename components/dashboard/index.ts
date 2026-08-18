@@ -1,4 +1,4 @@
-export * from "./DosenDashboard";
+export * from "./GuruDashboard";
 export * from "./DashboardMotionProvider";
 export * from "./DashboardPageHeader";
 export * from "./DashboardQuickLinks";

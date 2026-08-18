@@ -7,14 +7,14 @@ declare module "next-auth" {
     error?: "RefreshAccessTokenError";
     user: {
       userId: number;
-      role: "dosen" | "siswa";
+      role: "superadmin" | "guru" | "siswa";
       permissions: string[];
     } & DefaultSession["user"];
   }
 
   interface User {
     userId: number;
-    role: "dosen" | "siswa";
+    role: "superadmin" | "guru" | "siswa";
     permissions: string[];
     accessToken: string;
     refreshToken: string;
@@ -26,7 +26,7 @@ declare module "next-auth/jwt" {
   interface JWT {
     userId?: number;
     name?: string | null;
-    role?: "dosen" | "siswa";
+    role?: "superadmin" | "guru" | "siswa";
     permissions?: string[];
     accessToken?: string;
     accessTokenExpiry?: number;
@@ -39,7 +39,7 @@ declare module "@auth/core/jwt" {
   interface JWT {
     userId?: number;
     name?: string | null;
-    role?: "dosen" | "siswa";
+    role?: "superadmin" | "guru" | "siswa";
     permissions?: string[];
     accessToken?: string;
     accessTokenExpiry?: number;

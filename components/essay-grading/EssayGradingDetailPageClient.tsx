@@ -61,7 +61,7 @@ export function EssayGradingDetailPageClient({
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div className="flex flex-col gap-3">
         <Link
-          href={classId > 0 ? `/dosen/grading?classId=${classId}` : "/dosen/grading"}
+          href={classId > 0 ? `/guru/grading?classId=${classId}` : "/guru/grading"}
           className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-teal-700 hover:text-teal-800 dark:text-teal-300"
         >
           <ArrowLeft size={15} /> Kembali ke antrean

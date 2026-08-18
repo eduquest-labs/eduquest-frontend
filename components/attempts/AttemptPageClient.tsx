@@ -69,7 +69,7 @@ export function AttemptPageClient({ challengeId }: AttemptPageClientProps) {
             {attempt.gradingStatus === "complete" ? (
               <p className="mt-2 text-3xl font-bold text-slate-900 dark:text-white">{attempt.totalScore} poin</p>
             ) : (
-              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Jawaban esai masih menunggu penilaian dosen. Nilai akhir akan muncul setelah penilaian selesai.</p>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">Jawaban esai masih menunggu penilaian guru. Nilai akhir akan muncul setelah penilaian selesai.</p>
             )}
           </section>
         ) : <Alert status="warning"><Alert.Indicator /><Alert.Content><Alert.Description>Simpan setiap jawaban sebelum menekan selesai. Saat timer habis, backend akan mengunci jawaban yang sudah tersimpan.</Alert.Description></Alert.Content></Alert>}

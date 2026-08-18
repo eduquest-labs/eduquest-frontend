@@ -34,12 +34,12 @@ export function EssayGradingQueuePageClient({ initialClassId }: EssayGradingQueu
     }
     const remembered = Number(sessionStorage.getItem(LAST_CLASS_KEY));
     const nextId = validClassIds.has(remembered) ? remembered : classes.data[0].id;
-    router.replace(`/dosen/grading?classId=${nextId}`);
+    router.replace(`/guru/grading?classId=${nextId}`);
   }, [classes.data, initialClassId, router, validClassIds]);
 
   function selectClass(classId: number) {
     sessionStorage.setItem(LAST_CLASS_KEY, String(classId));
-    router.replace(`/dosen/grading?classId=${classId}`);
+    router.replace(`/guru/grading?classId=${classId}`);
   }
 
   return (
@@ -136,7 +136,7 @@ export function EssayGradingQueuePageClient({ initialClassId }: EssayGradingQueu
               <Card.Footer className="mt-auto">
                 <Button
                   fullWidth
-                  onPress={() => router.push(`/dosen/grading/attempts/${attempt.id}?classId=${selectedClassId}`)}
+                  onPress={() => router.push(`/guru/grading/attempts/${attempt.id}?classId=${selectedClassId}`)}
                 >
                   Buka penilaian <ArrowRight size={16} />
                 </Button>

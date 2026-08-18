@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 export default async function ClaimPage() {
   const session = await auth();
   if (session && !session.error) {
-    redirect(session.user.role === "dosen" ? "/dosen" : "/siswa");
+    redirect(
+      session.user.role === "superadmin" ? "/superadmin" : session.user.role === "guru" ? "/guru" : "/siswa"
+    );
   }
 
   return <ClaimPageContent />;

@@ -7,3 +7,4 @@ export * from "./dashboard.adapter";
 export * from "./monitoring.adapter";
 export * from "./analytics.adapter";
 export * from "./physical-activity.adapter";
+export * from "./schools.adapter";

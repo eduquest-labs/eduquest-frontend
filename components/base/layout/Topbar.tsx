@@ -5,10 +5,14 @@ import { Menu } from "lucide-react";
 import { Drawer } from "@heroui/react";
 
 import { siteConfig } from "@/config/site.config";
-import { SidebarNav } from "@/components/base/layout/Sidebar";
+import { SidebarNav, type NavItem } from "@/components/base/layout/Sidebar";
 import { UserMenu } from "@/components/base/shared/UserMenu";
 
-export function Topbar() {
+export interface TopbarProps {
+  navItems: NavItem[];
+}
+
+export function Topbar({ navItems }: TopbarProps) {
   return (
     <header className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white px-4 py-3 lg:justify-end lg:px-6 dark:border-white/10 dark:bg-black">
       <Drawer>
@@ -30,7 +34,7 @@ export function Topbar() {
                     </Drawer.Heading>
                   </Drawer.Header>
                   <Drawer.Body>
-                    <SidebarNav onNavigate={close} />
+                    <SidebarNav navItems={navItems} onNavigate={close} />
                   </Drawer.Body>
                 </>
               )}

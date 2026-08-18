@@ -44,7 +44,7 @@ describe("MarketingPage", () => {
     expect(screen.getByText("5")).toBeInTheDocument();
     expect(screen.getByText("sekolah sasaran")).toBeInTheDocument();
     expect(screen.getByText("1")).toBeInTheDocument();
-    expect(screen.getByText("dosen peneliti")).toBeInTheDocument();
+    expect(screen.getByText("peneliti")).toBeInTheDocument();
     expect(
       screen.getAllByText("Ilustrasi pengalaman — placeholder"),
     ).toHaveLength(3);

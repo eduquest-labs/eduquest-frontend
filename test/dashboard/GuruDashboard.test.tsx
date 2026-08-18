@@ -5,7 +5,7 @@ import { describe, expect, it } from "vitest";
 import {
   DashboardMotionProvider,
   DashboardQuickLinks,
-  DosenDashboard,
+  GuruDashboard,
 } from "@/components/dashboard";
 import { renderWithProviders } from "@/test/helpers/render";
 import { server } from "@/test/msw/server";
@@ -42,7 +42,7 @@ function useDashboardHandlers() {
   server.use(
     http.get("*/api/auth/session", () =>
       HttpResponse.json({
-        user: { id: "1", name: "Dosen", role: "dosen" },
+        user: { id: "1", name: "Guru", role: "guru" },
         accessToken: "test-token",
         expires: "2099-01-01T00:00:00.000Z",
       })
@@ -66,11 +66,11 @@ function useDashboardHandlers() {
   );
 }
 
-describe("DosenDashboard", () => {
+describe("GuruDashboard", () => {
   it("menampilkan skeleton granular lalu statistik dan aktivitas", async () => {
     useDashboardHandlers();
 
-    renderWithProviders(<DosenDashboard />);
+    renderWithProviders(<GuruDashboard />);
 
     expect(screen.getByLabelText("Memuat siswa aktif")).toBeInTheDocument();
     expect(
@@ -98,7 +98,7 @@ describe("DosenDashboard", () => {
         return HttpResponse.json(dashboardResponse);
       })
     );
-    renderWithProviders(<DosenDashboard />);
+    renderWithProviders(<GuruDashboard />);
     await screen.findByText("Alya");
 
     fireEvent.click(
@@ -120,7 +120,7 @@ describe("DosenDashboard", () => {
       )
     );
 
-    renderWithProviders(<DosenDashboard />);
+    renderWithProviders(<GuruDashboard />);
 
     expect(
       await screen.findByText(
@@ -144,17 +144,17 @@ describe("DosenDashboard", () => {
 
     expect(screen.getByRole("link", { name: /Kelas Saya/i })).toHaveAttribute(
       "href",
-      "/dosen/kelas"
+      "/guru/kelas"
     );
     expect(screen.getByRole("link", { name: /Authoring/i })).toHaveAttribute(
       "href",
-      "/dosen/authoring"
+      "/guru/authoring"
     );
     expect(
       screen.getByRole("link", { name: /Penilaian Esai/i })
-    ).toHaveAttribute("href", "/dosen/grading");
+    ).toHaveAttribute("href", "/guru/grading");
     expect(
       screen.getByRole("link", { name: /Monitoring Live/i })
-    ).toHaveAttribute("href", "/dosen/monitoring");
+    ).toHaveAttribute("href", "/guru/monitoring");
   });
 });

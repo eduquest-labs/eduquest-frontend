@@ -22,7 +22,7 @@ export function ClassCard({ kelas }: ClassCardProps) {
 
   return (
     <Link
-      href={`/dosen/kelas/${kelas.id}`}
+      href={`/guru/kelas/${kelas.id}`}
       className="group flex min-w-0 flex-col gap-3 rounded-xl border border-slate-200 bg-white p-4 transition-colors hover:border-slate-300 dark:border-white/10 dark:bg-white/5 dark:hover:border-white/20"
     >
       <div className="flex items-start justify-between gap-2">

@@ -21,7 +21,7 @@ import {
   dashboardItemVariants,
 } from "./dashboard.motion";
 
-export function DosenDashboard() {
+export function GuruDashboard() {
   const [selectedClassId, setSelectedClassId] = useState<number | null>(null);
   const classes = useClasses();
   const dashboard = useDashboard(selectedClassId);

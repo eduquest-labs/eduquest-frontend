@@ -21,7 +21,7 @@ export class EmailUnverifiedError extends CredentialsSignin {
 interface AuthorizedUser {
   userId: number;
   name: string;
-  role: "dosen" | "siswa";
+  role: "superadmin" | "guru" | "siswa";
   permissions: string[];
   accessToken: string;
   refreshToken: string;

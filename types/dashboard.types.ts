@@ -9,7 +9,7 @@ export interface DashboardActivity {
   totalScore: number | null;
 }
 
-export interface DosenDashboard {
+export interface GuruDashboard {
   totalStudents: number;
   activeChallenges: number;
   averageScore: number;

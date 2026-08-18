@@ -133,7 +133,7 @@ export function ChallengeList({ classId, topic, classes, enabled }: ChallengeLis
             <PublishControl challenge={challenge} topicId={topic.id} />
           </div>
           <div className="flex flex-wrap gap-1 border-t border-slate-200 pt-3 dark:border-white/10">
-            <Link href={`/dosen/authoring/classes/${classId}/topics/${topic.id}/challenges/${challenge.id}`} className="inline-flex h-8 items-center rounded-lg bg-slate-100 px-3 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/15">Kelola soal</Link>
+            <Link href={`/guru/authoring/classes/${classId}/topics/${topic.id}/challenges/${challenge.id}`} className="inline-flex h-8 items-center rounded-lg bg-slate-100 px-3 text-sm font-medium text-slate-700 hover:bg-slate-200 dark:bg-white/10 dark:text-slate-200 dark:hover:bg-white/15">Kelola soal</Link>
             <Button size="sm" variant="tertiary" onPress={() => { setEditing(challenge); editOverlay.open(); }}><Pencil size={15} /> Edit</Button>
             <DuplicateChallengeDialog challenge={challenge} sourceClassId={classId} classes={classes} />
             <Button size="sm" variant="tertiary" className="text-danger" onPress={() => setDeleting(challenge)}><Trash2 size={15} /> Hapus</Button>

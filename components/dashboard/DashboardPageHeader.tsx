@@ -19,7 +19,7 @@ export function DashboardPageHeader({
       className="flex min-w-0 flex-col gap-1"
     >
       <h1 className="truncate text-2xl font-semibold text-slate-900 dark:text-white">
-        Halo, {lecturerName ?? "Dosen"}
+        Halo, {lecturerName ?? "Guru"}
       </h1>
       <p className="text-sm text-slate-500 dark:text-slate-400">
         Kelola kelas dan pantau progres siswa Anda dari sini.

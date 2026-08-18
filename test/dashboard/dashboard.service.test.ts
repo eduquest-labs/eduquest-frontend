@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { describe, expect, it } from "vitest";
 
-import { getDosenDashboard } from "@/services/modules";
+import { getGuruDashboard } from "@/services/modules";
 import { server } from "@/test/msw/server";
 
 const response = {
@@ -22,7 +22,7 @@ describe("dashboard service", () => {
       })
     );
 
-    await expect(getDosenDashboard(null)).resolves.toMatchObject({
+    await expect(getGuruDashboard(null)).resolves.toMatchObject({
       totalStudents: 12,
       averageScore: 82.5,
     });
@@ -38,7 +38,7 @@ describe("dashboard service", () => {
       })
     );
 
-    await expect(getDosenDashboard(4)).resolves.toMatchObject({
+    await expect(getGuruDashboard(4)).resolves.toMatchObject({
       activeChallenges: 3,
     });
   });

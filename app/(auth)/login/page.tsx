@@ -14,7 +14,9 @@ export const metadata: Metadata = {
 export default async function LoginPage() {
   const session = await auth();
   if (session && !session.error) {
-    redirect(session.user.role === "dosen" ? "/dosen" : "/siswa");
+    redirect(
+      session.user.role === "superadmin" ? "/superadmin" : session.user.role === "guru" ? "/guru" : "/siswa"
+    );
   }
 
   return (
@@ -30,6 +32,12 @@ export default async function LoginPage() {
         Siswa baru dan belum pernah masuk?{" "}
         <Link href="/claim" className="font-medium text-teal-700 underline dark:text-teal-300">
           Aktivasi akun di sini
+        </Link>
+      </p>
+      <p className="text-center text-sm text-muted-foreground">
+        Guru baru di EduQuest?{" "}
+        <Link href="/register" className="font-medium text-teal-700 underline dark:text-teal-300">
+          Daftar sebagai guru
         </Link>
       </p>
     </AuthShell>

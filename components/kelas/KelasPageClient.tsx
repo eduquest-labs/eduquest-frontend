@@ -41,7 +41,7 @@ export function KelasPageClient() {
                       <CreateClassForm
                         onCreated={(newClass) => {
                           close();
-                          router.push(`/dosen/kelas/${newClass.id}`);
+                          router.push(`/guru/kelas/${newClass.id}`);
                         }}
                       />
                     </Modal.Body>

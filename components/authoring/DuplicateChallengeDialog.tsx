@@ -32,7 +32,7 @@ export function DuplicateChallengeDialog({ challenge, sourceClassId, classes }: 
         actionProps: {
           children: "Buka salinan",
           onPress: () => router.push(
-            `/dosen/authoring/classes/${targetClassId}/topics/${targetTopicId}/challenges/${result.id}`
+            `/guru/authoring/classes/${targetClassId}/topics/${targetTopicId}/challenges/${result.id}`
           ),
         },
       });

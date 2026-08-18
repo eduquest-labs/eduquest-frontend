@@ -36,7 +36,7 @@ describe("points adapters", () => {
           id: 5,
           points: -10,
           reason: "Koreksi",
-          adjusted_by: { id: 6, name: "Dosen" },
+          adjusted_by: { id: 6, name: "Guru" },
           created_at: "2026-07-20T08:00:00+07:00",
         },
       ],
@@ -62,7 +62,7 @@ describe("points adapters", () => {
       student: { classStudentId: 4 },
       totalPoints: 75,
     });
-    expect(detail.adjustments[0]).toMatchObject({ points: -10, adjustedBy: { name: "Dosen" } });
+    expect(detail.adjustments[0]).toMatchObject({ points: -10, adjustedBy: { name: "Guru" } });
     expect(detail.badges[0]).toMatchObject({ awardSource: "automatic" });
   });
 

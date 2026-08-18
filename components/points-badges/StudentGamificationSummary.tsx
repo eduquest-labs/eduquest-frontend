@@ -60,7 +60,7 @@ function badgeDescription(studentBadge: StudentBadge) {
     return `Berhasil menyelesaikan ${value} challenge.`;
   }
 
-  return "Penghargaan spesial dari dosenmu.";
+  return "Penghargaan spesial dari gurumu.";
 }
 
 function BadgeMedallion({

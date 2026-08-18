@@ -58,7 +58,7 @@ export function StudentChallengePageClient() {
         {!challenges.isLoading && !challenges.isError && groups.length === 0 ? (
           <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-200 px-6 py-16 text-center dark:border-white/10">
             <BookOpen className="text-slate-300" />
-            <div><p className="font-semibold text-slate-900 dark:text-white">Belum ada challenge aktif</p><p className="mt-1 text-sm text-slate-500">Challenge akan muncul ketika dosen mempublikasikannya sesuai jadwal WIB.</p></div>
+            <div><p className="font-semibold text-slate-900 dark:text-white">Belum ada challenge aktif</p><p className="mt-1 text-sm text-slate-500">Challenge akan muncul ketika guru mempublikasikannya sesuai jadwal WIB.</p></div>
           </div>
         ) : null}
 

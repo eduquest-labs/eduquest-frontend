@@ -13,9 +13,23 @@ export function requireAuth(session: Session | null): asserts session is Session
  * redirected to their own dashboard rather than a raw 403 — the request is
  * authenticated, just pointed at the wrong route group.
  */
-export function requireRole(session: Session | null, role: "dosen" | "siswa"): asserts session is Session {
+export function requireRole(
+  session: Session | null,
+  role: "superadmin" | "guru" | "siswa"
+): asserts session is Session {
   requireAuth(session);
   if (session.user.role !== role) {
-    redirect(session.user.role === "dosen" ? "/dosen" : "/siswa");
+    redirect(roleHome(session.user.role));
+  }
+}
+
+function roleHome(role: "superadmin" | "guru" | "siswa"): string {
+  switch (role) {
+    case "superadmin":
+      return "/superadmin";
+    case "guru":
+      return "/guru";
+    case "siswa":
+      return "/siswa";
   }
 }

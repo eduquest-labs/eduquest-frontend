@@ -17,25 +17,25 @@ import {
 
 const QUICK_LINKS = [
   {
-    href: "/dosen/kelas",
+    href: "/guru/kelas",
     title: "Kelas Saya",
     description: "Kelola kelas dan impor siswa",
     icon: School,
   },
   {
-    href: "/dosen/authoring",
+    href: "/guru/authoring",
     title: "Authoring",
     description: "Susun topic, challenge, dan soal",
     icon: BookOpen,
   },
   {
-    href: "/dosen/grading",
+    href: "/guru/grading",
     title: "Penilaian Esai",
     description: "Nilai jawaban esai yang sudah dikumpulkan",
     icon: ClipboardCheck,
   },
   {
-    href: "/dosen/monitoring",
+    href: "/guru/monitoring",
     title: "Monitoring Live",
     description: "Pantau pengerjaan dan submit siswa",
     icon: Activity,

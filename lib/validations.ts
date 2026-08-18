@@ -18,6 +18,19 @@ export const claimStudentSchema = z
     path: ["passwordConfirmation"],
   });
 
+export const registerGuruSchema = z
+  .object({
+    name: z.string().trim().min(1, "Nama wajib diisi").max(150, "Nama maksimal 150 karakter"),
+    email: z.string().trim().toLowerCase().email("Format email tidak valid"),
+    password: z.string().min(8, "Kata sandi minimal 8 karakter"),
+    passwordConfirmation: z.string().min(1, "Konfirmasi kata sandi wajib diisi"),
+    schoolId: z.number({ message: "Sekolah wajib dipilih" }),
+  })
+  .refine((value) => value.password === value.passwordConfirmation, {
+    message: "Konfirmasi kata sandi tidak cocok",
+    path: ["passwordConfirmation"],
+  });
+
 export const createClassSchema = z.object({
   name: z.string().min(1, "Nama kelas wajib diisi").max(255, "Nama kelas maksimal 255 karakter"),
 });

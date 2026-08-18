@@ -2,6 +2,7 @@ export const API_ENDPOINTS = {
   AUTH: {
     LOGIN: "/login",
     CLAIM_STUDENT: "/claim-student",
+    REGISTER_GURU: "/register-guru",
     REFRESH: "/refresh",
     LOGOUT: "/logout",
     ME: "/me",
@@ -75,5 +76,8 @@ export const API_ENDPOINTS = {
     CLASS_COMPARISON: "/dosen/class-comparison",
     PROGRESS_CHART: (classId: number) =>
       `/classes/${classId}/progress-chart`,
+  },
+  SCHOOLS: {
+    LIST: "/schools",
   },
 };

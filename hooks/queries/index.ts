@@ -9,3 +9,4 @@ export * from "./useMonitoring";
 export * from "./useAnalytics";
 export * from "./usePhysicalActivity";
 export * from "./useAuth";
+export * from "./useSchools";

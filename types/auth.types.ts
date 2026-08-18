@@ -1,4 +1,4 @@
-export type UserRole = "dosen" | "siswa";
+export type UserRole = "superadmin" | "guru" | "siswa";
 
 export interface LoginCredentials {
   identifier: string;
@@ -11,6 +11,14 @@ export interface ClaimStudentCredentials {
   email: string;
   password: string;
   passwordConfirmation: string;
+}
+
+export interface RegisterGuruCredentials {
+  name: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+  schoolId: number;
 }
 
 export interface AuthUser {

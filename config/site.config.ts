@@ -13,6 +13,10 @@ export const pageMetadata = {
     title: "Aktivasi Akun Siswa",
     description: "Aktifkan akun siswa Anda dengan kode kelas dan NIS.",
   },
+  register: {
+    title: "Daftar Guru",
+    description: "Daftar sebagai guru dan pilih sekolah Anda.",
+  },
   dashboard: {
     title: "Dashboard",
     description: siteConfig.description,

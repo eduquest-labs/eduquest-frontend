@@ -4,6 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import { createAuthCallbacks } from "@/lib/auth/callbacks";
 import { createAuthorizeCredentials } from "@/lib/auth/credentials";
 import { createAuthorizeClaimStudent } from "@/lib/auth/claim-credentials";
+import { createAuthorizeRegisterGuru } from "@/lib/auth/register-guru-credentials";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   trustHost: true,
@@ -25,6 +26,17 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         passwordConfirmation: { label: "Password confirmation", type: "password" },
       },
       authorize: createAuthorizeClaimStudent(),
+    }),
+    Credentials({
+      id: "register-guru",
+      credentials: {
+        name: { label: "Name" },
+        email: { label: "Email" },
+        password: { label: "Password", type: "password" },
+        passwordConfirmation: { label: "Password confirmation", type: "password" },
+        schoolId: { label: "School ID" },
+      },
+      authorize: createAuthorizeRegisterGuru(),
     }),
   ],
   callbacks: createAuthCallbacks(),
