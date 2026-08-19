@@ -32,6 +32,7 @@ export const GURU_NAV_ITEMS: NavItem[] = [
 
 export const SUPERADMIN_NAV_ITEMS: NavItem[] = [
   { href: "/superadmin", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/superadmin/schools", label: "Sekolah", icon: School },
 ];
 
 export interface SidebarNavProps {

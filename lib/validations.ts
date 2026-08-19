@@ -36,6 +36,11 @@ export const createClassSchema = z.object({
 });
 export type CreateClassFormValues = z.infer<typeof createClassSchema>;
 
+export const createSchoolSchema = z.object({
+  name: z.string().min(1, "Nama sekolah wajib diisi").max(255, "Nama sekolah maksimal 255 karakter"),
+});
+export type CreateSchoolFormValues = z.infer<typeof createSchoolSchema>;
+
 const ACCEPTED_IMPORT_TYPES = [
   "text/csv",
   "application/vnd.ms-excel",

@@ -9,3 +9,4 @@ export * from "./monitoring.service";
 export * from "./analytics.service";
 export * from "./physical-activity.service";
 export * from "./schools.service";
+export * from "./superadmin-schools.service";

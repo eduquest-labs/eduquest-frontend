@@ -17,6 +17,10 @@ export const pageMetadata = {
     title: "Daftar Guru",
     description: "Daftar sebagai guru dan pilih sekolah Anda.",
   },
+  superadminSchools: {
+    title: "Sekolah",
+    description: "Kelola daftar sekolah yang dapat dipilih guru saat mendaftar.",
+  },
   dashboard: {
     title: "Dashboard",
     description: siteConfig.description,

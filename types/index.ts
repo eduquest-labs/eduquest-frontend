@@ -10,3 +10,4 @@ export * from "./monitoring.types";
 export * from "./analytics.types";
 export * from "./physical-activity.types";
 export * from "./school.types";
+export * from "./superadmin-schools.types";

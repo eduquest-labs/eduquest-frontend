@@ -79,5 +79,11 @@ export const API_ENDPOINTS = {
   },
   SCHOOLS: {
     LIST: "/schools",
+    CREATE: "/schools",
+    UPDATE: (id: number) => `/schools/${id}`,
+    DELETE: (id: number) => `/schools/${id}`,
+  },
+  SUPERADMIN: {
+    SCHOOLS_ANALYTICS: "/superadmin/analytics/schools",
   },
 };
