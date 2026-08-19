@@ -68,7 +68,7 @@ export function EditClassForm({ classId, currentName, onUpdated }: EditClassForm
         isDisabled={updateClass.isPending}
       >
         <Label>Nama Kelas</Label>
-        <Input fullWidth placeholder="Contoh: SMA Negeri 1 Bandung" />
+        <Input fullWidth placeholder="Contoh: XI IPA 1" />
         {fieldErrors.name ? <FieldError>{fieldErrors.name}</FieldError> : null}
       </TextField>
 

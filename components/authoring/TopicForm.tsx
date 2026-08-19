@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import { isAxiosError } from "axios";
-import { Alert, Button, FieldError, Form, Input, Label, TextField } from "@heroui/react";
+import { Info } from "lucide-react";
+import { Alert, Button, FieldError, Form, Input, Label, TextField, Tooltip } from "@heroui/react";
 
 import { firstZodFieldErrors, topicFormSchema } from "@/lib/authoring-validations";
 import type { Topic, TopicInput } from "@/types";
@@ -57,7 +58,25 @@ export function TopicForm({ topic, isPending, onSubmit }: TopicFormProps) {
         {errors.name ? <FieldError>{errors.name}</FieldError> : null}
       </TextField>
       <TextField isInvalid={Boolean(errors.sortOrder)} isDisabled={isPending} value={values.sortOrder} onChange={(value) => setValues((old) => ({ ...old, sortOrder: value }))}>
-        <Label>Urutan</Label>
+        <div className="flex items-center gap-1.5">
+          <Label>Urutan</Label>
+          <Tooltip delay={0}>
+            <Tooltip.Trigger aria-label="Keterangan urutan topic">
+              <Info size={14} className="text-slate-400" />
+            </Tooltip.Trigger>
+            <Tooltip.Content showArrow className="max-w-72 bg-black text-white shadow-md dark:bg-white dark:text-black">
+              <Tooltip.Arrow>
+                <svg viewBox="0 0 12 12" width="12" height="12" xmlns="http://www.w3.org/2000/svg">
+                  <path
+                    d="M0 0C5.48483 8 6.5 8 12 0Z"
+                    className="fill-black dark:fill-white"
+                  />
+                </svg>
+              </Tooltip.Arrow>
+              <p>Menentukan posisi topic dalam daftar. Angka lebih kecil tampil lebih dulu.</p>
+            </Tooltip.Content>
+          </Tooltip>
+        </div>
         <Input type="number" min={0} />
         {errors.sortOrder ? <FieldError>{errors.sortOrder}</FieldError> : null}
       </TextField>

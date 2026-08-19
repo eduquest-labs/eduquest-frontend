@@ -2,7 +2,14 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { LucideIcon } from "lucide-react";
+import {
+  LayoutDashboard,
+  School,
+  BookOpen,
+  BarChart3,
+  ClipboardCheck,
+  type LucideIcon,
+} from "lucide-react";
 
 import { cn } from "@/lib/utils";
 import { siteConfig } from "@/config/site.config";
@@ -12,6 +19,20 @@ export interface NavItem {
   label: string;
   icon: LucideIcon;
 }
+
+// Defined here (a client module) rather than in the server layout files that
+// consume them — icon components aren't serializable across the RSC boundary.
+export const GURU_NAV_ITEMS: NavItem[] = [
+  { href: "/guru", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/guru/kelas", label: "Kelas", icon: School },
+  { href: "/guru/authoring", label: "Authoring", icon: BookOpen },
+  { href: "/guru/analytics", label: "Analitik", icon: BarChart3 },
+  { href: "/guru/grading", label: "Penilaian Esai", icon: ClipboardCheck },
+];
+
+export const SUPERADMIN_NAV_ITEMS: NavItem[] = [
+  { href: "/superadmin", label: "Dashboard", icon: LayoutDashboard },
+];
 
 export interface SidebarNavProps {
   navItems: NavItem[];
@@ -24,8 +45,10 @@ export function SidebarNav({ navItems, onNavigate }: SidebarNavProps) {
   return (
     <nav className="flex flex-col gap-1">
       {navItems.map((item) => {
-        const isActive =
-          pathname === item.href || (item.href !== "/" && pathname.startsWith(`${item.href}/`));
+        const isDashboardRoot = navItems[0]?.href === item.href;
+        const isActive = isDashboardRoot
+          ? pathname === item.href
+          : pathname === item.href || pathname.startsWith(`${item.href}/`);
 
         return (
           <Link
