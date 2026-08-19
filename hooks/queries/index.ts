@@ -11,3 +11,4 @@ export * from "./usePhysicalActivity";
 export * from "./useAuth";
 export * from "./useSchools";
 export * from "./useSuperadminSchools";
+export * from "./useSuperadminGuru";

@@ -41,6 +41,17 @@ export const createSchoolSchema = z.object({
 });
 export type CreateSchoolFormValues = z.infer<typeof createSchoolSchema>;
 
+export const reactivateGuruSchema = z
+  .object({
+    password: z.string().min(8, "Kata sandi minimal 8 karakter"),
+    passwordConfirmation: z.string().min(1, "Konfirmasi kata sandi wajib diisi"),
+  })
+  .refine((value) => value.password === value.passwordConfirmation, {
+    message: "Konfirmasi kata sandi tidak cocok",
+    path: ["passwordConfirmation"],
+  });
+export type ReactivateGuruFormValues = z.infer<typeof reactivateGuruSchema>;
+
 const ACCEPTED_IMPORT_TYPES = [
   "text/csv",
   "application/vnd.ms-excel",

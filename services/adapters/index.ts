@@ -9,3 +9,4 @@ export * from "./analytics.adapter";
 export * from "./physical-activity.adapter";
 export * from "./schools.adapter";
 export * from "./superadmin-schools.adapter";
+export * from "./superadmin-guru.adapter";

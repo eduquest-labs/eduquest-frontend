@@ -8,6 +8,7 @@ import {
   BookOpen,
   BarChart3,
   ClipboardCheck,
+  Users,
   type LucideIcon,
 } from "lucide-react";
 
@@ -33,6 +34,7 @@ export const GURU_NAV_ITEMS: NavItem[] = [
 export const SUPERADMIN_NAV_ITEMS: NavItem[] = [
   { href: "/superadmin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/superadmin/schools", label: "Sekolah", icon: School },
+  { href: "/superadmin/guru", label: "Guru", icon: Users },
 ];
 
 export interface SidebarNavProps {
