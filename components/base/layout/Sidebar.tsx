@@ -35,6 +35,7 @@ export const SUPERADMIN_NAV_ITEMS: NavItem[] = [
   { href: "/superadmin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/superadmin/schools", label: "Sekolah", icon: School },
   { href: "/superadmin/guru", label: "Guru", icon: Users },
+  { href: "/superadmin/analytics", label: "Analitik", icon: BarChart3 },
 ];
 
 export interface SidebarNavProps {

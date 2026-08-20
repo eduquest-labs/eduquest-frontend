@@ -16,7 +16,7 @@ import { TrendingUp } from "lucide-react";
 import { useClassStudents, useProgressChart } from "@/hooks/queries";
 import type { ClassComparison } from "@/types";
 
-import { EChart } from "./EChart";
+import { EChart } from "@/components/base/shared/EChart";
 
 type ProgressChartProps = {
   classes: Array<Pick<ClassComparison, "classId" | "className">>;

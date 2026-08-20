@@ -25,6 +25,11 @@ export const pageMetadata = {
     title: "Guru",
     description: "Kelola akun guru lintas sekolah.",
   },
+  superadminAnalytics: {
+    title: "Analitik Sekolah",
+    description:
+      "Bandingkan rata-rata dan distribusi skor mentah final antar sekolah.",
+  },
   dashboard: {
     title: "Dashboard",
     description: siteConfig.description,

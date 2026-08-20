@@ -4,20 +4,20 @@ import { useMemo } from "react";
 import { Card } from "@heroui/react";
 import type { EChartsCoreOption } from "echarts/core";
 
-import type { ClassComparison } from "@/types";
+import type { SchoolComparison } from "@/types";
 
 import { EChart } from "@/components/base/shared/EChart";
 
-type AverageScoreChartProps = {
-  comparisons: ClassComparison[];
+type SchoolAverageScoreChartProps = {
+  comparisons: SchoolComparison[];
 };
 
 const SCORE_COLOR = "#0f766e";
 const EMPTY_COLOR = "#cbd5e1";
 
-export function AverageScoreChart({
+export function SchoolAverageScoreChart({
   comparisons,
-}: AverageScoreChartProps) {
+}: SchoolAverageScoreChartProps) {
   const option = useMemo<EChartsCoreOption>(() => {
     const maximumAverage = Math.max(
       1,
@@ -29,7 +29,7 @@ export function AverageScoreChart({
       aria: {
         enabled: true,
         description:
-          "Grafik batang horizontal rata-rata skor mentah final per kelas atau sekolah.",
+          "Grafik batang horizontal rata-rata skor mentah final per sekolah.",
       },
       grid: {
         left: 8,
@@ -51,7 +51,7 @@ export function AverageScoreChart({
       yAxis: {
         type: "category",
         inverse: true,
-        data: comparisons.map((comparison) => comparison.className),
+        data: comparisons.map((comparison) => comparison.schoolName),
         axisTick: { show: false },
         axisLine: { show: false },
         axisLabel: {
@@ -101,7 +101,7 @@ export function AverageScoreChart({
       </Card.Header>
       <Card.Content className="min-w-0 overflow-hidden">
         <EChart
-          ariaLabel="Perbandingan rata-rata skor mentah final per kelas"
+          ariaLabel="Perbandingan rata-rata skor mentah final per sekolah"
           height={Math.max(280, comparisons.length * 58)}
           option={option}
         />

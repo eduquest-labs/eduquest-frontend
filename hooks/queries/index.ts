@@ -12,3 +12,4 @@ export * from "./useAuth";
 export * from "./useSchools";
 export * from "./useSuperadminSchools";
 export * from "./useSuperadminGuru";
+export * from "./useSuperadminAnalytics";

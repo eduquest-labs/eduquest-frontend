@@ -12,3 +12,4 @@ export * from "./physical-activity.types";
 export * from "./school.types";
 export * from "./superadmin-schools.types";
 export * from "./superadmin-guru.types";
+export * from "./superadmin-analytics.types";

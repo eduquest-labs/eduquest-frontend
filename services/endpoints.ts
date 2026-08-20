@@ -85,6 +85,7 @@ export const API_ENDPOINTS = {
   },
   SUPERADMIN: {
     SCHOOLS_ANALYTICS: "/superadmin/analytics/schools",
+    SCHOOLS_COMPARISON: "/superadmin/analytics/schools-comparison",
     GURU_LIST: "/guru",
     GURU_ANALYTICS: "/superadmin/analytics/guru",
     GURU_UPDATE: (id: number) => `/guru/${id}`,

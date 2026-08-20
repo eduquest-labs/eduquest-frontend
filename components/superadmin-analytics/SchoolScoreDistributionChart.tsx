@@ -4,30 +4,30 @@ import { useMemo } from "react";
 import { Card } from "@heroui/react";
 import type { EChartsCoreOption } from "echarts/core";
 
-import type { ClassComparison } from "@/types";
+import type { SchoolComparison } from "@/types";
 
 import { EChart } from "@/components/base/shared/EChart";
 
-type ScoreDistributionChartProps = {
-  comparisons: ClassComparison[];
+type SchoolScoreDistributionChartProps = {
+  comparisons: SchoolComparison[];
 };
 
-export function ScoreDistributionChart({
+export function SchoolScoreDistributionChart({
   comparisons,
-}: ScoreDistributionChartProps) {
+}: SchoolScoreDistributionChartProps) {
   const option = useMemo<EChartsCoreOption>(() => {
     const maximumScore = Math.max(
       1,
       ...comparisons.map((comparison) => comparison.maximumScore ?? 0)
     );
-    const categories = comparisons.map((comparison) => comparison.className);
+    const categories = comparisons.map((comparison) => comparison.schoolName);
 
     return {
       animationDuration: 400,
       aria: {
         enabled: true,
         description:
-          "Grafik rentang skor mentah minimum sampai maksimum dengan penanda median per kelas atau sekolah.",
+          "Grafik rentang skor mentah minimum sampai maksimum dengan penanda median per sekolah.",
       },
       grid: {
         left: 8,
@@ -98,7 +98,7 @@ export function ScoreDistributionChart({
             .filter((comparison) => comparison.medianScore !== null)
             .map((comparison) => [
               comparison.medianScore,
-              comparison.className,
+              comparison.schoolName,
             ]),
         },
       ],
@@ -117,7 +117,7 @@ export function ScoreDistributionChart({
       </Card.Header>
       <Card.Content className="min-w-0 overflow-hidden">
         <EChart
-          ariaLabel="Distribusi minimum, maksimum, dan median skor mentah final per kelas"
+          ariaLabel="Distribusi minimum, maksimum, dan median skor mentah final per sekolah"
           height={Math.max(280, comparisons.length * 58)}
           option={option}
         />
