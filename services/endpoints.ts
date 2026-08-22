@@ -92,4 +92,20 @@ export const API_ENDPOINTS = {
     GURU_DEACTIVATE: (id: number) => `/guru/${id}`,
     GURU_REACTIVATE: (id: number) => `/guru/${id}/reactivate`,
   },
+  TERM: {
+    LIST: (classId: number) => `/classes/${classId}/terms`,
+    CREATE: (classId: number) => `/classes/${classId}/terms`,
+    UPDATE: (termId: number) => `/terms/${termId}`,
+    THRESHOLD_HISTORY: (termId: number) => `/terms/${termId}/threshold-history`,
+    PROGRESS: (termId: number) => `/terms/${termId}/progress`,
+    OVERRIDE: (termId: number, classStudentId: number) =>
+      `/terms/${termId}/students/${classStudentId}/override`,
+    MY_TERMS: "/students/me/terms",
+  },
+  CHALLENGE_GROUP: {
+    LIST: (challengeId: number) => `/challenges/${challengeId}/groups`,
+    CREATE: (challengeId: number) => `/challenges/${challengeId}/groups`,
+    GRADE: (groupId: number) => `/challenge-groups/${groupId}/grade`,
+    DELETE: (groupId: number) => `/challenge-groups/${groupId}`,
+  },
 };

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { isAxiosError } from "axios";
-import { Alert, Button, FieldError, Form, Input, Label, TextArea, TextField } from "@heroui/react";
+import { Alert, Button, FieldError, Form, Input, Label, Switch, TextArea, TextField } from "@heroui/react";
 
 import {
   challengeFormSchema,
@@ -22,6 +22,7 @@ export function ChallengeForm({ challenge, isPending, onSubmit }: ChallengeFormP
     title: challenge?.title ?? "",
     description: challenge?.description ?? "",
     type: challenge?.type ?? ("kuis" as ChallengeType),
+    isGroupChallenge: challenge?.isGroupChallenge ?? false,
     pointsReward: String(challenge?.pointsReward ?? 0),
     startTime: toDateTimeLocal(challenge?.startTime ?? null),
     endTime: toDateTimeLocal(challenge?.endTime ?? null),
@@ -48,6 +49,7 @@ export function ChallengeForm({ challenge, isPending, onSubmit }: ChallengeFormP
           title: apiErrors.title?.[0],
           description: apiErrors.description?.[0],
           type: apiErrors.type?.[0],
+          isGroupChallenge: apiErrors.is_group_challenge?.[0],
           pointsReward: apiErrors.points_reward?.[0],
           startTime: apiErrors.start_time?.[0],
           endTime: apiErrors.end_time?.[0],
@@ -87,6 +89,18 @@ export function ChallengeForm({ challenge, isPending, onSubmit }: ChallengeFormP
         </select>
         {errors.type ? <span className="text-xs text-danger">{errors.type}</span> : null}
       </label>
+      {values.type === "kuis" ? (
+        <Switch
+          isSelected={values.isGroupChallenge}
+          isDisabled={isPending}
+          onChange={(isSelected) => setValues((old) => ({ ...old, isGroupChallenge: isSelected }))}
+        >
+          <Switch.Content>
+            <Switch.Control><Switch.Thumb /></Switch.Control>
+            Challenge kelompok
+          </Switch.Content>
+        </Switch>
+      ) : null}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <TextField isInvalid={Boolean(errors.pointsReward)} isDisabled={isPending} value={values.pointsReward} onChange={(value) => setValues((old) => ({ ...old, pointsReward: value }))}>
           <Label>Reward poin</Label>

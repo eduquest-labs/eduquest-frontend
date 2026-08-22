@@ -8,9 +8,12 @@ export interface StudentChallenge {
   className: string;
   topicId: number;
   topicName: string;
+  termId: number | null;
   title: string;
   description: string | null;
   type: ChallengeType;
+  isGroupChallenge: boolean;
+  groupScore: number | null;
   pointsReward: number;
   startTime: string | null;
   endTime: string | null;

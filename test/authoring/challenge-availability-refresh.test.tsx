@@ -16,6 +16,7 @@ function challenge(
     title: "Kuis",
     description: null,
     type: "kuis",
+    isGroupChallenge: false,
     pointsReward: 10,
     startTime,
     endTime,

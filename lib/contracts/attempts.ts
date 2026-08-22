@@ -7,9 +7,12 @@ export interface StudentChallengeContract {
   class_name: string;
   topic_id: number;
   topic_name: string;
+  term_id: number | null;
   title: string;
   description: string | null;
   type: ChallengeType;
+  is_group_challenge: boolean;
+  group_score: string | null;
   points_reward: number;
   start_time: string | null;
   end_time: string | null;

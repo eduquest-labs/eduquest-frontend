@@ -43,15 +43,38 @@ export function toDateTimeLocal(value: string | null): string {
 export const topicFormSchema = z.object({
   name: z.string().trim().min(1, "Nama topic wajib diisi").max(150, "Nama topic maksimal 150 karakter"),
   sortOrder: nonNegativeInteger("Urutan"),
+  termId: z.number().nullable(),
 });
 
 export type TopicFormInput = z.input<typeof topicFormSchema>;
+
+export const termFormSchema = z
+  .object({
+    name: z.string().trim().min(1, "Nama termin wajib diisi").max(150, "Nama termin maksimal 150 karakter"),
+    sortOrder: nonNegativeInteger("Urutan"),
+    thresholdPercent: z
+      .string()
+      .trim()
+      .min(1, "Threshold wajib diisi")
+      .refine((value) => !Number.isNaN(Number(value)), "Threshold harus berupa angka")
+      .refine((value) => Number(value) >= 0 && Number(value) <= 100, "Threshold harus antara 0-100")
+      .transform(Number),
+    releaseAt: z.string(),
+    randomizeQuestions: z.boolean(),
+  })
+  .transform((value) => ({
+    ...value,
+    releaseAt: serializeLocalDateTime(value.releaseAt),
+  }));
+
+export type TermFormInput = z.input<typeof termFormSchema>;
 
 export const challengeFormSchema = z
   .object({
     title: z.string().trim().min(1, "Judul wajib diisi").max(200, "Judul maksimal 200 karakter"),
     description: z.string().trim().max(5000, "Deskripsi terlalu panjang"),
     type: z.enum(["kuis", "aktivitas_fisik"]),
+    isGroupChallenge: z.boolean(),
     pointsReward: nonNegativeInteger("Reward poin"),
     startTime: z.string(),
     endTime: z.string(),

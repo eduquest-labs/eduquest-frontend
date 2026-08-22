@@ -42,12 +42,12 @@ describe("authoring validation", () => {
 
   it("menolak jadwal selesai sebelum mulai dan menserialisasi waktu lokal", () => {
     const invalid = challengeFormSchema.safeParse({
-      title: "Kuis", description: "", type: "kuis", pointsReward: "0",
+      title: "Kuis", description: "", type: "kuis", isGroupChallenge: false, pointsReward: "0",
       startTime: "2026-07-20T10:00", endTime: "2026-07-20T09:00", timerSeconds: "",
     });
     expect(invalid.success).toBe(false);
     const valid = challengeFormSchema.safeParse({
-      title: "Kuis", description: "", type: "kuis", pointsReward: "0",
+      title: "Kuis", description: "", type: "kuis", isGroupChallenge: false, pointsReward: "0",
       startTime: "2026-07-20T08:00", endTime: "2026-07-20T10:00", timerSeconds: "600",
     });
     expect(valid.success && valid.data.startTime).toBe("2026-07-20T08:00:00+07:00");

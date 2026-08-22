@@ -12,3 +12,5 @@ export * from "./schools.service";
 export * from "./superadmin-schools.service";
 export * from "./superadmin-guru.service";
 export * from "./superadmin-analytics.service";
+export * from "./term.service";
+export * from "./challenge-group.service";

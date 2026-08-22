@@ -42,7 +42,7 @@ export function TopicSection({ classId, topic, classes }: TopicSectionProps) {
       <ChallengeList classId={classId} topic={topic} classes={classes} enabled={expanded} />
 
       <Modal.Backdrop isOpen={editOverlay.isOpen} onOpenChange={editOverlay.setOpen}>
-        <Modal.Container><Modal.Dialog className="sm:max-w-110"><Modal.CloseTrigger /><Modal.Header><Modal.Heading>Edit topic</Modal.Heading></Modal.Header><Modal.Body><TopicForm topic={topic} isPending={updateTopic.isPending} onSubmit={async (input) => { await updateTopic.mutateAsync({ topicId: topic.id, input }); editOverlay.close(); toast.success("Topic berhasil diperbarui."); }} /></Modal.Body></Modal.Dialog></Modal.Container>
+        <Modal.Container><Modal.Dialog className="sm:max-w-110"><Modal.CloseTrigger /><Modal.Header><Modal.Heading>Edit topic</Modal.Heading></Modal.Header><Modal.Body><TopicForm classId={classId} topic={topic} isPending={updateTopic.isPending} onSubmit={async (input) => { await updateTopic.mutateAsync({ topicId: topic.id, input }); editOverlay.close(); toast.success("Topic berhasil diperbarui."); }} /></Modal.Body></Modal.Dialog></Modal.Container>
       </Modal.Backdrop>
 
       <AlertDialog.Backdrop isOpen={confirmDelete} onOpenChange={setConfirmDelete}>

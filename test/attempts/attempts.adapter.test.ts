@@ -5,8 +5,8 @@ import { adaptAttempt, adaptAttemptHistoryPage, adaptStudentChallenge } from "@/
 describe("attempt adapters", () => {
   it("mengadaptasi discovery challenge ke camelCase", () => {
     expect(adaptStudentChallenge({
-      id: 1, class_id: 2, class_name: "Kelas A", topic_id: 3, topic_name: "Topik",
-      title: "Kuis", description: null, type: "kuis", points_reward: 100,
+      id: 1, class_id: 2, class_name: "Kelas A", topic_id: 3, topic_name: "Topik", term_id: null,
+      title: "Kuis", description: null, type: "kuis", is_group_challenge: false, group_score: null, points_reward: 100,
       start_time: null, end_time: null, timer_seconds: 600, availability_status: "active",
     })).toMatchObject({ id: 1, classId: 2, topicId: 3, pointsReward: 100, timerSeconds: 600 });
   });

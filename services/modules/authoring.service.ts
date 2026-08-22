@@ -23,6 +23,7 @@ function topicPayload(input: Partial<TopicInput>) {
   return {
     ...(input.name !== undefined ? { name: input.name } : {}),
     ...(input.sortOrder !== undefined ? { sort_order: input.sortOrder } : {}),
+    ...(input.termId !== undefined ? { term_id: input.termId } : {}),
   };
 }
 
@@ -31,6 +32,7 @@ function challengePayload(input: Partial<ChallengeInput>) {
     ...(input.title !== undefined ? { title: input.title } : {}),
     ...(input.description !== undefined ? { description: input.description } : {}),
     ...(input.type !== undefined ? { type: input.type } : {}),
+    ...(input.isGroupChallenge !== undefined ? { is_group_challenge: input.isGroupChallenge } : {}),
     ...(input.pointsReward !== undefined ? { points_reward: input.pointsReward } : {}),
     ...(input.startTime !== undefined ? { start_time: input.startTime } : {}),
     ...(input.endTime !== undefined ? { end_time: input.endTime } : {}),

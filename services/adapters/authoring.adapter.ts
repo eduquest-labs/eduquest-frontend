@@ -11,6 +11,7 @@ export function adaptTopic(contract: TopicContract): Topic {
   return {
     id: contract.id,
     classId: contract.class_id,
+    termId: contract.term_id,
     name: contract.name,
     sortOrder: contract.sort_order,
     createdAt: contract.created_at,
@@ -25,6 +26,7 @@ export function adaptChallenge(contract: ChallengeContract): Challenge {
     title: contract.title,
     description: contract.description,
     type: contract.type,
+    isGroupChallenge: contract.is_group_challenge,
     pointsReward: contract.points_reward,
     startTime: contract.start_time,
     endTime: contract.end_time,

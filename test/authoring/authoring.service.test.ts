@@ -24,13 +24,13 @@ describe("authoring service", () => {
       expect(body).toMatchObject({ points_reward: 100, timer_seconds: 600, start_time: "2026-07-20 08:00:00" });
       expect(body).not.toHaveProperty("pointsReward");
       return HttpResponse.json({
-        id: 3, topic_id: 2, title: "Kuis", description: null, type: "kuis",
+        id: 3, topic_id: 2, title: "Kuis", description: null, type: "kuis", is_group_challenge: false,
         points_reward: 100, start_time: "2026-07-20 08:00:00", end_time: null,
         timer_seconds: 600, is_published: false, availability_status: "draft", created_at: "a", updated_at: "a",
       }, { status: 201 });
     }));
     const challenge = await createChallenge(2, {
-      title: "Kuis", description: null, type: "kuis", pointsReward: 100,
+      title: "Kuis", description: null, type: "kuis", isGroupChallenge: false, pointsReward: 100,
       startTime: "2026-07-20 08:00:00", endTime: null, timerSeconds: 600,
     });
     expect(challenge).toMatchObject({ topicId: 2, pointsReward: 100, isPublished: false });

@@ -5,15 +5,15 @@ import { adaptChallenge, adaptDuplicatedChallenge, adaptQuestion, adaptTopic } f
 describe("authoring adapters", () => {
   it("mengubah kontrak topic dan challenge menjadi camelCase", () => {
     expect(adaptTopic({
-      id: 1, class_id: 2, name: "Pertemuan 1", sort_order: 3,
+      id: 1, class_id: 2, term_id: null, name: "Pertemuan 1", sort_order: 3,
       created_at: "2026-07-13", updated_at: "2026-07-14",
     })).toEqual({
-      id: 1, classId: 2, name: "Pertemuan 1", sortOrder: 3,
+      id: 1, classId: 2, termId: null, name: "Pertemuan 1", sortOrder: 3,
       createdAt: "2026-07-13", updatedAt: "2026-07-14",
     });
 
     expect(adaptChallenge({
-      id: 4, topic_id: 1, title: "Kuis", description: null, type: "kuis",
+      id: 4, topic_id: 1, title: "Kuis", description: null, type: "kuis", is_group_challenge: false,
       points_reward: 100, start_time: null, end_time: null, timer_seconds: 600,
       is_published: false, availability_status: "draft", created_at: "a", updated_at: "b",
     })).toMatchObject({ id: 4, topicId: 1, pointsReward: 100, timerSeconds: 600, isPublished: false, availabilityStatus: "draft" });
@@ -31,7 +31,7 @@ describe("authoring adapters", () => {
 
   it("menerima question duplicate tanpa timestamp", () => {
     const duplicate = adaptDuplicatedChallenge({
-      id: 10, topic_id: 7, title: "Kuis", description: null, type: "kuis",
+      id: 10, topic_id: 7, title: "Kuis", description: null, type: "kuis", is_group_challenge: false,
       points_reward: 0, start_time: null, end_time: null, timer_seconds: null,
       is_published: false, availability_status: "draft", created_at: "a", updated_at: "b",
       questions: [{

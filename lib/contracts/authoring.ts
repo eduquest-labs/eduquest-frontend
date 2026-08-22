@@ -3,6 +3,7 @@ import type { ChallengeAvailability, ChallengeType, QuestionType } from "@/types
 export interface TopicContract {
   id: number;
   class_id: number;
+  term_id: number | null;
   name: string;
   sort_order: number;
   created_at: string;
@@ -15,6 +16,7 @@ export interface ChallengeContract {
   title: string;
   description: string | null;
   type: ChallengeType;
+  is_group_challenge: boolean;
   points_reward: number;
   start_time: string | null;
   end_time: string | null;

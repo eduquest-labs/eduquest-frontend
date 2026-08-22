@@ -18,7 +18,7 @@ describe("authoring mutation cache", () => {
 
   it("menginvalidasi challenge pada target topic setelah duplicate", async () => {
     vi.mocked(authoringService.duplicateChallenge).mockResolvedValue({
-      id: 20, topicId: 8, title: "Salinan", description: null, type: "kuis",
+      id: 20, topicId: 8, title: "Salinan", description: null, type: "kuis", isGroupChallenge: false,
       pointsReward: 0, startTime: null, endTime: null, timerSeconds: null,
       isPublished: false, availabilityStatus: "draft", createdAt: "a", updatedAt: "a", questions: [],
     });

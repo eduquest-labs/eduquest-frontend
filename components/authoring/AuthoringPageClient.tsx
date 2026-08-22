@@ -5,10 +5,13 @@ import { useRouter } from "next/navigation";
 import { BookOpen, Plus } from "lucide-react";
 import { Alert, Button, Modal, Skeleton, toast, useOverlayState } from "@heroui/react";
 
-import { useCreateTopic } from "@/hooks/mutations";
-import { useClasses, useTopics } from "@/hooks/queries";
+import { useCreateTerm, useCreateTopic } from "@/hooks/mutations";
+import { useClasses, useTerms, useTopics } from "@/hooks/queries";
+import { TermForm } from "@/components/term";
+import { TermSection } from "@/components/authoring/TermSection";
 import { TopicForm } from "@/components/authoring/TopicForm";
 import { TopicSection } from "@/components/authoring/TopicSection";
+import type { Topic } from "@/types";
 
 const LAST_CLASS_KEY = "eduquest:authoring:last-class";
 
@@ -23,8 +26,21 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
   const validClassIds = useMemo(() => new Set(classes.data?.map((item) => item.id) ?? []), [classes.data]);
   const selectedClassId = classId !== null && validClassIds.has(classId) ? classId : null;
   const topics = useTopics(selectedClassId ?? 0, selectedClassId !== null);
-  const createOverlay = useOverlayState();
+  const terms = useTerms(selectedClassId ?? 0, selectedClassId !== null);
+  const createTopicOverlay = useOverlayState();
+  const createTermOverlay = useOverlayState();
   const createTopic = useCreateTopic(selectedClassId ?? 0);
+  const createTerm = useCreateTerm(selectedClassId ?? 0);
+
+  const topicsByTermId = useMemo(() => {
+    const grouped = new Map<number | null, Topic[]>();
+    for (const topic of topics.data ?? []) {
+      const key = topic.termId;
+      grouped.set(key, [...(grouped.get(key) ?? []), topic]);
+    }
+    return grouped;
+  }, [topics.data]);
+  const ungroupedTopics = topicsByTermId.get(null) ?? [];
 
   useEffect(() => {
     if (!classes.data?.length) return;
@@ -47,9 +63,12 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Authoring</h1>
-          <p className="mt-1 text-sm text-slate-500">Susun topic, challenge, dan soal dalam konteks kelas yang jelas.</p>
+          <p className="mt-1 text-sm text-slate-500">Susun termin, topic, challenge, dan soal dalam konteks kelas yang jelas.</p>
         </div>
-        <Button className="bg-teal-600 text-white hover:bg-teal-700" isDisabled={!selectedClassId} onPress={createOverlay.open}><Plus size={16} /> Tambah topic</Button>
+        <div className="flex gap-2">
+          <Button variant="secondary" isDisabled={!selectedClassId} onPress={createTermOverlay.open}><Plus size={16} /> Tambah termin</Button>
+          <Button className="bg-teal-600 text-white hover:bg-teal-700" isDisabled={!selectedClassId} onPress={createTopicOverlay.open}><Plus size={16} /> Tambah topic</Button>
+        </div>
       </div>
 
       {classes.isLoading ? <Skeleton className="h-20 w-full rounded-xl" /> : null}
@@ -73,9 +92,25 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
       {!topics.isLoading && !topics.isError && selectedClassId && topics.data?.length === 0 ? (
         <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-slate-200 px-6 py-16 text-center dark:border-white/10"><BookOpen size={22} className="text-slate-300" /><div><p className="font-semibold text-slate-900 dark:text-white">Belum ada topic</p><p className="mt-1 text-sm text-slate-500">Buat topic pertama untuk mulai menyusun challenge.</p></div></div>
       ) : null}
-      {selectedClassId && topics.data?.length ? <div className="flex flex-col gap-3">{topics.data.map((topic) => <TopicSection key={topic.id} classId={selectedClassId} topic={topic} classes={classes.data ?? []} />)}</div> : null}
 
-      <Modal.Backdrop isOpen={createOverlay.isOpen} onOpenChange={createOverlay.setOpen}><Modal.Container><Modal.Dialog className="sm:max-w-110"><Modal.CloseTrigger /><Modal.Header><Modal.Heading>Tambah topic</Modal.Heading></Modal.Header><Modal.Body><TopicForm isPending={createTopic.isPending} onSubmit={async (input) => { await createTopic.mutateAsync(input); createOverlay.close(); toast.success("Topic berhasil dibuat."); }} /></Modal.Body></Modal.Dialog></Modal.Container></Modal.Backdrop>
+      {selectedClassId && terms.data?.length ? (
+        <div className="flex flex-col gap-3">
+          {terms.data.map((term) => (
+            <TermSection key={term.id} classId={selectedClassId} term={term} topics={topicsByTermId.get(term.id) ?? []} classes={classes.data ?? []} />
+          ))}
+        </div>
+      ) : null}
+
+      {selectedClassId && ungroupedTopics.length > 0 ? (
+        <div className="flex flex-col gap-3">
+          <h2 className="text-sm font-semibold text-slate-500">Topic tanpa termin</h2>
+          {ungroupedTopics.map((topic) => <TopicSection key={topic.id} classId={selectedClassId} topic={topic} classes={classes.data ?? []} />)}
+        </div>
+      ) : null}
+
+      <Modal.Backdrop isOpen={createTopicOverlay.isOpen} onOpenChange={createTopicOverlay.setOpen}><Modal.Container><Modal.Dialog className="sm:max-w-110"><Modal.CloseTrigger /><Modal.Header><Modal.Heading>Tambah topic</Modal.Heading></Modal.Header><Modal.Body><TopicForm classId={selectedClassId ?? 0} isPending={createTopic.isPending} onSubmit={async (input) => { await createTopic.mutateAsync(input); createTopicOverlay.close(); toast.success("Topic berhasil dibuat."); }} /></Modal.Body></Modal.Dialog></Modal.Container></Modal.Backdrop>
+
+      <Modal.Backdrop isOpen={createTermOverlay.isOpen} onOpenChange={createTermOverlay.setOpen}><Modal.Container><Modal.Dialog className="sm:max-w-110"><Modal.CloseTrigger /><Modal.Header><Modal.Heading>Tambah termin</Modal.Heading></Modal.Header><Modal.Body><TermForm isPending={createTerm.isPending} onSubmit={async (input) => { await createTerm.mutateAsync(input); createTermOverlay.close(); toast.success("Termin berhasil dibuat."); }} /></Modal.Body></Modal.Dialog></Modal.Container></Modal.Backdrop>
     </div>
   );
 }

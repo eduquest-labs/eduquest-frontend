@@ -6,18 +6,22 @@ import { Info } from "lucide-react";
 import { Alert, Button, FieldError, Form, Input, Label, TextField, Tooltip } from "@heroui/react";
 
 import { firstZodFieldErrors, topicFormSchema } from "@/lib/authoring-validations";
+import { useTerms } from "@/hooks/queries";
 import type { Topic, TopicInput } from "@/types";
 
 export interface TopicFormProps {
+  classId: number;
   topic?: Topic;
   isPending: boolean;
   onSubmit: (input: TopicInput) => Promise<void>;
 }
 
-export function TopicForm({ topic, isPending, onSubmit }: TopicFormProps) {
+export function TopicForm({ classId, topic, isPending, onSubmit }: TopicFormProps) {
+  const terms = useTerms(classId);
   const [values, setValues] = useState({
     name: topic?.name ?? "",
     sortOrder: String(topic?.sortOrder ?? 0),
+    termId: topic?.termId ?? null,
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [formError, setFormError] = useState<string | null>(null);
@@ -80,6 +84,18 @@ export function TopicForm({ topic, isPending, onSubmit }: TopicFormProps) {
         <Input type="number" min={0} />
         {errors.sortOrder ? <FieldError>{errors.sortOrder}</FieldError> : null}
       </TextField>
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+        Termin (opsional)
+        <select
+          value={values.termId ?? ""}
+          disabled={isPending || terms.isLoading}
+          onChange={(event) => setValues((old) => ({ ...old, termId: event.target.value ? Number(event.target.value) : null }))}
+          className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm outline-none focus:border-teal-600 dark:border-white/15 dark:bg-black"
+        >
+          <option value="">Tanpa termin</option>
+          {terms.data?.map((term) => <option key={term.id} value={term.id}>{term.name}</option>)}
+        </select>
+      </label>
       <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-teal-600 text-white hover:bg-teal-700">
         {topic ? "Simpan perubahan" : "Buat topic"}
       </Button>

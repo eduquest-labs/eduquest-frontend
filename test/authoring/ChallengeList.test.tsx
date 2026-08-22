@@ -35,7 +35,7 @@ describe("ChallengeList", () => {
     renderWithProviders(
       <ChallengeList
         classId={1}
-        topic={{ id: 2, classId: 1, name: "Minggu 1", sortOrder: 0, createdAt: "a", updatedAt: "a" }}
+        topic={{ id: 2, classId: 1, termId: null, name: "Minggu 1", sortOrder: 0, createdAt: "a", updatedAt: "a" }}
         classes={[]}
         enabled
       />

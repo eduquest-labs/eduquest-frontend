@@ -13,3 +13,5 @@ export * from "./school.types";
 export * from "./superadmin-schools.types";
 export * from "./superadmin-guru.types";
 export * from "./superadmin-analytics.types";
+export * from "./term.types";
+export * from "./challenge-group.types";

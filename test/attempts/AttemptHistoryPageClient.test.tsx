@@ -52,7 +52,8 @@ describe("AttemptHistoryPageClient", () => {
     renderWithProviders(<AttemptHistoryPageClient />);
 
     expect(await screen.findByText("Challenge histori panjang 1")).toBeInTheDocument();
-    expect(screen.getByText("80 poin")).toBeInTheDocument();
+    expect(screen.getByText("80")).toBeInTheDocument();
+    expect(screen.getByText("poin")).toBeInTheDocument();
     expect(screen.getByText("Menunggu penilaian")).toBeInTheDocument();
     expect(screen.getAllByText("Belum selesai")).toHaveLength(2);
     expect(screen.getAllByText("Belum tersedia")).toHaveLength(2);

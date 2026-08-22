@@ -5,6 +5,7 @@ export type QuestionType = "pilihan_ganda" | "isian_singkat" | "esai";
 export interface Topic {
   id: number;
   classId: number;
+  termId: number | null;
   name: string;
   sortOrder: number;
   createdAt: string;
@@ -17,6 +18,7 @@ export interface Challenge {
   title: string;
   description: string | null;
   type: ChallengeType;
+  isGroupChallenge: boolean;
   pointsReward: number;
   startTime: string | null;
   endTime: string | null;
@@ -51,12 +53,14 @@ export interface Question {
 export interface TopicInput {
   name: string;
   sortOrder: number;
+  termId: number | null;
 }
 
 export interface ChallengeInput {
   title: string;
   description: string | null;
   type: ChallengeType;
+  isGroupChallenge: boolean;
   pointsReward: number;
   startTime: string | null;
   endTime: string | null;
