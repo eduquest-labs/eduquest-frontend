@@ -6,11 +6,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What this is
 
-Frontend for **EduQuest**, a learning-gamification PWA built to support a classroom experiment at Universitas Pendidikan Indonesia (UPI). It talks to a separate Laravel API (`../eduquest-backend`, Passport OAuth2 password grant) backed by MySQL. Two roles use it: `dosen` (lecturer — full authoring/monitoring/analytics, real email+password login) and `siswa` (student). Siswa accounts are pre-registered by a dosen in bulk (CSV import of name + NIS, no password set), then each student claims their account exactly once by proving `class_code` + `nis` and setting their own password (`POST /api/claim-student`) — from then on they log in with their permanent `anonymous_id` + that password via the same `/api/login` shape dosen use. There is no self-registration endpoint. Don't design a unified auth flow — the two roles' login UX is intentionally different, even though claim and login are backed by two Auth.js Credentials providers that both normalize into the same session shape.
+Frontend for **EduQuest**, a learning-gamification PWA built to support a classroom experiment at Universitas Pendidikan Indonesia (UPI). It talks to a separate Laravel API (`../eduquest-backend`, Passport OAuth2 password grant) backed by MySQL. Three roles use it: `superadmin` (manages schools and guru accounts), `guru` (teacher — full authoring/monitoring/grading/analytics, self-registers with real email+password at `/register`), and `siswa` (student). Siswa accounts are pre-registered by a guru in bulk (Excel import of name + NISN, no password set), then each student claims their account exactly once by proving `class_code` + `nisn` and setting their own email + password (`POST /api/claim-student`) — from then on they log in with NISN (or email) + that password via the same `/api/login` shape guru/superadmin use. There is no student self-registration endpoint. Don't design a unified auth flow — the roles' login/register UX is intentionally different, even though claim and login are backed by two Auth.js Credentials providers that both normalize into the same session shape.
 
 Product/domain context (DB schema, business rules like final-submission locking and anonymized exports) lives in project memory, not in this repo. Check `PRD Project/` at the repo root (`PRD_Platform_Gamifikasi_Pembelajaran.pdf`, `schema.sql`) for authoritative requirements before building a feature.
 
-**Current state**: two feature domains are built end to end — `auth` (dosen login, siswa claim-student flow) and `kelas` (dosen creates a class, views its class_code, imports students via CSV, views the student roster), with a dosen dashboard shell (sidebar/topbar) wrapping the `(dosen)` route group. The conventions below are the target architecture for everything built from here — `kelas` is the most complete reference for the full layered pipeline (types → contracts → endpoints → adapters → services → hooks → components → routes).
+**Current state**: all three roles have working end-to-end route groups — `(auth)` (login, guru self-register, siswa claim-student), `(guru)` (dashboard, `kelas` create/CSV-import/roster, `authoring` for topics/terms/challenges/questions, `grading` for essay review, `monitoring`, `analytics`), `(siswa)` (challenge dashboard with points/badges/leaderboard, challenge detail + answer flow, GPS-tracked physical-activity challenges, result page, `riwayat`, `profil`), and `(superadmin)` (dashboard, `schools` CRUD, `guru` management, `analytics`), plus a `(marketing)` landing page at `/`. `kelas` was the first domain built and remains the cleanest reference for the full layered pipeline (types → contracts → endpoints → adapters → services → hooks → components → routes) — see `services/modules/` and `services/adapters/` for the full list of domains now following that pattern (attempts, authoring, physical-activity, points, leaderboard, monitoring, analytics, term, challenge-group, superadmin-*, schools, dashboard).
 
 ## Commands
 
@@ -46,31 +46,57 @@ app/
 ├── layout.tsx            # root layout: fonts, metadata, Providers wrapper
 ├── providers.tsx         # client: SessionProvider + ThemeProvider + QueryProvider + SessionSyncer
 ├── globals.css           # Tailwind @theme, HeroUI import, CSS tokens
-├── page.tsx              # not yet replaced with real routes/route groups
-├── (auth)/               # public — login + one-time student claim
+├── (marketing)/          # public landing page at `/`
+├── (auth)/               # public — login, guru self-register, one-time student claim
 │   ├── login/page.tsx
+│   ├── register/page.tsx # guru self-registration (school picker)
 │   └── claim/{page.tsx, ClaimPageContent.tsx}
-├── (dosen)/              # dosen-only, role-guarded in layout.tsx, wrapped in DashboardShell
+├── (guru)/               # guru-only, role-guarded in layout.tsx, wrapped in DashboardShell
 │   ├── layout.tsx
-│   └── dosen/
-│       ├── page.tsx      # dashboard landing (welcome + quick-links)
-│       └── kelas/
-│           ├── page.tsx      # class list (create-class modal, ClassList grid)
-│           └── [id]/page.tsx # class detail (class_code reveal, CSV import, student roster)
+│   └── guru/
+│       ├── page.tsx          # dashboard (class summary, quick links)
+│       ├── kelas/             # class list + detail (class_code, CSV/Excel import, roster)
+│       ├── authoring/         # terms → topics → challenges → questions, nested challenge editor
+│       ├── grading/           # essay grading queue + detail
+│       ├── monitoring/        # live attempt/submission monitoring
+│       └── analytics/         # class comparison, score distribution, progress-over-time
 ├── (siswa)/              # siswa-only, role-guarded in layout.tsx
 │   ├── layout.tsx
-│   └── siswa/page.tsx    # placeholder landing
+│   └── siswa/
+│       ├── page.tsx                          # challenge dashboard (points/badges/leaderboard/progress)
+│       ├── challenges/[challengeId]/
+│       │   ├── page.tsx                      # answer a kuis (all questions on one page)
+│       │   ├── physical-activity/page.tsx    # GPS-tracked activity recording ("EduQuest Move")
+│       │   └── result/page.tsx               # locked-attempt result view
+│       ├── riwayat/page.tsx                  # attempt history
+│       └── profil/page.tsx                   # profile + email verification
+├── (superadmin)/         # superadmin-only, role-guarded in layout.tsx
+│   ├── layout.tsx
+│   └── superadmin/
+│       ├── page.tsx      # dashboard
+│       ├── schools/      # school CRUD
+│       ├── guru/         # guru management (filter/edit/deactivate/reactivate)
+│       └── analytics/
 └── api/auth/[...nextauth]/route.ts   # re-exports Auth.js handlers
 auth.ts                   # root: NextAuth({...}) — exports handlers/auth/signIn/signOut
 components/
-├── auth/                 # LoginForm, ClaimStudentForm, AnonymousIdReveal
+├── auth/                 # LoginForm, RegisterGuruForm, ClaimStudentForm
 ├── base/
-│   ├── layout/           # DashboardShell, Sidebar, Topbar (dosen dashboard chrome), SessionSyncer.tsx
-│   ├── shared/           # generic cross-domain components (not yet created)
-│   └── icons/            # SVG icon components + AppLogo (not yet created)
+│   ├── layout/           # DashboardShell, Sidebar, Topbar, SessionSyncer.tsx
+│   ├── shared/           # generic cross-domain components
+│   └── icons/            # SVG icon components + AppLogo
 ├── kelas/                # ClassCard, ClassList, CreateClassForm, ClassCodeReveal,
 │                         # ImportStudentsForm, ClassRosterTable, KelasPageClient, KelasDetailPageClient
-└── [domain]/             # one folder per feature domain (kelas is the first non-auth example)
+├── authoring/            # term/topic/challenge/question editors, duplicate-challenge dialog
+├── attempts/             # AttemptAnswerForm, AttemptResultPageClient, challenge-taking UI
+├── physical-activity/    # GPS recording UI, route/summary display
+├── essay-grading/        # grading queue + detail views
+├── monitoring/           # live monitoring dashboards
+├── analytics/            # guru-facing analytics charts
+├── points-badges/, leaderboard/, dashboard/, student/, term/   # siswa/guru gamification & dashboard UI
+├── superadmin-schools/, superadmin-guru/, superadmin-analytics/, superadmin-dashboard/
+├── marketing/            # public landing page sections
+└── [domain]/             # one folder per feature domain — see `services/modules/` for the authoritative domain list
 config/
 ├── site.config.ts        # siteConfig, pageMetadata, buildTitle()
 └── constants.ts          # SCREAMING_SNAKE_CASE constants grouped by domain
@@ -164,12 +190,12 @@ No SSR/prefetch pattern is used here — this is a research tool for one class, 
 ## Auth & tokens
 
 - Session is managed by **Auth.js v5** (`next-auth@beta`, `auth.ts` at the repo root), backed by a JWT session cookie — not a database session, since the real source of truth is the Laravel Passport token pair, not a frontend DB.
-- Two Credentials providers, both defined in `auth.ts`: `credentials` (dosen email+password, or returning siswa `anonymous_id`+password — same `/api/login` shape) and `claim-student` (one-time `class_code`+`nis`+new password via `/api/claim-student`). Both `authorize()` implementations (`lib/auth/credentials.ts`, `lib/auth/claim-credentials.ts`) call `/api/me` once right after obtaining a token and normalize into the same user shape, so the `jwt`/`session` callbacks (`lib/auth/callbacks.ts`) don't care which provider was used.
+- Two Credentials providers, both defined in `auth.ts`: `credentials` (guru/superadmin email+password, or returning siswa NISN/email+password — same `/api/login` shape) and `claim-student` (one-time `class_code`+`nisn`+new email+password via `/api/claim-student`). Both `authorize()` implementations (`lib/auth/credentials.ts`, `lib/auth/claim-credentials.ts`) call `/api/me` once right after obtaining a token and normalize into the same user shape, so the `jwt`/`session` callbacks (`lib/auth/callbacks.ts`) don't care which provider was used.
 - Token refresh happens lazily inside the `jwt` callback: when the access token is within 60s of `accessTokenExpiry`, it calls `/api/refresh` (de-duped via an in-flight `refreshPromise` so concurrent requests don't trigger duplicate refreshes). On failure, `token.error`/`session.error` is set to `"RefreshAccessTokenError"`; `lib/auth/guards.ts`'s `requireAuth()` treats that as unauthenticated and redirects to `/login`.
 - **The refresh token never reaches the client-exposed session** — the `session` callback copies `accessToken`/`accessTokenExpiry`/`error` only. `refreshToken` stays inside the server-only JWT object used by the `jwt` callback.
 - `services/token-store.ts` is a synchronous **in-memory mirror** of the session's access token (not the source of truth — the NextAuth JWT cookie is), kept in sync by `components/base/layout/SessionSyncer.tsx` (mounted once in `app/providers.tsx`). This exists because axios interceptors are synchronous and can't `await auth()`/`getSession()`; `getTokenWithFallback()` falls back to an async `getSession()` call only on cold load (e.g. a hard refresh before `SessionSyncer`'s effect has run).
 - Server Components/Server Actions/Route Handlers read the session via `auth()` (from `@/auth`); Client Components use `useSession()` from `next-auth/react`.
-- Route protection is **server-layout-based, no `middleware.ts`**: `app/(dosen)/layout.tsx` and `app/(siswa)/layout.tsx` call `await auth()` then `requireRole(session, "dosen" | "siswa")` — a mismatched role redirects to the user's own dashboard, not a raw 403.
+- Route protection is **server-layout-based, no `middleware.ts`**: `app/(guru)/layout.tsx`, `app/(siswa)/layout.tsx`, and `app/(superadmin)/layout.tsx` call `await auth()` then `requireRole(session, "guru" | "siswa" | "superadmin")` — a mismatched role redirects to the user's own dashboard, not a raw 403.
 - Logout (`hooks/mutations/useLogout.ts`) calls Laravel's `/api/logout` to revoke the token first, then always calls Auth.js's `signOut()` in `onSettled` (not `onSuccess`) so the local session clears even if the revoke call fails.
 
 ## Component placement
@@ -254,7 +280,7 @@ Order to follow when adding a new domain (example: `quiz`; `kelas` is a real, al
 reference for this exact checklist — see `types/kelas.types.ts`, `lib/contracts/kelas.ts`,
 `services/adapters/kelas.adapter.ts`, `services/modules/kelas.service.ts`,
 `hooks/queries/useKelas.ts`, `hooks/mutations/useKelasMutations.ts`, `components/kelas/`,
-`app/(dosen)/dosen/kelas/`):
+`app/(guru)/guru/kelas/`):
 
 1. `types/quiz.types.ts` → re-export from `types/index.ts`
 2. `lib/contracts/quiz.ts` (raw API shape, snake_case)
@@ -277,7 +303,9 @@ reference for this exact checklist — see `types/kelas.types.ts`, `lib/contract
 
 ## Domain scope (v1.0)
 
-Out of scope unless explicitly requested (reserved for a later phase): push notifications, full offline-first support (PWA shell only), broadcast announcements, advanced data filtering/segmentation, file/photo upload for task evidence, student profiles/avatars, moderation of submitted evidence.
+Out of scope unless explicitly requested (reserved for a later phase): push notifications, full offline-first support (PWA shell only — GPS point recording does queue-and-sync client-side, see `physical-activity`), broadcast announcements, advanced data filtering/segmentation, student profiles/avatars, moderation of submitted evidence.
+
+Note: essay-question photo/video attachment upload (`components/attempts/`) is already built — it was in-scope after all, unlike the line above once suggested.
 
 Other rules that affect the frontend: a submitted attempt is locked server-side (`is_locked`) and cannot be edited — there is no "edit answer" UI path after submit. Real student names must never appear in research/export-facing views — those use `anonymous_id`. GPS/geolocation challenges use the browser Geolocation API directly, no third-party mapping SDK.
 

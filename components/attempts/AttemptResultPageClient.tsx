@@ -36,6 +36,11 @@ export function AttemptResultPageClient({ challengeId }: AttemptResultPageClient
 
         {attempt.questions.map((question, index) => {
           const answer = attempt.answers.find((item) => item.questionId === question.id);
+          const selectedOption = question.options.find((option) => option.id === answer?.selectedOptionId);
+          const displayedAnswer = question.questionType === "pilihan_ganda"
+            ? selectedOption?.optionText
+            : answer?.answerText;
+
           return (
             <article key={question.id} className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 dark:border-white/10 dark:bg-white/5">
               <div className="mb-4 flex items-start justify-between gap-4">
@@ -43,20 +48,24 @@ export function AttemptResultPageClient({ challengeId }: AttemptResultPageClient
                 <span className="shrink-0 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-600 dark:bg-white/10 dark:text-slate-300">{question.points} poin</span>
               </div>
 
-              <p className="text-sm text-slate-600 dark:text-slate-300">{answer?.answerText || "Tidak dijawab"}</p>
+              <p className="text-sm text-slate-600 dark:text-slate-300">{displayedAnswer || "Tidak dijawab"}</p>
 
-              {question.questionType === "esai" ? (
-                <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4 dark:border-white/10">
-                  {answer?.scoreAwarded !== null && answer?.scoreAwarded !== undefined ? (
+              <div className="mt-4 flex flex-col gap-2 border-t border-slate-100 pt-4 dark:border-white/10">
+                {question.questionType === "esai" ? (
+                  answer?.scoreAwarded !== null && answer?.scoreAwarded !== undefined ? (
                     <>
                       <Chip size="sm" color="success" variant="soft" className="w-fit">{answer.scoreAwarded} / {question.points} poin</Chip>
                       {answer.feedback ? <p className="text-sm text-slate-600 dark:text-slate-300">{answer.feedback}</p> : null}
                     </>
                   ) : (
                     <Chip size="sm" color="warning" variant="soft" className="w-fit">Menunggu penilaian</Chip>
-                  )}
-                </div>
-              ) : null}
+                  )
+                ) : answer?.scoreAwarded !== null && answer?.scoreAwarded !== undefined ? (
+                  <Chip size="sm" color={answer.isCorrect ? "success" : "danger"} variant="soft" className="w-fit">
+                    {answer.scoreAwarded} / {question.points} poin
+                  </Chip>
+                ) : null}
+              </div>
             </article>
           );
         })}
