@@ -1,4 +1,4 @@
-import { fireEvent, screen, waitFor } from "@testing-library/react";
+import { fireEvent, screen, waitFor, within } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
@@ -50,8 +50,9 @@ describe("GuruPageClient", () => {
 
     expect(await screen.findByText("Bu Sari")).toBeInTheDocument();
     expect(screen.getByText("Pak Budi")).toBeInTheDocument();
-    expect(screen.getByText("Aktif")).toBeInTheDocument();
-    expect(screen.getByText("Nonaktif")).toBeInTheDocument();
+    const table = screen.getByRole("grid", { name: "Daftar guru" });
+    expect(within(table).getByText("Aktif")).toBeInTheDocument();
+    expect(within(table).getByText("Nonaktif")).toBeInTheDocument();
   });
 
   it("deactivates an active guru after confirmation", async () => {
@@ -87,7 +88,7 @@ describe("GuruPageClient", () => {
     fireEvent.click(screen.getByRole("button", { name: /nonaktifkan/i }));
     fireEvent.click(await screen.findByRole("button", { name: "Nonaktifkan" }));
 
-    await waitFor(() => expect(screen.getAllByText("Nonaktif")).toHaveLength(2));
+    await waitFor(() => expect(within(screen.getByRole("grid", { name: "Daftar guru" })).getAllByText("Nonaktif")).toHaveLength(2));
   });
 
   it("reactivates an inactive guru via the modal form", async () => {
@@ -129,7 +130,7 @@ describe("GuruPageClient", () => {
     });
     fireEvent.click(screen.getByRole("button", { name: "Aktifkan Akun" }));
 
-    await waitFor(() => expect(screen.getAllByText("Aktif")).toHaveLength(2));
+    await waitFor(() => expect(within(screen.getByRole("grid", { name: "Daftar guru" })).getAllByText("Aktif")).toHaveLength(2));
   });
 
   it(

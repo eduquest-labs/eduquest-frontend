@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import { Card } from "@heroui/react";
 import type { EChartsCoreOption } from "echarts/core";
 
 import type { SchoolComparison } from "@/types";
 
 import { EChart } from "@/components/base/shared/EChart";
+import { ResearchPanel } from "@/components/superadmin-shared/ResearchUI";
 
 type SchoolAverageScoreChartProps = {
   comparisons: SchoolComparison[];
@@ -32,6 +32,7 @@ export function SchoolAverageScoreChart({
           "Grafik batang horizontal rata-rata skor mentah final per sekolah.",
       },
       grid: {
+        containLabel: true,
         left: 8,
         right: 48,
         top: 12,
@@ -90,22 +91,13 @@ export function SchoolAverageScoreChart({
   }, [comparisons]);
 
   return (
-    <Card className="min-w-0 items-stretch overflow-hidden">
-      <Card.Header>
-        <div>
-          <Card.Title>Rata-rata skor mentah</Card.Title>
-          <Card.Description>
-            Hanya attempt terkunci dengan penilaian lengkap.
-          </Card.Description>
-        </div>
-      </Card.Header>
-      <Card.Content className="min-w-0 overflow-hidden">
+    <ResearchPanel title="Rata-rata skor mentah" description="Hanya pengerjaan terkunci dengan penilaian lengkap. Baca bersama jumlah skor final pada tabel.">
         <EChart
+          respectReducedMotion
           ariaLabel="Perbandingan rata-rata skor mentah final per sekolah"
           height={Math.max(280, comparisons.length * 58)}
           option={option}
         />
-      </Card.Content>
-    </Card>
+    </ResearchPanel>
   );
 }

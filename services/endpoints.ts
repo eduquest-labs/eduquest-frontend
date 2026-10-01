@@ -84,6 +84,7 @@ export const API_ENDPOINTS = {
     DELETE: (id: number) => `/schools/${id}`,
   },
   SUPERADMIN: {
+    DASHBOARD: "/superadmin/dashboard",
     SCHOOLS_ANALYTICS: "/superadmin/analytics/schools",
     SCHOOLS_COMPARISON: "/superadmin/analytics/schools-comparison",
     GURU_LIST: "/guru",

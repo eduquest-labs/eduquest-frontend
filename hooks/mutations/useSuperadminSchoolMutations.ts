@@ -9,6 +9,9 @@ export function useCreateSchool() {
     mutationFn: (name: string) => createSchool(name),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: superadminSchoolKeys.all });
+      queryClient.invalidateQueries({ queryKey: ["superadmin-dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["superadmin-analytics"] });
+      queryClient.invalidateQueries({ queryKey: ["schools"] });
     },
   });
 }
@@ -19,6 +22,9 @@ export function useUpdateSchool() {
     mutationFn: ({ id, name }: { id: number; name: string }) => updateSchool(id, name),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: superadminSchoolKeys.all });
+      queryClient.invalidateQueries({ queryKey: ["superadmin-dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["superadmin-analytics"] });
+      queryClient.invalidateQueries({ queryKey: ["schools"] });
     },
   });
 }
@@ -29,6 +35,9 @@ export function useDeleteSchool() {
     mutationFn: (id: number) => deleteSchool(id),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: superadminSchoolKeys.all });
+      queryClient.invalidateQueries({ queryKey: ["superadmin-dashboard"] });
+      queryClient.invalidateQueries({ queryKey: ["superadmin-analytics"] });
+      queryClient.invalidateQueries({ queryKey: ["schools"] });
     },
   });
 }

@@ -50,6 +50,8 @@ describe("superadmin-guru mutation cache", () => {
       schoolId: 2,
     });
     expect(invalidate).toHaveBeenCalledWith({ queryKey: superadminGuruKeys.all });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-dashboard"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-analytics"] });
   });
 
   it("useDeactivateGuru calls the service and invalidates the list", async () => {
@@ -61,6 +63,8 @@ describe("superadmin-guru mutation cache", () => {
 
     expect(superadminGuruService.deactivateGuru).toHaveBeenCalledWith(5);
     expect(invalidate).toHaveBeenCalledWith({ queryKey: superadminGuruKeys.all });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-dashboard"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-analytics"] });
   });
 
   it("useReactivateGuru calls the service and invalidates the list", async () => {
@@ -72,5 +76,7 @@ describe("superadmin-guru mutation cache", () => {
 
     expect(superadminGuruService.reactivateGuru).toHaveBeenCalledWith(5, "newpass123");
     expect(invalidate).toHaveBeenCalledWith({ queryKey: superadminGuruKeys.all });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-dashboard"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-analytics"] });
   });
 });

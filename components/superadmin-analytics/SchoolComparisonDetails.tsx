@@ -1,113 +1,26 @@
-import { Card, Chip } from "@heroui/react";
-
 import type { SchoolComparison } from "@/types";
+import { formatResearchNumber as number, getAssessmentStatus } from "@/lib/superadmin/research-summary";
+import { AssessmentProgress, ResearchPanel, researchStyles as styles } from "@/components/superadmin-shared/ResearchUI";
 
-type SchoolComparisonDetailsProps = {
-  comparisons: SchoolComparison[];
-};
-
-const NUMBER_FORMATTER = new Intl.NumberFormat("id-ID", {
-  maximumFractionDigits: 2,
-});
-
-function formatScore(score: number | null): string {
-  return score === null ? "—" : NUMBER_FORMATTER.format(score);
-}
-
-export function SchoolComparisonDetails({
-  comparisons,
-}: SchoolComparisonDetailsProps) {
-  return (
-    <section aria-labelledby="school-comparison-details-title">
-      <div className="mb-3">
-        <h2
-          id="school-comparison-details-title"
-          className="text-lg font-semibold text-foreground"
-        >
-          Detail per sekolah
-        </h2>
-        <p className="mt-1 text-sm text-muted">
-          Angka distribusi tidak memuat identitas atau skor individual siswa.
-        </p>
-      </div>
-
-      <div className="grid min-w-0 grid-cols-1 gap-4 xl:grid-cols-2">
-        {comparisons.map((comparison) => {
-          const pendingCount =
-            comparison.lockedAttemptCount - comparison.scoredAttemptCount;
-
-          return (
-            <Card
-              key={comparison.schoolId}
-              className="min-w-0 items-stretch"
-            >
-              <Card.Header className="flex-row items-start justify-between gap-3">
-                <div className="min-w-0">
-                  <Card.Title className="wrap-break-word">
-                    {comparison.schoolName}
-                  </Card.Title>
-                  <Card.Description>
-                    {NUMBER_FORMATTER.format(comparison.studentCount)} siswa
-                  </Card.Description>
-                </div>
-                {pendingCount > 0 ? (
-                  <Chip color="warning" size="sm" variant="soft">
-                    {NUMBER_FORMATTER.format(pendingCount)} pending
-                  </Chip>
-                ) : (
-                  <Chip color="success" size="sm" variant="soft">
-                    Final
-                  </Chip>
-                )}
-              </Card.Header>
-              <Card.Content>
-                <dl className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3">
-                  <div>
-                    <dt className="text-xs text-muted">Attempt locked</dt>
-                    <dd className="mt-1 font-semibold text-foreground">
-                      {NUMBER_FORMATTER.format(
-                        comparison.lockedAttemptCount
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs text-muted">Skor final</dt>
-                    <dd className="mt-1 font-semibold text-foreground">
-                      {NUMBER_FORMATTER.format(
-                        comparison.scoredAttemptCount
-                      )}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs text-muted">Rata-rata</dt>
-                    <dd className="mt-1 font-semibold text-foreground">
-                      {formatScore(comparison.averageScore)}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs text-muted">Minimum</dt>
-                    <dd className="mt-1 font-semibold text-foreground">
-                      {formatScore(comparison.minimumScore)}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs text-muted">Median</dt>
-                    <dd className="mt-1 font-semibold text-foreground">
-                      {formatScore(comparison.medianScore)}
-                    </dd>
-                  </div>
-                  <div>
-                    <dt className="text-xs text-muted">Maksimum</dt>
-                    <dd className="mt-1 font-semibold text-foreground">
-                      {formatScore(comparison.maximumScore)}
-                    </dd>
-                  </div>
-                </dl>
-              </Card.Content>
-            </Card>
-          );
-        })}
-      </div>
-    </section>
-  );
+export function SchoolComparisonDetails({ comparisons }: { comparisons: SchoolComparison[] }) {
+  return <ResearchPanel title="Detail per sekolah" description="Agregat hasil belajar tanpa identitas atau skor individual siswa.">
+    <div className={styles.tableScroll} tabIndex={0} role="region" aria-label="Tabel perbandingan sekolah, geser untuk melihat semua kolom">
+      <table className={styles.table}>
+        <caption className="sr-only">Perbandingan jumlah pengerjaan dan skor mentah final per sekolah</caption>
+        <thead><tr><th scope="col">Sekolah</th><th scope="col">Terkunci</th><th scope="col">Skor final</th><th scope="col">Kelengkapan</th><th scope="col">Rata-rata</th><th scope="col">Median</th><th scope="col">Min–maks</th></tr></thead>
+        <tbody>{comparisons.map((school) => {
+          const status = getAssessmentStatus(school);
+          const pending = Math.max(0, school.lockedAttemptCount - school.scoredAttemptCount);
+          return <tr key={school.schoolId}>
+            <th scope="row" className="text-left p-4 font-normal"><span className={styles.schoolName}>{school.schoolName}</span><span className={styles.schoolMeta}>{number(school.studentCount)} siswa</span></th>
+            <td>{number(school.lockedAttemptCount)}</td><td>{number(school.scoredAttemptCount)}</td>
+            <td><span className={`${styles.status} ${status === "empty" ? styles.neutral : status === "pending" ? styles.pending : styles.complete}`}>
+              {status === "empty" ? "Belum ada data" : status === "pending" ? `${number(pending)} pending` : "Penilaian lengkap"}
+            </span><div className="mt-2"><AssessmentProgress finalCount={school.scoredAttemptCount} lockedCount={school.lockedAttemptCount} /></div></td>
+            <td>{number(school.averageScore)}</td><td>{number(school.medianScore)}</td><td>{number(school.minimumScore)} – {number(school.maximumScore)}</td>
+          </tr>;
+        })}</tbody>
+      </table>
+    </div>
+  </ResearchPanel>;
 }

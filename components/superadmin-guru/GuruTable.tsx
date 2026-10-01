@@ -5,6 +5,8 @@ import { Pencil, RotateCcw, Users as UsersIcon, UserX } from "lucide-react";
 import { Button, Chip, Table } from "@heroui/react";
 
 import type { GuruWithStats } from "@/types";
+import { researchStyles as styles } from "@/components/superadmin-shared/ResearchUI";
+import { formatResearchNumber } from "@/lib/superadmin/research-summary";
 
 export interface GuruTableProps {
   guru: GuruWithStats[];
@@ -46,11 +48,11 @@ export function GuruTable({ guru, onEdit, onDeactivate, onReactivate }: GuruTabl
           <Table.Body items={guru}>
             {(item) => (
               <Table.Row id={item.id}>
-                <Table.Cell>{item.name}</Table.Cell>
+                <Table.Cell><span className={styles.schoolName}>{item.name}</span></Table.Cell>
                 <Table.Cell>{item.email}</Table.Cell>
                 <Table.Cell>{item.schoolName ?? "—"}</Table.Cell>
-                <Table.Cell>{item.classCount}</Table.Cell>
-                <Table.Cell>{item.studentCount}</Table.Cell>
+                <Table.Cell>{formatResearchNumber(item.classCount)}</Table.Cell>
+                <Table.Cell>{formatResearchNumber(item.studentCount)}</Table.Cell>
                 <Table.Cell>
                   <Chip color={item.isActive ? "success" : "danger"} size="sm">
                     {item.isActive ? "Aktif" : "Nonaktif"}

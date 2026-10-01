@@ -11,6 +11,7 @@ import { CreateSchoolForm } from "@/components/superadmin-schools/CreateSchoolFo
 import { EditSchoolForm } from "@/components/superadmin-schools/EditSchoolForm";
 import { SchoolsTable } from "@/components/superadmin-schools/SchoolsTable";
 import type { SchoolWithStats } from "@/types";
+import { ResearchEmpty, ResearchHeader, ResearchMetric, ResearchMetrics, ResearchPage, ResearchPanel, ResearchSearch, researchStyles as styles } from "@/components/superadmin-shared/ResearchUI";
 
 export function SchoolsPageClient() {
   const { data, isLoading, isError, refetch } = useSuperadminSchools();
@@ -18,25 +19,28 @@ export function SchoolsPageClient() {
   const [editingSchool, setEditingSchool] = useState<SchoolWithStats | null>(null);
   const [deletingSchool, setDeletingSchool] = useState<SchoolWithStats | null>(null);
   const deleteSchool = useDeleteSchool();
+  const [search, setSearch] = useState("");
+  const [coverage, setCoverage] = useState("all");
+  const all = data ?? [];
+  const filtered = all.filter((school) => school.name.toLocaleLowerCase("id").includes(search.trim().toLocaleLowerCase("id")) && (coverage === "all" || (coverage === "empty" ? school.studentCount === 0 : school.studentCount > 0)));
+  const unavailable = isLoading || isError;
 
   return (
-    <div className="flex flex-col gap-6 p-4 sm:p-8">
-      <div className="flex flex-wrap items-center justify-between gap-4">
-        <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-foreground">Sekolah</h1>
-          <p className="text-sm text-muted">
-            Kelola daftar sekolah yang dapat dipilih guru saat mendaftar.
-          </p>
+    <ResearchPage>
+      <ResearchHeader section="Sekolah" title="Sekolah dalam riset" description="Petakan cakupan guru, kelas, dan siswa pada setiap sekolah yang terdaftar." actions={<Button onPress={() => setCreateOpen(true)}><Plus size={16} aria-hidden="true" /> Tambah Sekolah</Button>} />
+      <ResearchMetrics>
+        <ResearchMetric label="Sekolah terdaftar" value={isError ? null : all.length} loading={isLoading} note="Seluruh sekolah dalam daftar" />
+        <ResearchMetric label="Memiliki siswa" value={isError ? null : all.filter((school) => school.studentCount > 0).length} loading={isLoading} note="Sekolah dengan siswa terdaftar" index={1} />
+        <ResearchMetric label="Cakupan kelas" value={isError ? null : all.reduce((sum, school) => sum + school.classCount, 0)} loading={isLoading} note="Total kelas lintas sekolah" index={2} />
+        <ResearchMetric label="Cakupan siswa" value={isError ? null : all.reduce((sum, school) => sum + school.studentCount, 0)} loading={isLoading} note="Jumlah siswa per sekolah dijumlahkan" index={3} />
+      </ResearchMetrics>
+      <ResearchPanel title="Direktori sekolah" description="Kelola data sekolah dan identifikasi cakupan yang belum terisi.">
+        <div className={styles.toolbar}>
+          <ResearchSearch value={search} onChange={setSearch} label="Cari sekolah" placeholder="Cari nama sekolah…" />
+          <label className={styles.selectLabel}>Cakupan siswa<select value={coverage} onChange={(event) => setCoverage(event.target.value)} disabled={unavailable}><option value="all">Semua sekolah</option><option value="populated">Memiliki siswa</option><option value="empty">Belum ada siswa</option></select></label>
+          {search || coverage !== "all" ? <Button size="sm" variant="tertiary" onPress={() => { setSearch(""); setCoverage("all"); }}>Reset filter</Button> : null}
         </div>
-
-        <Button
-          className="flex items-center gap-1.5 bg-primary text-primary-foreground hover:bg-primary-hover"
-          onPress={() => setCreateOpen(true)}
-        >
-          <Plus size={16} />
-          Tambah Sekolah
-        </Button>
-      </div>
+        {!unavailable ? <p role="status" className={`${styles.resultCount} mb-4`}>Menampilkan {filtered.length} dari {all.length} sekolah</p> : null}
 
       {isLoading ? (
         <div className="flex flex-col gap-2">
@@ -54,13 +58,14 @@ export function SchoolsPageClient() {
             Coba lagi
           </Button>
         </Alert>
-      ) : (
+      ) : all.length > 0 && filtered.length === 0 ? <ResearchEmpty title="Tidak ada sekolah yang sesuai" description="Ubah kata pencarian atau filter cakupan untuk melihat sekolah lain." /> : (
         <SchoolsTable
-          schools={data ?? []}
+          schools={filtered}
           onEdit={setEditingSchool}
           onDelete={setDeletingSchool}
         />
       )}
+      </ResearchPanel>
 
       <Modal.Backdrop isOpen={createOpen} onOpenChange={setCreateOpen}>
         <Modal.Container>
@@ -140,6 +145,6 @@ export function SchoolsPageClient() {
           </AlertDialog.Dialog>
         </AlertDialog.Container>
       </AlertDialog.Backdrop>
-    </div>
+    </ResearchPage>
   );
 }

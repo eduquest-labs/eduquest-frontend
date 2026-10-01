@@ -5,6 +5,8 @@ import { Pencil, School as SchoolIcon, Trash2 } from "lucide-react";
 import { Button, Table } from "@heroui/react";
 
 import type { SchoolWithStats } from "@/types";
+import { researchStyles as styles } from "@/components/superadmin-shared/ResearchUI";
+import { formatResearchNumber } from "@/lib/superadmin/research-summary";
 
 export interface SchoolsTableProps {
   schools: SchoolWithStats[];
@@ -38,15 +40,17 @@ export function SchoolsTable({ schools, onEdit, onDelete }: SchoolsTableProps) {
             <Table.Column>Jumlah Guru</Table.Column>
             <Table.Column>Jumlah Kelas</Table.Column>
             <Table.Column>Jumlah Siswa</Table.Column>
+            <Table.Column>Cakupan</Table.Column>
             <Table.Column>Aksi</Table.Column>
           </Table.Header>
           <Table.Body items={schools}>
             {(school) => (
               <Table.Row id={school.id}>
-                <Table.Cell>{school.name}</Table.Cell>
-                <Table.Cell>{school.guruCount}</Table.Cell>
-                <Table.Cell>{school.classCount}</Table.Cell>
-                <Table.Cell>{school.studentCount}</Table.Cell>
+                <Table.Cell><span className={styles.schoolName}>{school.name}</span></Table.Cell>
+                <Table.Cell>{formatResearchNumber(school.guruCount)}</Table.Cell>
+                <Table.Cell>{formatResearchNumber(school.classCount)}</Table.Cell>
+                <Table.Cell>{formatResearchNumber(school.studentCount)}</Table.Cell>
+                <Table.Cell><span className={`${styles.status} ${school.studentCount > 0 ? styles.complete : styles.neutral}`}>{school.studentCount > 0 ? "Memiliki siswa" : "Belum ada siswa"}</span></Table.Cell>
                 <Table.Cell>
                   <div className="flex gap-1">
                     <Button size="sm" variant="tertiary" onPress={() => onEdit(school)}>

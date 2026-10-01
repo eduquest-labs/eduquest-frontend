@@ -10,6 +10,7 @@ import { EditGuruForm } from "@/components/superadmin-guru/EditGuruForm";
 import { GuruTable } from "@/components/superadmin-guru/GuruTable";
 import { ReactivateGuruForm } from "@/components/superadmin-guru/ReactivateGuruForm";
 import type { GuruWithStats } from "@/types";
+import { ResearchEmpty, ResearchHeader, ResearchMetric, ResearchMetrics, ResearchPage, ResearchPanel, ResearchSearch, researchStyles as styles } from "@/components/superadmin-shared/ResearchUI";
 
 export function GuruPageClient() {
   const [schoolFilter, setSchoolFilter] = useState<number | null>(null);
@@ -19,15 +20,23 @@ export function GuruPageClient() {
   const [deactivatingGuru, setDeactivatingGuru] = useState<GuruWithStats | null>(null);
   const [reactivatingGuru, setReactivatingGuru] = useState<GuruWithStats | null>(null);
   const deactivateGuru = useDeactivateGuru();
+  const [search, setSearch] = useState("");
+  const [status, setStatus] = useState("all");
+  const all = data ?? [];
+  const filtered = all.filter((guru) => [guru.name, guru.email, guru.schoolName ?? ""].some((value) => value.toLocaleLowerCase("id").includes(search.trim().toLocaleLowerCase("id"))) && (status === "all" || (status === "active" ? guru.isActive : !guru.isActive)));
 
   return (
-    <div className="flex flex-col gap-6 p-4 sm:p-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold text-foreground">Guru</h1>
-        <p className="text-sm text-muted">
-          Kelola akun guru lintas sekolah: ubah data, nonaktifkan, atau aktifkan kembali.
-        </p>
-      </div>
+    <ResearchPage>
+      <ResearchHeader section="Guru" title="Guru pendamping riset" description="Tinjau status akun dan cakupan kelas guru, lalu kelola akses sesuai kebutuhan sekolah." />
+      <ResearchMetrics>
+        <ResearchMetric label="Guru terdaftar" value={isError ? null : all.length} loading={isLoading} note="Pada sekolah yang dipilih" />
+        <ResearchMetric label="Akun aktif" value={isError ? null : all.filter((guru) => guru.isActive).length} loading={isLoading} note="Dapat mengakses ruang guru" index={1} />
+        <ResearchMetric label="Akun nonaktif" value={isError ? null : all.filter((guru) => !guru.isActive).length} loading={isLoading} note="Memerlukan pengaktifan ulang" index={2} />
+        <ResearchMetric label="Cakupan kelas" value={isError ? null : all.reduce((sum, guru) => sum + guru.classCount, 0)} loading={isLoading} note="Kelas seluruh guru dalam pilihan sekolah" index={3} />
+      </ResearchMetrics>
+      <ResearchPanel title="Direktori guru" description="Cari nama, email, atau sekolah. Ringkasan di atas mengikuti pilihan sekolah.">
+      <div className={styles.toolbar}>
+      <ResearchSearch value={search} onChange={setSearch} label="Cari guru" placeholder="Cari nama, email, atau sekolah…" />
 
       <ComboBox
         selectedKey={schoolFilter}
@@ -51,6 +60,11 @@ export function GuruPageClient() {
           </ListBox>
         </ComboBox.Popover>
       </ComboBox>
+      <label className={styles.selectLabel}>Status akun<select value={status} onChange={(event) => setStatus(event.target.value)}><option value="all">Semua status</option><option value="active">Aktif</option><option value="inactive">Nonaktif</option></select></label>
+      {search || status !== "all" || schoolFilter !== null ? <Button size="sm" variant="tertiary" onPress={() => { setSearch(""); setStatus("all"); setSchoolFilter(null); }}>Reset filter</Button> : null}
+      </div>
+      {schools.isError ? <Alert status="warning"><Alert.Content><Alert.Description>Daftar filter sekolah gagal dimuat.</Alert.Description></Alert.Content><Button size="sm" variant="secondary" onPress={() => schools.refetch()}>Muat ulang sekolah</Button></Alert> : null}
+      {!isLoading && !isError ? <p role="status" className={`${styles.resultCount} mb-4`}>Menampilkan {filtered.length} dari {all.length} guru pada pilihan sekolah</p> : null}
 
       {isLoading ? (
         <div className="flex flex-col gap-2">
@@ -68,14 +82,15 @@ export function GuruPageClient() {
             Coba lagi
           </Button>
         </Alert>
-      ) : (
+      ) : all.length > 0 && filtered.length === 0 ? <ResearchEmpty title="Tidak ada guru yang sesuai" description="Ubah pencarian atau filter status akun untuk melihat guru lain." /> : (
         <GuruTable
-          guru={data ?? []}
+          guru={filtered}
           onEdit={setEditingGuru}
           onDeactivate={setDeactivatingGuru}
           onReactivate={setReactivatingGuru}
         />
       )}
+      </ResearchPanel>
 
       <Modal.Backdrop
         isOpen={editingGuru !== null}
@@ -167,6 +182,6 @@ export function GuruPageClient() {
           </AlertDialog.Dialog>
         </AlertDialog.Container>
       </AlertDialog.Backdrop>
-    </div>
+    </ResearchPage>
   );
 }

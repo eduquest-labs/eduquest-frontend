@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
 import { http, HttpResponse } from "msw";
 import { beforeAll, describe, expect, it, vi } from "vitest";
 
@@ -107,7 +107,8 @@ describe("SuperadminAnalyticsPageClient", () => {
     ).toBeInTheDocument();
     expect(screen.getByText("78,25")).toBeInTheDocument();
     expect(screen.getByText("2 pending")).toBeInTheDocument();
-    expect(screen.getAllByText("—")).toHaveLength(4);
+    expect(screen.getAllByText("—")).toHaveLength(2);
+    expect(screen.getByText("— – —")).toBeInTheDocument();
     expect(setOption).toHaveBeenCalledTimes(2);
   });
 
@@ -160,5 +161,51 @@ describe("SuperadminAnalyticsPageClient", () => {
     expect(
       screen.getByText(/Perbandingan menggunakan skor mentah/)
     ).toBeInTheDocument();
+  });
+
+  it("filters the table and exported aggregate together, with a reset action", async () => {
+    useSuperadminAnalyticsHandlers();
+    const createUrl = vi.fn<(blob: Blob) => string>(() => "blob:test");
+    vi.stubGlobal("URL", Object.assign(URL, { createObjectURL: createUrl, revokeObjectURL: vi.fn() }));
+    const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
+    renderWithProviders(<SuperadminAnalyticsPageClient />);
+    await screen.findByRole("table");
+    fireEvent.change(screen.getByLabelText("Sekolah pembanding"), { target: { value: "2" } });
+    const table = screen.getByRole("table");
+    expect(within(table).queryByText("SMA Negeri 1 Bandung")).not.toBeInTheDocument();
+    expect(within(table).getByText("SMA Negeri 2 Bandung")).toBeInTheDocument();
+    expect(screen.queryByRole("img")).not.toBeInTheDocument();
+    fireEvent.click(screen.getByRole("button", { name: "Ekspor CSV" }));
+    expect(createUrl).toHaveBeenCalledOnce();
+    const blob = createUrl.mock.calls[0][0] as Blob;
+    const text = await new Promise<string>((resolve) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.readAsText(blob); });
+    expect(text).toContain("SMA Negeri 2 Bandung");
+    expect(text).not.toContain("SMA Negeri 1 Bandung");
+    expect(click).toHaveBeenCalledOnce();
+    fireEvent.click(screen.getByRole("button", { name: "Reset filter" }));
+    expect(within(screen.getByRole("table")).getByText("SMA Negeri 1 Bandung")).toBeInTheDocument();
+    click.mockRestore();
+  });
+
+  it("does not mark a school with zero attempts as complete", async () => {
+    useSuperadminAnalyticsHandlers();
+    server.use(http.get("*/superadmin/analytics/schools-comparison", () => HttpResponse.json({ data: [{ ...response.data[1], locked_attempt_count: 0 }] })));
+    renderWithProviders(<SuperadminAnalyticsPageClient />);
+    const table = await screen.findByRole("table");
+    expect(within(table).getByText("Belum ada data")).toBeInTheDocument();
+    expect(within(table).queryByText("Penilaian lengkap")).not.toBeInTheDocument();
+  });
+
+  it("turns chart animation off when the user requests reduced motion", async () => {
+    useSuperadminAnalyticsHandlers();
+    const previous = window.matchMedia;
+    vi.stubGlobal("matchMedia", vi.fn(() => ({ matches: true, addEventListener: vi.fn(), removeEventListener: vi.fn() })));
+    try {
+      renderWithProviders(<SuperadminAnalyticsPageClient />);
+      await screen.findByRole("table");
+      expect(setOption.mock.calls.at(-1)?.[0].animation).toBe(false);
+    } finally {
+      vi.stubGlobal("matchMedia", previous);
+    }
   });
 });

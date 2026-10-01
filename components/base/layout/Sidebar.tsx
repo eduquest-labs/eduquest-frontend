@@ -81,7 +81,7 @@ export interface SidebarProps {
 
 export function Sidebar({ navItems }: SidebarProps) {
   return (
-    <aside className="hidden w-64 shrink-0 flex-col gap-8 border-r border-border bg-surface p-4 lg:flex dark:border-border dark:bg-background">
+    <aside className="hidden w-64 shrink-0 flex-col gap-8 overflow-y-auto border-r border-border bg-surface p-4 lg:flex dark:border-border dark:bg-background print:overflow-visible">
       <span className="px-2 text-base font-bold tracking-tight text-foreground">
         <BrandLogo compact />
       </span>

@@ -29,6 +29,7 @@ type EChartProps = {
   ariaLabel: string;
   height: number;
   option: EChartsCoreOption;
+  respectReducedMotion?: boolean;
 };
 
 // Canvas cannot resolve CSS variables. Resolve only plain option values and
@@ -47,7 +48,7 @@ function resolveThemeValues(value: unknown, styles: CSSStyleDeclaration): unknow
   return value;
 }
 
-export function EChart({ ariaLabel, height, option }: EChartProps) {
+export function EChart({ ariaLabel, height, option, respectReducedMotion = false }: EChartProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const chartRef = useRef<EChartsType | null>(null);
 
@@ -84,6 +85,8 @@ export function EChart({ ariaLabel, height, option }: EChartProps) {
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
+    const motionPreference = respectReducedMotion && typeof window.matchMedia === "function"
+      ? window.matchMedia("(prefers-reduced-motion: reduce)") : null;
 
     const applyTheme = () => {
       const styles = getComputedStyle(container);
@@ -97,6 +100,7 @@ export function EChart({ ariaLabel, height, option }: EChartProps) {
       chartRef.current?.setOption({
         color: [color("--chart-primary"), color("--chart-secondary")],
         ...themedOption,
+        ...(motionPreference?.matches ? { animation: false } : {}),
         textStyle: { color: color("--foreground"), ...themedOption.textStyle },
         tooltip: Array.isArray(themedOption.tooltip)
           ? themedOption.tooltip.map((tooltip) => ({ ...tooltipDefaults, ...tooltip }))
@@ -110,6 +114,7 @@ export function EChart({ ariaLabel, height, option }: EChartProps) {
     };
 
     applyTheme();
+    motionPreference?.addEventListener("change", applyTheme);
     // next-themes writes the DOM attribute in an effect. Observe the actual
     // attribute so canvas colors are read after the new CSS theme is applied.
     const themeObserver = new MutationObserver(applyTheme);
@@ -117,8 +122,11 @@ export function EChart({ ariaLabel, height, option }: EChartProps) {
       attributes: true,
       attributeFilter: ["data-theme"],
     });
-    return () => themeObserver.disconnect();
-  }, [option]);
+    return () => {
+      themeObserver.disconnect();
+      motionPreference?.removeEventListener("change", applyTheme);
+    };
+  }, [option, respectReducedMotion]);
 
   return (
     <div

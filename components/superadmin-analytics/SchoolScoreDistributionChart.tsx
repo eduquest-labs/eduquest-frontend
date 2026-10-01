@@ -1,12 +1,12 @@
 "use client";
 
 import { useMemo } from "react";
-import { Card } from "@heroui/react";
 import type { EChartsCoreOption } from "echarts/core";
 
 import type { SchoolComparison } from "@/types";
 
 import { EChart } from "@/components/base/shared/EChart";
+import { ResearchPanel } from "@/components/superadmin-shared/ResearchUI";
 
 type SchoolScoreDistributionChartProps = {
   comparisons: SchoolComparison[];
@@ -30,6 +30,7 @@ export function SchoolScoreDistributionChart({
           "Grafik rentang skor mentah minimum sampai maksimum dengan penanda median per sekolah.",
       },
       grid: {
+        containLabel: true,
         left: 8,
         right: 28,
         top: 12,
@@ -106,22 +107,13 @@ export function SchoolScoreDistributionChart({
   }, [comparisons]);
 
   return (
-    <Card className="min-w-0 items-stretch overflow-hidden">
-      <Card.Header>
-        <div>
-          <Card.Title>Distribusi skor mentah</Card.Title>
-          <Card.Description>
-            Rentang minimum–maksimum dengan titik median.
-          </Card.Description>
-        </div>
-      </Card.Header>
-      <Card.Content className="min-w-0 overflow-hidden">
+    <ResearchPanel title="Rentang skor mentah" description="Batang menunjukkan minimum–maksimum; titik menunjukkan median. Sekolah tanpa skor final tidak memiliki rentang.">
         <EChart
+          respectReducedMotion
           ariaLabel="Distribusi minimum, maksimum, dan median skor mentah final per sekolah"
           height={Math.max(280, comparisons.length * 58)}
           option={option}
         />
-      </Card.Content>
-    </Card>
+    </ResearchPanel>
   );
 }

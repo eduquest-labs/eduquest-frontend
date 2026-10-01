@@ -47,6 +47,8 @@ describe("superadmin-schools mutation cache", () => {
 
     expect(superadminSchoolsService.createSchool).toHaveBeenCalledWith("SMA Negeri 6 Bandung");
     expect(invalidate).toHaveBeenCalledWith({ queryKey: superadminSchoolKeys.all });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-dashboard"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-analytics"] });
   });
 
   it("useUpdateSchool calls the service with id+name and invalidates the list", async () => {
@@ -61,6 +63,8 @@ describe("superadmin-schools mutation cache", () => {
 
     expect(superadminSchoolsService.updateSchool).toHaveBeenCalledWith(6, "Nama Baru");
     expect(invalidate).toHaveBeenCalledWith({ queryKey: superadminSchoolKeys.all });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-dashboard"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-analytics"] });
   });
 
   it("useDeleteSchool calls the service and invalidates the list", async () => {
@@ -72,5 +76,7 @@ describe("superadmin-schools mutation cache", () => {
 
     expect(superadminSchoolsService.deleteSchool).toHaveBeenCalledWith(6);
     expect(invalidate).toHaveBeenCalledWith({ queryKey: superadminSchoolKeys.all });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-dashboard"] });
+    expect(invalidate).toHaveBeenCalledWith({ queryKey: ["superadmin-analytics"] });
   });
 });
