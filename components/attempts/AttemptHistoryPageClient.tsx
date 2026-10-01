@@ -36,8 +36,8 @@ function attemptVisual(attempt: AttemptHistoryItem): AttemptVisual {
       label: "Belum selesai",
       chipColor: "default",
       Icon: PlayCircle,
-      accent: "bg-slate-300 dark:bg-slate-600",
-      iconTone: "bg-slate-100 text-slate-600 dark:bg-white/10 dark:text-slate-300",
+      accent: "bg-ink-300 dark:bg-ink-600",
+      iconTone: "bg-ink-100 text-ink-600 dark:bg-surface-secondary dark:text-ink-300",
     };
   }
 
@@ -55,8 +55,8 @@ function attemptVisual(attempt: AttemptHistoryItem): AttemptVisual {
     label: "Selesai",
     chipColor: "success",
     Icon: CheckCircle2,
-    accent: "bg-teal-500",
-    iconTone: "bg-teal-100 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300",
+    accent: "bg-primary-soft0",
+    iconTone: "bg-brand-100 text-brand-700 dark:bg-brand-400/10 dark:text-brand-300",
   };
 }
 
@@ -72,10 +72,10 @@ export function AttemptHistoryPageClient() {
     <MotionConfig reducedMotion="user">
       <div className="flex w-full flex-col gap-6">
         <div>
-          <h1 className="font-display text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl dark:text-white">
+          <h1 className="font-display text-2xl font-bold tracking-tight text-ink-950 sm:text-3xl dark:text-white">
             Riwayat Aktivitas
           </h1>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-muted">
             Semua pengerjaan challenge tersimpan di sini sebagai catatan read-only.
           </p>
         </div>
@@ -101,13 +101,13 @@ export function AttemptHistoryPageClient() {
         ) : null}
 
         {!history.isLoading && !history.isError && attempts.length === 0 ? (
-          <div className="flex flex-col items-center gap-3 rounded-3xl border border-dashed border-slate-300 bg-white/60 px-6 py-16 text-center dark:border-white/15 dark:bg-white/5">
-            <span className="grid size-14 place-items-center rounded-2xl bg-slate-100 text-slate-400 dark:bg-white/10">
+          <div className="flex flex-col items-center gap-3 rounded-3xl border border-dashed border-ink-300 bg-surface/60 px-6 py-16 text-center dark:border-white/15 dark:bg-surface-secondary">
+            <span className="grid size-14 place-items-center rounded-2xl bg-ink-100 text-ink-400 dark:bg-surface-secondary">
               <History aria-hidden="true" size={26} />
             </span>
             <div>
-              <p className="font-semibold text-slate-900 dark:text-white">Belum ada aktivitas</p>
-              <p className="mt-1 text-sm text-slate-500">
+              <p className="font-semibold text-foreground">Belum ada aktivitas</p>
+              <p className="mt-1 text-sm text-muted">
                 Attempt akan muncul setelah kamu membuka challenge.
               </p>
             </div>
@@ -132,7 +132,7 @@ export function AttemptHistoryPageClient() {
                     hidden: { opacity: 0, y: 14 },
                     visible: { opacity: 1, y: 0 },
                   }}
-                  className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm transition-[border-color,box-shadow] hover:border-teal-300 hover:shadow-md dark:border-white/10 dark:bg-white/5 dark:hover:border-teal-400/40"
+                  className="group relative overflow-hidden rounded-3xl border border-border bg-surface shadow-sm transition-[border-color,box-shadow] hover:border-brand-300 hover:shadow-md dark:border-border dark:bg-surface-secondary dark:hover:border-brand-400/40"
                 >
                   <span
                     aria-hidden="true"
@@ -147,10 +147,10 @@ export function AttemptHistoryPageClient() {
                           <Icon aria-hidden="true" size={19} />
                         </span>
                         <div className="min-w-0">
-                          <h2 className="wrap-break-word font-semibold text-slate-950 dark:text-white">
+                          <h2 className="wrap-break-word font-semibold text-foreground">
                             {attempt.challenge.title}
                           </h2>
-                          <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm text-slate-500">
+                          <p className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm text-muted">
                             <ClipboardList aria-hidden="true" size={13} />
                             <span className="wrap-break-word">
                               {attempt.class.name} · {attempt.topic.name}
@@ -168,34 +168,34 @@ export function AttemptHistoryPageClient() {
                       </Chip>
                     </div>
 
-                    <dl className="grid gap-3 border-t border-slate-100 pt-4 text-sm sm:grid-cols-3 dark:border-white/10">
+                    <dl className="grid gap-3 border-t border-ink-100 pt-4 text-sm sm:grid-cols-3 dark:border-border">
                       <div className="min-w-0">
-                        <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-400">
+                        <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-400">
                           <PlayCircle aria-hidden="true" size={12} /> Mulai
                         </dt>
-                        <dd className="mt-1 wrap-break-word tabular-nums text-slate-700 dark:text-slate-200">
+                        <dd className="mt-1 wrap-break-word tabular-nums text-muted">
                           {formatDate(attempt.startedAt)}
                         </dd>
                       </div>
                       <div className="min-w-0">
-                        <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-400">
+                        <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-400">
                           <Clock3 aria-hidden="true" size={12} /> Selesai
                         </dt>
-                        <dd className="mt-1 wrap-break-word tabular-nums text-slate-700 dark:text-slate-200">
+                        <dd className="mt-1 wrap-break-word tabular-nums text-muted">
                           {formatDate(attempt.finishedAt)}
                         </dd>
                       </div>
                       <div className="min-w-0 sm:text-right">
-                        <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-slate-400 sm:justify-end">
+                        <dt className="flex items-center gap-1.5 text-xs font-medium uppercase tracking-wide text-ink-400 sm:justify-end">
                           Skor
                         </dt>
                         <dd className="mt-1">
                           {attempt.totalScore === null ? (
-                            <span className="text-slate-500">Belum tersedia</span>
+                            <span className="text-muted">Belum tersedia</span>
                           ) : (
-                            <span className="font-display text-xl font-bold tabular-nums text-slate-950 dark:text-white">
+                            <span className="font-display text-xl font-bold tabular-nums text-foreground">
                               {attempt.totalScore.toLocaleString("id-ID")}
-                              <span className="ml-1 text-xs font-medium text-slate-500">poin</span>
+                              <span className="ml-1 text-xs font-medium text-muted">poin</span>
                             </span>
                           )}
                         </dd>

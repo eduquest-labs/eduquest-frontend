@@ -33,12 +33,12 @@ export function UserMenu({ links = [] }: UserMenuProps) {
       <Button
         aria-label="Menu akun"
         variant="tertiary"
-        className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-slate-100 dark:hover:bg-white/5"
+        className="flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-ink-100 dark:hover:bg-white/5"
       >
-        <span className="flex size-7 items-center justify-center rounded-full bg-slate-900 text-xs font-semibold text-white dark:bg-white dark:text-black">
+        <span className="flex size-7 items-center justify-center rounded-full bg-ink-900 text-xs font-semibold text-white dark:bg-white dark:text-black">
           {getInitials(session?.user.name)}
         </span>
-        <span className="hidden text-sm font-medium text-slate-700 dark:text-slate-200 sm:inline">
+        <span className="hidden text-sm font-medium text-muted sm:inline">
           {session?.user.name}
         </span>
       </Button>

@@ -15,13 +15,13 @@ export interface SchoolsTableProps {
 export function SchoolsTable({ schools, onEdit, onDelete }: SchoolsTableProps) {
   if (schools.length === 0) {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-slate-200 px-8 py-16 text-center dark:border-white/10">
-        <span className="flex size-11 items-center justify-center rounded-full bg-slate-100 text-slate-400 dark:bg-white/10 dark:text-slate-500">
+      <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border px-8 py-16 text-center dark:border-border">
+        <span className="flex size-11 items-center justify-center rounded-full bg-ink-100 text-ink-400 dark:bg-surface-secondary dark:text-muted">
           <SchoolIcon size={20} strokeWidth={2} />
         </span>
         <div className="flex flex-col gap-1">
-          <p className="text-sm font-semibold text-slate-900 dark:text-white">Belum ada sekolah</p>
-          <p className="max-w-xs text-sm text-slate-500 dark:text-slate-400">
+          <p className="text-sm font-semibold text-foreground">Belum ada sekolah</p>
+          <p className="max-w-xs text-sm text-muted">
             Tambahkan sekolah pertama agar guru dapat memilihnya saat mendaftar.
           </p>
         </div>

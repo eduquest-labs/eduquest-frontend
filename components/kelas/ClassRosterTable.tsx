@@ -73,9 +73,9 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
       </div>
 
       {!data || data.length === 0 ? (
-        <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed border-slate-200 px-6 py-10 text-center dark:border-white/10">
-          <Users size={18} className="text-slate-300 dark:text-slate-600" />
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+        <div className="flex flex-col items-center gap-2 rounded-lg border border-dashed border-border px-6 py-10 text-center dark:border-border">
+          <Users size={18} className="text-ink-300 dark:text-ink-600" />
+          <p className="text-sm text-muted">
             Belum ada siswa. Impor atau tambah siswa untuk mulai.
           </p>
         </div>
@@ -107,8 +107,8 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
                         className={cn(
                           "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium",
                           student.isClaimed
-                            ? "bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300"
-                            : "bg-slate-100 text-slate-500 dark:bg-white/10 dark:text-slate-400"
+                            ? "bg-primary-soft text-brand-700 dark:bg-brand-400/10 dark:text-brand-300"
+                            : "bg-ink-100 text-muted dark:bg-surface-secondary dark:text-ink-400"
                         )}
                       >
                         {student.isClaimed ? "Aktif" : "Belum aktivasi"}
@@ -130,7 +130,7 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
                             setStudentToEdit(student);
                             editModal.open();
                           }}
-                          className="flex size-7 cursor-pointer items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-slate-200 hover:text-slate-700 dark:hover:bg-white/10 dark:hover:text-white"
+                          className="flex size-7 cursor-pointer items-center justify-center rounded-md text-ink-400 transition-colors hover:bg-ink-200 hover:text-ink-700 dark:hover:bg-white/10 dark:hover:text-white"
                           aria-label={`Edit ${student.name}`}
                         >
                           <Pencil size={14} />
@@ -138,7 +138,7 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
                         <button
                           type="button"
                           onClick={() => setStudentToDelete(student)}
-                          className="flex size-7 cursor-pointer items-center justify-center rounded-md text-slate-400 transition-colors hover:bg-danger-soft hover:text-danger dark:hover:bg-danger-soft"
+                          className="flex size-7 cursor-pointer items-center justify-center rounded-md text-ink-400 transition-colors hover:bg-danger-soft hover:text-danger dark:hover:bg-danger-soft"
                           aria-label={`Hapus ${student.name}`}
                         >
                           <Trash2 size={14} />
@@ -233,7 +233,7 @@ export function ClassRosterTable({ classId }: ClassRosterTableProps) {
               </AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
-              <p className="text-sm text-slate-500 dark:text-slate-400">
+              <p className="text-sm text-muted">
                 Siswa akan dihapus dari daftar kelas ini. Akun siswa tidak dihapus permanen.
               </p>
             </AlertDialog.Body>

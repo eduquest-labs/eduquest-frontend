@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "EduQuest",
+  name: "GerakGamify",
   description: "Platform gamifikasi pembelajaran untuk riset eksperimen kelas UPI",
 };
 
@@ -7,7 +7,7 @@ export const siteConfig = {
 export const pageMetadata = {
   login: {
     title: "Masuk",
-    description: "Masuk ke akun EduQuest Anda.",
+    description: "Masuk ke akun GerakGamify Anda.",
   },
   claim: {
     title: "Aktivasi Akun Siswa",

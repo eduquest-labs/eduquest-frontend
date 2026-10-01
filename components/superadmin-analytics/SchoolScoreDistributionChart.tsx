@@ -40,8 +40,8 @@ export function SchoolScoreDistributionChart({
         type: "value",
         min: 0,
         max: Math.ceil(maximumScore * 1.1),
-        splitLine: { lineStyle: { color: "#e2e8f0" } },
-        axisLabel: { color: "#64748b" },
+        splitLine: { lineStyle: { color: "var(--chart-grid)" } },
+        axisLabel: { color: "var(--chart-text)" },
       },
       yAxis: {
         type: "category",
@@ -50,7 +50,7 @@ export function SchoolScoreDistributionChart({
         axisTick: { show: false },
         axisLine: { show: false },
         axisLabel: {
-          color: "#475569",
+          color: "var(--chart-text)",
           width: 112,
           overflow: "truncate",
         },
@@ -73,8 +73,8 @@ export function SchoolScoreDistributionChart({
           stack: "range",
           barMaxWidth: 14,
           itemStyle: {
-            color: "#5eead4",
-            borderColor: "#0f766e",
+            color: "var(--chart-fill)",
+            borderColor: "var(--chart-primary)",
             borderWidth: 1,
             borderRadius: 7,
           },
@@ -90,8 +90,8 @@ export function SchoolScoreDistributionChart({
           type: "scatter",
           symbolSize: 12,
           itemStyle: {
-            color: "#0f172a",
-            borderColor: "#ffffff",
+            color: "var(--chart-point)",
+            borderColor: "var(--surface)",
             borderWidth: 2,
           },
           data: comparisons

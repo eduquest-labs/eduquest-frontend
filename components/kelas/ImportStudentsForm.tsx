@@ -72,21 +72,21 @@ export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
 
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
-            <label className="text-sm font-medium text-slate-700 dark:text-slate-200">
+            <label className="text-sm font-medium text-muted">
               File CSV/Excel Siswa
             </label>
             <button
               type="button"
               onClick={() => downloadTemplate.mutate()}
               disabled={downloadTemplate.isPending}
-              className="flex cursor-pointer items-center gap-1.5 text-xs font-medium text-teal-700 hover:underline disabled:cursor-not-allowed disabled:opacity-60 dark:text-teal-300"
+              className="flex cursor-pointer items-center gap-1.5 text-xs font-medium text-brand-700 hover:underline disabled:cursor-not-allowed disabled:opacity-60 dark:text-brand-300"
             >
               <Download size={13} />
               {downloadTemplate.isPending ? "Menyiapkan..." : "Unduh template"}
             </button>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-slate-200 bg-white px-3.5 py-2 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-50 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:bg-white/10">
+            <label className="flex cursor-pointer items-center gap-2 rounded-lg border border-border bg-surface px-3.5 py-2 text-sm font-medium text-ink-700 transition-colors hover:bg-background dark:border-border dark:bg-surface-secondary dark:text-ink-200 dark:hover:bg-white/10">
               <Upload size={15} />
               Pilih File
               <input
@@ -98,11 +98,11 @@ export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
                 disabled={importStudents.isPending}
               />
             </label>
-            <span className="min-w-0 truncate text-sm text-slate-500 dark:text-slate-400">
+            <span className="min-w-0 truncate text-sm text-muted">
               {file ? file.name : "Belum ada file dipilih"}
             </span>
           </div>
-          <p className="text-xs text-slate-400 dark:text-slate-500">
+          <p className="text-xs text-ink-400 dark:text-muted">
             Format: CSV/XLSX/XLS, kolom <code>name</code>, <code>nisn</code> (10 digit), dan{" "}
             <code>jenis_kelamin</code> (L/P), maksimal 5 MB.
           </p>
@@ -114,7 +114,7 @@ export function ImportStudentsForm({ classId }: ImportStudentsFormProps) {
           isPending={importStudents.isPending}
           isDisabled={importStudents.isPending || !file}
           fullWidth
-          className="bg-teal-600 text-white hover:bg-teal-700 data-[pressed=true]:bg-teal-800"
+          className="bg-primary text-primary-foreground hover:bg-primary-hover data-[pressed=true]:bg-primary-pressed"
         >
           {({ isPending }) => (isPending ? "Mengimpor..." : "Impor Siswa")}
         </Button>

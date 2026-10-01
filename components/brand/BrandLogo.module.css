@@ -1,0 +1,85 @@
+.logo {
+  --brand-ink: var(--foreground);
+  --brand-gold: var(--foreground);
+  --brand-tile: var(--brand-mark);
+  --brand-track: var(--brand-on-mark);
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+
+.mark {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  overflow: visible;
+  transition: transform 240ms ease;
+}
+
+.tile { fill: var(--brand-tile); }
+.track { stroke: var(--brand-track); }
+.arrow { stroke: var(--brand-arrow); transform-origin: 31px 23px; transition: transform 240ms ease; }
+.speed { stroke: var(--brand-arrow); opacity: .8; }
+
+.wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  padding-right: 3px;
+  font-family: var(--font-jakarta-sans), sans-serif;
+  font-size: 25px;
+  line-height: 1.4;
+  letter-spacing: -1.45px;
+  white-space: nowrap;
+}
+
+.gerak {
+  display: inline-block;
+  margin-right: 1px;
+  color: var(--brand-ink);
+  font-weight: 800;
+  transform: skewX(-9deg);
+}
+
+.gamify {
+  position: relative;
+  color: var(--brand-gold);
+  font-weight: 700;
+  letter-spacing: -1.3px;
+}
+
+.spark {
+  position: absolute;
+  top: -1px;
+  right: -5px;
+  width: 5px;
+  height: 5px;
+  border-radius: 1px;
+  background: var(--primary);
+  transform: rotate(15deg);
+  transition: transform 240ms ease;
+}
+
+.logo:hover .mark,
+:global(a:focus-visible) .mark { transform: rotate(-5deg); }
+.logo:hover .arrow,
+:global(a:focus-visible) .arrow { transform: translate(1px, -1px); }
+.logo:hover .spark,
+:global(a:focus-visible) .spark { transform: translateY(-2px) rotate(105deg); }
+.compact .mark { width: 34px; height: 34px; }
+.compact .wordmark { font-size: 21px; letter-spacing: -1.2px; }
+.compact { gap: 7px; }
+
+@media (max-width: 480px) {
+  .mark { width: 35px; height: 35px; }
+  .wordmark { font-size: 21px; letter-spacing: -1.2px; }
+  .logo { gap: 7px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logo *, .logo *::before, .logo *::after { transition: none !important; }
+  .logo:hover .mark, :global(a:focus-visible) .mark,
+  .logo:hover .arrow, :global(a:focus-visible) .arrow { transform: none; }
+  .logo:hover .spark, :global(a:focus-visible) .spark { transform: rotate(15deg); }
+}

@@ -8,7 +8,7 @@ export interface DashboardShellProps {
 
 export function DashboardShell({ navItems, children }: DashboardShellProps) {
   return (
-    <div className="flex min-h-dvh bg-slate-50 dark:bg-black">
+    <div className="flex min-h-dvh bg-background dark:bg-background">
       <Sidebar navItems={navItems} />
       <div className="flex min-w-0 flex-1 flex-col">
         <Topbar navItems={navItems} />

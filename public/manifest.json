@@ -1,11 +1,11 @@
 {
-  "name": "EduQuest",
-  "short_name": "EduQuest",
+  "name": "GerakGamify",
+  "short_name": "GerakGamify",
   "description": "Platform gamifikasi pembelajaran untuk riset eksperimen kelas UPI",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#171717",
+  "background_color": "#f8f8f6",
+  "theme_color": "#c43d25",
   "orientation": "portrait-primary",
   "icons": [
     {

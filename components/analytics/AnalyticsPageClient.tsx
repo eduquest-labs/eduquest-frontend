@@ -41,14 +41,14 @@ export function AnalyticsPageClient() {
     <div className="flex min-w-0 flex-col gap-6 overflow-x-hidden p-4 sm:p-8">
       <header>
         <div className="flex items-center gap-3">
-          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300">
+          <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-brand-700 dark:bg-brand-400/10 dark:text-brand-300">
             <BarChart3 aria-hidden="true" size={20} />
           </span>
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+            <h1 className="text-2xl font-semibold text-foreground">
               Analitik antar kelas
             </h1>
-            <p className="mt-1 max-w-2xl text-sm text-slate-500">
+            <p className="mt-1 max-w-2xl text-sm text-muted">
               Snapshot perbandingan hasil seluruh kelas/sekolah yang Anda
               kelola.
             </p>
@@ -93,7 +93,7 @@ export function AnalyticsPageClient() {
       !comparison.isError &&
       comparisons.length === 0 ? (
         <Card className="items-center py-12 text-center">
-          <School aria-hidden="true" className="text-slate-400" size={28} />
+          <School aria-hidden="true" className="text-ink-400" size={28} />
           <Card.Title>Belum ada kelas</Card.Title>
           <Card.Description>
             Buat kelas/sekolah terlebih dahulu agar perbandingan dapat

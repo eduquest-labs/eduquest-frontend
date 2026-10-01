@@ -84,13 +84,13 @@ export function AttemptAnswerForm({ attemptId, question, answer, disabled }: Att
         <fieldset className="flex flex-col gap-2" disabled={disabled || submitAnswer.isPending}>
           <legend className="sr-only">Pilihan jawaban</legend>
           {question.options.map((option) => (
-            <label key={option.id} className="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 p-3 text-sm has-checked:border-teal-600 has-checked:bg-teal-50 dark:border-white/10 dark:has-checked:bg-teal-400/5">
+            <label key={option.id} className="flex cursor-pointer items-center gap-3 rounded-xl border border-border p-3 text-sm has-checked:border-brand-600 has-checked:bg-primary-soft dark:border-border dark:has-checked:bg-brand-400/5">
               <input
                 type="radio"
                 name={`question-${question.id}`}
                 checked={selectedOptionId === option.id}
                 onChange={() => { setSelectedOptionId(option.id); setSaved(false); }}
-                className="size-4 accent-teal-600"
+                className="size-4 accent-brand-600"
               />
               {option.optionText}
             </label>
@@ -114,27 +114,27 @@ export function AttemptAnswerForm({ attemptId, question, answer, disabled }: Att
             <TextArea rows={5} maxLength={10000} />
             {errors.answerText ? <FieldError>{errors.answerText}</FieldError> : null}
           </TextField>
-          <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+          <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
             <span className="flex items-center gap-2"><Paperclip size={15} /> Lampiran foto/video (opsional)</span>
             <input
               type="file"
               accept={ESSAY_ATTACHMENT_ACCEPT}
               disabled={disabled || submitAnswer.isPending}
               onChange={(event) => { setAttachment(event.currentTarget.files?.[0] ?? null); setSaved(false); }}
-              className="rounded-lg border border-slate-300 bg-white p-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-teal-50 file:px-3 file:py-1.5 file:text-teal-700 dark:border-white/15 dark:bg-black"
+              className="rounded-lg border border-ink-300 bg-surface p-2 text-sm file:mr-3 file:rounded-md file:border-0 file:bg-primary-soft file:px-3 file:py-1.5 file:text-brand-700 dark:border-white/15 dark:bg-background"
             />
-            <span className="text-xs text-slate-500">JPG, PNG, MP4, atau MOV. Maksimal {ESSAY_ATTACHMENT_MAX_MB} MB.</span>
-            {answer?.hasAttachment && !attachment ? <span className="text-xs text-teal-700">Lampiran sebelumnya sudah tersimpan.</span> : null}
+            <span className="text-xs text-muted">JPG, PNG, MP4, atau MOV. Maksimal {ESSAY_ATTACHMENT_MAX_MB} MB.</span>
+            {answer?.hasAttachment && !attachment ? <span className="text-xs text-brand-700">Lampiran sebelumnya sudah tersimpan.</span> : null}
             {errors.attachment ? <span className="text-xs text-danger">{errors.attachment}</span> : null}
           </label>
         </div>
       ) : null}
 
       <div className="flex flex-wrap items-center gap-3">
-        <Button type="submit" isPending={submitAnswer.isPending} isDisabled={disabled || submitAnswer.isPending} className="bg-teal-600 text-white hover:bg-teal-700">
+        <Button type="submit" isPending={submitAnswer.isPending} isDisabled={disabled || submitAnswer.isPending} className="bg-primary text-primary-foreground hover:bg-primary-hover">
           Simpan jawaban
         </Button>
-        {saved ? <span className="flex items-center gap-1.5 text-sm text-teal-700"><CheckCircle2 size={16} /> Jawaban tersimpan</span> : null}
+        {saved ? <span className="flex items-center gap-1.5 text-sm text-brand-700"><CheckCircle2 size={16} /> Jawaban tersimpan</span> : null}
       </div>
     </Form>
   );

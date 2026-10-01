@@ -76,13 +76,13 @@ export function ChallengeForm({ challenge, isPending, onSubmit }: ChallengeFormP
         <TextArea rows={3} />
         {errors.description ? <FieldError>{errors.description}</FieldError> : null}
       </TextField>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
         Tipe
         <select
           value={values.type}
           disabled={isPending}
           onChange={(event) => setValues((old) => ({ ...old, type: event.target.value as ChallengeType }))}
-          className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm outline-none focus:border-teal-600 dark:border-white/15 dark:bg-black"
+          className="h-10 rounded-lg border border-ink-300 bg-surface px-3 text-sm outline-none focus:border-brand-600 dark:border-white/15 dark:bg-background"
         >
           <option value="kuis">Kuis</option>
           <option value="aktivitas_fisik">Aktivitas fisik</option>
@@ -123,7 +123,7 @@ export function ChallengeForm({ challenge, isPending, onSubmit }: ChallengeFormP
           {errors.endTime ? <FieldError>{errors.endTime}</FieldError> : null}
         </TextField>
       </div>
-      <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-teal-600 text-white hover:bg-teal-700">
+      <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-primary text-primary-foreground hover:bg-primary-hover">
         {challenge ? "Simpan perubahan" : "Buat challenge"}
       </Button>
     </Form>

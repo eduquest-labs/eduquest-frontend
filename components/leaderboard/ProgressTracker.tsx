@@ -24,11 +24,11 @@ export function ProgressTracker({
   onRetry,
 }: ProgressTrackerProps) {
   return (
-    <section className="rounded-2xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/5">
-      <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+    <section className="rounded-2xl border border-border bg-surface p-5 dark:border-border dark:bg-surface-secondary">
+      <h2 className="text-lg font-semibold text-foreground">
         Progress challenge
       </h2>
-      <p className="mt-1 text-sm text-slate-500">
+      <p className="mt-1 text-sm text-muted">
         Progress dihitung dari challenge published pada scope terpilih.
       </p>
 
@@ -67,7 +67,7 @@ export function ProgressTracker({
               <ProgressBar.Fill />
             </ProgressBar.Track>
           </ProgressBar>
-          <p className="mt-3 text-sm font-medium text-slate-700 dark:text-slate-200">
+          <p className="mt-3 text-sm font-medium text-muted">
             {data.completedChallenges} dari {data.totalChallenges} challenge
             selesai
           </p>

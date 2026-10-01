@@ -86,7 +86,7 @@ export function TermForm({ term, isPending, onSubmit }: TermFormProps) {
         </Tooltip.Trigger>
         <Tooltip.Content>Fitur ini belum aktif di sistem, disiapkan untuk pembaruan mendatang.</Tooltip.Content>
       </Tooltip>
-      <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-teal-600 text-white hover:bg-teal-700">
+      <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-primary text-primary-foreground hover:bg-primary-hover">
         {term ? "Simpan perubahan" : "Buat termin"}
       </Button>
     </Form>

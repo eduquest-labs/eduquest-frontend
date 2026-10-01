@@ -64,7 +64,7 @@ export function DuplicateChallengeDialog({ challenge, sourceClassId, classes }: 
                     setTargetClassId(Number(event.target.value));
                     setTargetTopicId(null);
                   }}
-                  className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm dark:border-white/15 dark:bg-black"
+                  className="h-10 rounded-lg border border-ink-300 bg-surface px-3 text-sm dark:border-white/15 dark:bg-background"
                 >
                   {classes.map((kelas) => <option key={kelas.id} value={kelas.id}>{kelas.name}</option>)}
                 </select>
@@ -79,19 +79,19 @@ export function DuplicateChallengeDialog({ challenge, sourceClassId, classes }: 
                   <select
                     value={targetTopicId ?? ""}
                     onChange={(event) => setTargetTopicId(event.target.value ? Number(event.target.value) : null)}
-                    className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm dark:border-white/15 dark:bg-black"
+                    className="h-10 rounded-lg border border-ink-300 bg-surface px-3 text-sm dark:border-white/15 dark:bg-background"
                   >
                     <option value="">Pilih topic</option>
                     {topics.data?.map((topic) => <option key={topic.id} value={topic.id}>{topic.name}</option>)}
                   </select>
-                  {topics.data?.length === 0 ? <span className="text-xs text-slate-500">Kelas ini belum memiliki topic.</span> : null}
+                  {topics.data?.length === 0 ? <span className="text-xs text-muted">Kelas ini belum memiliki topic.</span> : null}
                 </label>
               ) : null}
             </Modal.Body>
             <Modal.Footer>
               <Button slot="close" variant="tertiary">Batal</Button>
               <Button
-                className="bg-teal-600 text-white"
+                className="bg-primary text-primary-foreground"
                 isPending={duplicate.isPending}
                 isDisabled={!targetTopicId || duplicate.isPending}
                 onPress={handleDuplicate}

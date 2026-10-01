@@ -19,15 +19,15 @@ function StatCard({ label, value, isLoading, icon: Icon }: StatCardProps) {
   return (
     <Card className="items-stretch">
       <Card.Content className="flex-row items-center gap-4">
-        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300">
+        <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-primary-soft text-brand-700 dark:bg-brand-400/10 dark:text-brand-300">
           <Icon aria-hidden="true" size={20} />
         </span>
         <div className="min-w-0">
-          <p className="text-sm text-slate-500 dark:text-slate-400">{label}</p>
+          <p className="text-sm text-muted">{label}</p>
           {isLoading ? (
             <Skeleton className="mt-1 h-7 w-16 rounded" />
           ) : (
-            <p className="text-2xl font-semibold text-slate-900 dark:text-white">
+            <p className="text-2xl font-semibold text-foreground">
               {NUMBER_FORMATTER.format(value ?? 0)}
             </p>
           )}
@@ -68,11 +68,11 @@ export function SuperadminDashboardPageClient() {
   return (
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div className="flex flex-col gap-1">
-        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+        <h1 className="text-2xl font-semibold text-foreground">
           Dashboard Superadmin
         </h1>
-        <p className="text-sm text-slate-500 dark:text-slate-400">
-          Ringkasan sekolah, guru, dan siswa dalam riset EduQuest.
+        <p className="text-sm text-muted">
+          Ringkasan sekolah, guru, dan siswa dalam riset GerakGamify.
         </p>
       </div>
 
@@ -112,9 +112,9 @@ export function SuperadminDashboardPageClient() {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
         {QUICK_LINKS.map(({ href, label, description, icon: Icon }) => (
           <Link key={href} href={href}>
-            <Card className="h-full items-stretch transition-colors hover:border-teal-300 dark:hover:border-teal-600">
+            <Card className="h-full items-stretch transition-colors hover:border-brand-300 dark:hover:border-brand-600">
               <Card.Header className="flex-row items-center gap-3">
-                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300">
+                <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-brand-700 dark:bg-brand-400/10 dark:text-brand-300">
                   <Icon aria-hidden="true" size={18} />
                 </span>
                 <Card.Title>{label}</Card.Title>

@@ -54,7 +54,7 @@ function StatusPill({
   const reduceMotion = useReducedMotion();
 
   return (
-    <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
+    <div className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-surface/10 px-3 py-1.5 text-xs font-semibold text-white backdrop-blur">
       <span className="relative flex size-2.5">
         {recording ? (
           <motion.span
@@ -76,7 +76,7 @@ function StatusPill({
             recording
               ? "bg-rose-500"
               : online === null
-                ? "bg-slate-400"
+                ? "bg-ink-400"
                 : online
                   ? "bg-emerald-400"
                   : "bg-amber-400"
@@ -106,13 +106,13 @@ function MetricCard({
   return (
     <motion.div
       layout
-      className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-white/10 dark:bg-white/5"
+      className="rounded-2xl border border-border bg-surface p-4 shadow-sm dark:border-border dark:bg-surface-secondary"
     >
-      <div className="flex items-center gap-2 text-slate-400">
+      <div className="flex items-center gap-2 text-ink-400">
         {icon}
         <span className="text-xs font-semibold uppercase tracking-wide">{label}</span>
       </div>
-      <p className="mt-3 text-xl font-bold tabular-nums text-slate-950 dark:text-white">
+      <p className="mt-3 text-xl font-bold tabular-nums text-foreground">
         {value}
       </p>
     </motion.div>
@@ -140,23 +140,23 @@ export function PhysicalActivityPageClient({
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="min-h-dvh overflow-hidden bg-slate-50 dark:bg-black">
+      <div className="min-h-dvh overflow-hidden bg-background dark:bg-background">
         <a
           href="#physical-activity-content"
-          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-slate-950"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-ink-950"
         >
           Lewati ke perekaman
         </a>
         <div className="sr-only" aria-live="polite" aria-atomic="true">
           Status perekaman: {recorder.status}. {recorder.errorMessage ?? ""}
         </div>
-        <header className="relative overflow-hidden bg-slate-950 px-4 pb-12 pt-4 text-white sm:px-8 sm:pb-16">
+        <header className="relative overflow-hidden bg-ink-950 px-4 pb-12 pt-4 text-white sm:px-8 sm:pb-16">
           <div className="pointer-events-none absolute inset-0 opacity-30 [background-image:radial-gradient(circle_at_top_right,var(--color-primary)_0,transparent_38%)]" />
           <div className="relative mx-auto max-w-5xl">
             <div className="flex items-center justify-between gap-4">
               <Link
                 href="/siswa"
-                className="inline-flex min-h-11 items-center gap-2 rounded-xl px-2 text-sm font-medium text-slate-300 transition-colors hover:bg-white/10 hover:text-white"
+                className="inline-flex min-h-11 items-center gap-2 rounded-xl px-2 text-sm font-medium text-ink-300 transition-colors hover:bg-white/10 hover:text-white"
               >
                 <ArrowLeft size={18} />
                 Challenge
@@ -170,13 +170,13 @@ export function PhysicalActivityPageClient({
               transition={{ duration: 0.28 }}
               className="mt-10 max-w-2xl"
             >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-teal-300">
-                EduQuest Move
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-brand-300">
+                GerakGamify Move
               </p>
               <h1 className="mt-3 text-3xl font-bold tracking-tight sm:text-5xl">
                 {recorder.activity?.challenge.title ?? "Tantangan fisik"}
               </h1>
-              <p className="mt-3 max-w-xl text-sm leading-6 text-slate-300 sm:text-base">
+              <p className="mt-3 max-w-xl text-sm leading-6 text-ink-300 sm:text-base">
                 Rekam rute di luar ruangan. Titik GPS disimpan di perangkat dahulu,
                 lalu disinkronkan bertahap saat koneksi tersedia.
               </p>
@@ -195,24 +195,24 @@ export function PhysicalActivityPageClient({
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
-                className="rounded-3xl border border-slate-200 bg-white p-5 shadow-xl shadow-slate-900/5 sm:p-8 dark:border-white/10 dark:bg-slate-950"
+                className="rounded-3xl border border-border bg-surface p-5 shadow-xl shadow-ink-900/5 sm:p-8 dark:border-border dark:bg-ink-950"
               >
                 <div className="grid gap-6 md:grid-cols-[1fr_0.8fr] md:items-center">
                   <div>
-                    <div className="flex size-12 items-center justify-center rounded-2xl bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300">
+                    <div className="flex size-12 items-center justify-center rounded-2xl bg-primary-soft text-brand-700 dark:bg-brand-400/10 dark:text-brand-300">
                       <LocateFixed size={24} />
                     </div>
-                    <h2 className="mt-5 text-2xl font-bold text-slate-950 dark:text-white">
+                    <h2 className="mt-5 text-2xl font-bold text-foreground">
                       Siap mulai bergerak?
                     </h2>
-                    <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
+                    <p className="mt-2 text-sm leading-6 text-muted">
                       Izin lokasi baru diminta setelah tombol mulai ditekan. Untuk
                       hasil terbaik, gunakan area terbuka dan biarkan halaman tetap
                       aktif.
                     </p>
                     <Button
                       size="lg"
-                      className="mt-6 w-full bg-teal-600 font-semibold text-white shadow-lg shadow-teal-600/20 hover:bg-teal-700 sm:w-auto"
+                      className="mt-6 w-full bg-primary font-semibold text-primary-foreground shadow-lg shadow-brand-600/20 hover:bg-primary-hover sm:w-auto"
                       onPress={recorder.start}
                     >
                       <Radio size={18} />
@@ -228,9 +228,9 @@ export function PhysicalActivityPageClient({
                     ].map(([icon, label]) => (
                       <div
                         key={String(label)}
-                        className="flex items-center gap-3 rounded-2xl bg-slate-50 px-4 py-3 text-sm font-medium text-slate-700 dark:bg-white/5 dark:text-slate-200"
+                        className="flex items-center gap-3 rounded-2xl bg-background px-4 py-3 text-sm font-medium text-ink-700 dark:bg-surface-secondary dark:text-ink-200"
                       >
-                        <span className="text-teal-600">{icon}</span>
+                        <span className="text-brand-600">{icon}</span>
                         {label}
                       </div>
                     ))}
@@ -245,19 +245,19 @@ export function PhysicalActivityPageClient({
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="rounded-3xl border border-slate-200 bg-white p-8 text-center shadow-xl dark:border-white/10 dark:bg-slate-950"
+                className="rounded-3xl border border-border bg-surface p-8 text-center shadow-xl dark:border-border dark:bg-ink-950"
               >
                 <motion.div
-                  className="mx-auto flex size-16 items-center justify-center rounded-full bg-teal-50 text-teal-600 dark:bg-teal-400/10"
+                  className="mx-auto flex size-16 items-center justify-center rounded-full bg-primary-soft text-brand-600 dark:bg-brand-400/10"
                   animate={{ scale: [1, 1.08, 1] }}
                   transition={{ duration: 1.6, repeat: Infinity }}
                 >
                   <MapPin size={28} />
                 </motion.div>
-                <h2 className="mt-5 text-xl font-bold text-slate-950 dark:text-white">
+                <h2 className="mt-5 text-xl font-bold text-foreground">
                   Menunggu izin lokasi
                 </h2>
-                <p className="mt-2 text-sm text-slate-500">
+                <p className="mt-2 text-sm text-muted">
                   Pilih “Izinkan” pada dialog browser agar rute dapat direkam.
                 </p>
               </motion.section>
@@ -271,13 +271,13 @@ export function PhysicalActivityPageClient({
                 exit={{ opacity: 0, scale: 0.98 }}
                 className="flex flex-col gap-5"
               >
-                <section className="rounded-3xl bg-white p-5 shadow-xl shadow-slate-900/5 sm:p-7 dark:bg-slate-950">
+                <section className="rounded-3xl bg-surface p-5 shadow-xl shadow-ink-900/5 sm:p-7 dark:bg-ink-950">
                   <div className="flex flex-wrap items-end justify-between gap-4">
                     <div>
-                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-slate-400">
+                      <p className="text-xs font-bold uppercase tracking-[0.18em] text-ink-400">
                         Durasi aktif
                       </p>
-                      <p className="mt-2 text-4xl font-black tabular-nums tracking-tight text-slate-950 sm:text-6xl dark:text-white">
+                      <p className="mt-2 text-4xl font-black tabular-nums tracking-tight text-ink-950 sm:text-6xl dark:text-white">
                         {formatDuration(recorder.elapsedSeconds)}
                       </p>
                     </div>
@@ -340,12 +340,12 @@ export function PhysicalActivityPageClient({
                 animate={{ opacity: 1, y: 0 }}
                 className="flex flex-col gap-5"
               >
-                <section className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl shadow-slate-900/5 dark:border-white/10 dark:bg-slate-950">
+                <section className="overflow-hidden rounded-3xl border border-border bg-surface shadow-xl shadow-ink-900/5 dark:border-border dark:bg-ink-950">
                   <div
                     className={`px-5 py-5 sm:px-7 ${
                       recorder.status === "completed"
-                        ? "bg-teal-600 text-white"
-                        : "bg-amber-500 text-slate-950"
+                        ? "bg-primary text-primary-foreground"
+                        : "bg-amber-500 text-ink-950"
                     }`}
                   >
                     <div className="flex items-center gap-3">
@@ -366,28 +366,28 @@ export function PhysicalActivityPageClient({
                       </div>
                     </div>
                   </div>
-                  <div className="grid grid-cols-3 divide-x divide-slate-200 p-5 text-center sm:p-7 dark:divide-white/10">
+                  <div className="grid grid-cols-3 divide-x divide-border p-5 text-center sm:p-7 dark:divide-border">
                     <div>
-                      <p className="text-xs text-slate-500">Jarak</p>
-                      <p className="mt-2 text-lg font-bold text-slate-950 sm:text-2xl dark:text-white">
+                      <p className="text-xs text-muted">Jarak</p>
+                      <p className="mt-2 text-lg font-bold text-ink-950 sm:text-2xl dark:text-white">
                         {formatDistance(recorder.activity.distanceMeters)}
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-500">Durasi</p>
-                      <p className="mt-2 text-lg font-bold tabular-nums text-slate-950 sm:text-2xl dark:text-white">
+                      <p className="text-xs text-muted">Durasi</p>
+                      <p className="mt-2 text-lg font-bold tabular-nums text-ink-950 sm:text-2xl dark:text-white">
                         {formatDuration(recorder.activity.durationSeconds)}
                       </p>
                     </div>
                     <div>
-                      <p className="text-xs text-slate-500">Rata-rata</p>
-                      <p className="mt-2 text-lg font-bold text-slate-950 sm:text-2xl dark:text-white">
+                      <p className="text-xs text-muted">Rata-rata</p>
+                      <p className="mt-2 text-lg font-bold text-ink-950 sm:text-2xl dark:text-white">
                         {(recorder.activity.averageSpeedKmh ?? 0).toFixed(1)}
-                        <span className="ml-1 text-xs font-medium text-slate-400">km/j</span>
+                        <span className="ml-1 text-xs font-medium text-ink-400">km/j</span>
                       </p>
                     </div>
                   </div>
-                  <p className="border-t border-slate-200 px-5 py-3 text-center text-xs text-slate-500 sm:px-7 dark:border-white/10">
+                  <p className="border-t border-border px-5 py-3 text-center text-xs text-muted sm:px-7 dark:border-border">
                     {recorder.activity.acceptedPointsCount} dari{" "}
                     {recorder.activity.gpsPointsCount} titik GPS memenuhi kualitas
                     perhitungan.
@@ -417,7 +417,7 @@ export function PhysicalActivityPageClient({
 
                 <Link
                   href="/siswa"
-                  className="inline-flex min-h-12 items-center justify-center rounded-xl bg-slate-950 px-5 text-sm font-bold text-white transition-colors hover:bg-slate-800 dark:bg-white dark:text-slate-950 dark:hover:bg-slate-200"
+                  className="inline-flex min-h-12 items-center justify-center rounded-xl bg-ink-950 px-5 text-sm font-bold text-white transition-colors hover:bg-ink-800 dark:bg-white dark:text-ink-950 dark:hover:bg-ink-200"
                 >
                   Kembali ke challenge
                 </Link>
@@ -453,9 +453,9 @@ export function PhysicalActivityPageClient({
           ) : null}
 
           {canFinish ? (
-            <div className="flex items-start gap-3 rounded-2xl border border-slate-200 bg-white px-4 py-3 text-xs leading-5 text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-400">
-              <Timer className="mt-0.5 shrink-0 text-slate-400" size={16} />
-              Versi web tidak dapat menjamin GPS saat layar dikunci. Biarkan EduQuest
+            <div className="flex items-start gap-3 rounded-2xl border border-border bg-surface px-4 py-3 text-xs leading-5 text-muted dark:border-border dark:bg-surface-secondary dark:text-ink-400">
+              <Timer className="mt-0.5 shrink-0 text-ink-400" size={16} />
+              Versi web tidak dapat menjamin GPS saat layar dikunci. Biarkan GerakGamify
               tetap terbuka selama aktivitas berlangsung.
             </div>
           ) : null}

@@ -54,7 +54,7 @@ export function DashboardQuickLinks() {
       <motion.h2
         variants={dashboardItemVariants}
         id="quick-links-title"
-        className="text-lg font-semibold text-slate-900 dark:text-white"
+        className="text-lg font-semibold text-foreground"
       >
         Akses cepat
       </motion.h2>
@@ -72,23 +72,23 @@ export function DashboardQuickLinks() {
           >
             <Link
               href={item.href}
-              className="group flex h-full min-h-16 min-w-0 items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm transition-[border-color,box-shadow] hover:border-teal-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500 focus-visible:ring-offset-2 dark:border-white/10 dark:bg-white/5 dark:hover:border-teal-400/40 dark:focus-visible:ring-offset-slate-950"
+              className="group flex h-full min-h-16 min-w-0 items-center gap-4 rounded-xl border border-border bg-surface p-4 shadow-sm transition-[border-color,box-shadow] hover:border-brand-300 hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 dark:border-border dark:bg-surface-secondary dark:hover:border-brand-400/40 dark:focus-visible:ring-offset-ink-950"
             >
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 transition-colors group-hover:bg-teal-50 group-hover:text-teal-700 dark:bg-white/10 dark:text-slate-200 dark:group-hover:bg-teal-400/10 dark:group-hover:text-teal-300">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-lg bg-ink-100 text-ink-700 transition-colors group-hover:bg-primary-soft group-hover:text-brand-700 dark:bg-surface-secondary dark:text-ink-200 dark:group-hover:bg-brand-400/10 dark:group-hover:text-brand-300">
                 <item.icon aria-hidden="true" size={19} strokeWidth={2} />
               </span>
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-                <span className="text-sm font-semibold text-slate-900 dark:text-white">
+                <span className="text-sm font-semibold text-foreground">
                   {item.title}
                 </span>
-                <span className="text-sm text-slate-500 dark:text-slate-400">
+                <span className="text-sm text-muted">
                   {item.description}
                 </span>
               </span>
               <ArrowRight
                 aria-hidden="true"
                 size={16}
-                className="shrink-0 text-slate-300 transition-[color,transform] group-hover:translate-x-1 group-hover:text-teal-600 motion-reduce:transform-none dark:text-slate-600 dark:group-hover:text-teal-300"
+                className="shrink-0 text-ink-300 transition-[color,transform] group-hover:translate-x-1 group-hover:text-brand-600 motion-reduce:transform-none dark:text-ink-600 dark:group-hover:text-brand-300"
               />
             </Link>
           </motion.div>

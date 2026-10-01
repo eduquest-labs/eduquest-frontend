@@ -80,8 +80,8 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">{data.name}</h1>
-          <div className="flex items-center gap-1.5 text-sm text-slate-500 dark:text-slate-400">
+          <h1 className="text-2xl font-semibold text-foreground">{data.name}</h1>
+          <div className="flex items-center gap-1.5 text-sm text-muted">
             <Users size={13} />
             {data.studentCount} siswa
           </div>
@@ -105,16 +105,16 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
         <ClassCodeReveal classCode={data.classCode} />
       </div>
 
-      <Link href={`/guru/authoring?classId=${classId}`} className="flex w-fit items-center gap-2 rounded-lg bg-teal-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-teal-700">
+      <Link href={`/guru/authoring?classId=${classId}`} className="flex w-fit items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
         <BookOpen size={16} /> Kelola Materi & Tantangan
       </Link>
 
-      <section className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/5">
+      <section className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-5 dark:border-border dark:bg-surface-secondary">
         <div>
-          <h2 className="text-base font-semibold text-slate-900 dark:text-white">
+          <h2 className="text-base font-semibold text-foreground">
             Ekspor Data Nilai
           </h2>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+          <p className="mt-1 text-sm text-muted">
             Mode anonim adalah pilihan aman bawaan. Gunakan mode bernama hanya saat identitas siswa memang dibutuhkan.
           </p>
         </div>
@@ -168,7 +168,7 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
           </Select>
           <Button
             fullWidth
-            className="bg-teal-600 text-white hover:bg-teal-700 sm:w-auto"
+            className="bg-primary text-primary-foreground hover:bg-primary-hover sm:w-auto"
             isDisabled={exportGrades.isPending}
             isPending={exportGrades.isPending}
             onPress={async () => {
@@ -217,7 +217,7 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
               <AlertDialog.Heading>Hapus kelas?</AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-muted">
                 Kelas akan diarsipkan dan tidak lagi tampil di daftar kelas Anda. Data siswa dan
                 riwayat riset yang sudah tersimpan tidak akan dihapus permanen.
               </p>
@@ -247,13 +247,13 @@ export function KelasDetailPageClient({ classId }: KelasDetailPageClientProps) {
         </AlertDialog.Container>
       </AlertDialog.Backdrop>
 
-      <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/5">
-        <h2 className="text-base font-semibold text-slate-900 dark:text-white">Impor Siswa</h2>
+      <div className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-5 dark:border-border dark:bg-surface-secondary">
+        <h2 className="text-base font-semibold text-foreground">Impor Siswa</h2>
         <ImportStudentsForm classId={classId} />
       </div>
 
-      <div className="flex flex-col gap-4 rounded-xl border border-slate-200 bg-white p-5 dark:border-white/10 dark:bg-white/5">
-        <h2 className="text-base font-semibold text-slate-900 dark:text-white">Daftar Siswa</h2>
+      <div className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-5 dark:border-border dark:bg-surface-secondary">
+        <h2 className="text-base font-semibold text-foreground">Daftar Siswa</h2>
         <ClassRosterTable classId={classId} />
       </div>
     </div>

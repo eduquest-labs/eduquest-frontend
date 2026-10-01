@@ -75,7 +75,7 @@ export function CreateSchoolForm({ onCreated }: CreateSchoolFormProps) {
         isPending={createSchool.isPending}
         isDisabled={createSchool.isPending}
         fullWidth
-        className="bg-teal-600 text-white hover:bg-teal-700 data-[pressed=true]:bg-teal-800"
+        className="bg-primary text-primary-foreground hover:bg-primary-hover data-[pressed=true]:bg-primary-pressed"
       >
         {({ isPending }) => (isPending ? "Membuat..." : "Buat Sekolah")}
       </Button>

@@ -101,13 +101,13 @@ export function QuestionForm({ question, isPublished, isPending, onSubmit, formI
         <Alert status="danger"><Alert.Indicator /><Alert.Content><Alert.Description>{formError}</Alert.Description></Alert.Content></Alert>
       ) : null}
 
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
         Tipe soal
         <select
           value={values.questionType}
           disabled={isPending || isPublished}
           onChange={(event) => changeType(event.target.value as QuestionType)}
-          className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm outline-none focus:border-teal-600 disabled:opacity-60 dark:border-white/15 dark:bg-black"
+          className="h-10 rounded-lg border border-ink-300 bg-surface px-3 text-sm outline-none focus:border-brand-600 disabled:opacity-60 dark:border-white/15 dark:bg-background"
         >
           <option value="pilihan_ganda">Pilihan ganda</option>
           <option value="isian_singkat">Isian singkat</option>
@@ -151,7 +151,7 @@ export function QuestionForm({ question, isPublished, isPending, onSubmit, formI
       {values.questionType === "pilihan_ganda" ? (
         <fieldset className="flex flex-col gap-3" disabled={isPending || isPublished}>
           <div className="flex items-center justify-between gap-3">
-            <legend className="text-sm font-semibold text-slate-900 dark:text-white">Opsi jawaban</legend>
+            <legend className="text-sm font-semibold text-foreground">Opsi jawaban</legend>
             {!isPublished ? (
               <Button
                 type="button"
@@ -167,7 +167,7 @@ export function QuestionForm({ question, isPublished, isPending, onSubmit, formI
             ) : null}
           </div>
           {values.options.map((option, index) => (
-            <div key={index} className="grid grid-cols-[auto_1fr_auto] items-start gap-2 rounded-lg border border-slate-200 p-3 dark:border-white/10">
+            <div key={index} className="grid grid-cols-[auto_1fr_auto] items-start gap-2 rounded-lg border border-border p-3 dark:border-border">
               <input
                 type="radio"
                 name="correct-option"
@@ -177,7 +177,7 @@ export function QuestionForm({ question, isPublished, isPending, onSubmit, formI
                   ...old,
                   options: old.options.map((item, itemIndex) => ({ ...item, isCorrect: itemIndex === index })),
                 }))}
-                className="mt-3 accent-teal-600"
+                className="mt-3 accent-brand-600"
               />
               <Input
                 aria-label={`Teks opsi ${index + 1}`}
@@ -196,7 +196,7 @@ export function QuestionForm({ question, isPublished, isPending, onSubmit, formI
                   aria-label={`Hapus opsi ${index + 1}`}
                   disabled={values.options.length <= 2}
                   onClick={() => setValues((old) => ({ ...old, options: old.options.filter((_, itemIndex) => itemIndex !== index) }))}
-                  className="flex size-10 items-center justify-center rounded-lg text-slate-400 hover:bg-danger-soft hover:text-danger disabled:cursor-not-allowed disabled:opacity-30"
+                  className="flex size-10 items-center justify-center rounded-lg text-ink-400 hover:bg-danger-soft hover:text-danger disabled:cursor-not-allowed disabled:opacity-30"
                 >
                   <Trash2 size={16} />
                 </button>
@@ -208,7 +208,7 @@ export function QuestionForm({ question, isPublished, isPending, onSubmit, formI
       ) : null}
 
       {!hideSubmitButton ? (
-        <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-teal-600 text-white hover:bg-teal-700">
+        <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-primary text-primary-foreground hover:bg-primary-hover">
           {question ? "Simpan perubahan" : "Tambah soal"}
         </Button>
       ) : null}

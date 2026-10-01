@@ -62,12 +62,12 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div className="flex flex-wrap items-start justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Authoring</h1>
-          <p className="mt-1 text-sm text-slate-500">Susun termin, topic, challenge, dan soal dalam konteks kelas yang jelas.</p>
+          <h1 className="text-2xl font-semibold text-foreground">Authoring</h1>
+          <p className="mt-1 text-sm text-muted">Susun termin, topic, challenge, dan soal dalam konteks kelas yang jelas.</p>
         </div>
         <div className="flex gap-2">
           <Button variant="secondary" isDisabled={!selectedClassId} onPress={createTermOverlay.open}><Plus size={16} /> Tambah termin</Button>
-          <Button className="bg-teal-600 text-white hover:bg-teal-700" isDisabled={!selectedClassId} onPress={createTopicOverlay.open}><Plus size={16} /> Tambah topic</Button>
+          <Button className="bg-primary text-primary-foreground hover:bg-primary-hover" isDisabled={!selectedClassId} onPress={createTopicOverlay.open}><Plus size={16} /> Tambah topic</Button>
         </div>
       </div>
 
@@ -77,10 +77,10 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
         <Alert status="warning"><Alert.Indicator /><Alert.Content><Alert.Description>Buat kelas terlebih dahulu sebelum menyusun authoring.</Alert.Description></Alert.Content></Alert>
       ) : null}
       {classes.data?.length ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/5">
-          <label className="flex max-w-md flex-col gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+        <div className="rounded-xl border border-border bg-surface p-4 dark:border-border dark:bg-surface-secondary">
+          <label className="flex max-w-md flex-col gap-1.5 text-sm font-medium text-muted">
             Kelas aktif
-            <select value={selectedClassId ?? ""} onChange={(event) => selectClass(Number(event.target.value))} className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm dark:border-white/15 dark:bg-black">
+            <select value={selectedClassId ?? ""} onChange={(event) => selectClass(Number(event.target.value))} className="h-10 rounded-lg border border-ink-300 bg-surface px-3 text-sm dark:border-white/15 dark:bg-background">
               {classes.data.map((kelas) => <option key={kelas.id} value={kelas.id}>{kelas.name}</option>)}
             </select>
           </label>
@@ -90,7 +90,7 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
       {topics.isLoading ? <div className="flex flex-col gap-3">{[1,2,3].map((item) => <Skeleton key={item} className="h-20 w-full rounded-xl" />)}</div> : null}
       {topics.isError ? <Alert status="danger"><Alert.Indicator /><Alert.Content><Alert.Description>Topic kelas gagal dimuat.</Alert.Description></Alert.Content><Button size="sm" variant="secondary" onPress={() => topics.refetch()}>Coba lagi</Button></Alert> : null}
       {!topics.isLoading && !topics.isError && selectedClassId && topics.data?.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-slate-200 px-6 py-16 text-center dark:border-white/10"><BookOpen size={22} className="text-slate-300" /><div><p className="font-semibold text-slate-900 dark:text-white">Belum ada topic</p><p className="mt-1 text-sm text-slate-500">Buat topic pertama untuk mulai menyusun challenge.</p></div></div>
+        <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-border px-6 py-16 text-center dark:border-border"><BookOpen size={22} className="text-ink-300" /><div><p className="font-semibold text-foreground">Belum ada topic</p><p className="mt-1 text-sm text-muted">Buat topic pertama untuk mulai menyusun challenge.</p></div></div>
       ) : null}
 
       {selectedClassId && terms.data?.length ? (
@@ -103,7 +103,7 @@ export function AuthoringPageClient({ initialClassId }: AuthoringPageClientProps
 
       {selectedClassId && ungroupedTopics.length > 0 ? (
         <div className="flex flex-col gap-3">
-          <h2 className="text-sm font-semibold text-slate-500">Topic tanpa termin</h2>
+          <h2 className="text-sm font-semibold text-muted">Topic tanpa termin</h2>
           {ungroupedTopics.map((topic) => <TopicSection key={topic.id} classId={selectedClassId} topic={topic} classes={classes.data ?? []} />)}
         </div>
       ) : null}

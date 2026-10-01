@@ -182,7 +182,7 @@ export function RegisterGuruForm({ onRegistered }: RegisterGuruFormProps) {
         isPending={isPending}
         isDisabled={isPending}
         fullWidth
-        className="bg-teal-600 text-white hover:bg-teal-700 data-[pressed=true]:bg-teal-800"
+        className="bg-primary text-primary-foreground hover:bg-primary-hover data-[pressed=true]:bg-primary-pressed"
       >
         {({ isPending: pending }) => (pending ? "Mendaftarkan..." : "Daftar")}
       </Button>

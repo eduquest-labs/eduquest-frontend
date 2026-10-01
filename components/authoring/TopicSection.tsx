@@ -25,13 +25,13 @@ export function TopicSection({ classId, topic, classes }: TopicSectionProps) {
   const deleteTopic = useDeleteTopic(classId);
 
   return (
-    <section className="overflow-hidden rounded-xl border border-slate-200 bg-white dark:border-white/10 dark:bg-white/5">
+    <section className="overflow-hidden rounded-xl border border-border bg-surface dark:border-border dark:bg-surface-secondary">
       <div className="flex flex-wrap items-center justify-between gap-3 p-4">
         <button type="button" onClick={() => setExpanded((value) => !value)} className="flex min-w-0 flex-1 items-center gap-3 text-left">
-          <ChevronDown size={18} className={cn("shrink-0 text-slate-400 transition-transform", expanded && "rotate-180")} />
+          <ChevronDown size={18} className={cn("shrink-0 text-ink-400 transition-transform", expanded && "rotate-180")} />
           <div className="min-w-0">
-            <h2 className="truncate font-semibold text-slate-900 dark:text-white">{topic.name}</h2>
-            <p className="text-xs text-slate-500">Urutan {topic.sortOrder}</p>
+            <h2 className="truncate font-semibold text-foreground">{topic.name}</h2>
+            <p className="text-xs text-muted">Urutan {topic.sortOrder}</p>
           </div>
         </button>
         <div className="flex items-center gap-1">
@@ -46,7 +46,7 @@ export function TopicSection({ classId, topic, classes }: TopicSectionProps) {
       </Modal.Backdrop>
 
       <AlertDialog.Backdrop isOpen={confirmDelete} onOpenChange={setConfirmDelete}>
-        <AlertDialog.Container><AlertDialog.Dialog className="sm:max-w-110"><AlertDialog.CloseTrigger /><AlertDialog.Header><AlertDialog.Icon status="danger" /><AlertDialog.Heading>Hapus topic?</AlertDialog.Heading></AlertDialog.Header><AlertDialog.Body><p className="text-sm text-slate-500">Topic hanya dapat dihapus jika belum pernah memiliki challenge.</p></AlertDialog.Body><AlertDialog.Footer><Button slot="close" variant="tertiary">Batal</Button><Button variant="danger" isPending={deleteTopic.isPending} onPress={async () => { try { await deleteTopic.mutateAsync(topic.id); setConfirmDelete(false); toast.success("Topic berhasil dihapus."); } catch (error) { toast.danger(isAxiosError(error) && error.response?.status === 409 ? error.response.data?.message : "Topic gagal dihapus."); } }}>Hapus</Button></AlertDialog.Footer></AlertDialog.Dialog></AlertDialog.Container>
+        <AlertDialog.Container><AlertDialog.Dialog className="sm:max-w-110"><AlertDialog.CloseTrigger /><AlertDialog.Header><AlertDialog.Icon status="danger" /><AlertDialog.Heading>Hapus topic?</AlertDialog.Heading></AlertDialog.Header><AlertDialog.Body><p className="text-sm text-muted">Topic hanya dapat dihapus jika belum pernah memiliki challenge.</p></AlertDialog.Body><AlertDialog.Footer><Button slot="close" variant="tertiary">Batal</Button><Button variant="danger" isPending={deleteTopic.isPending} onPress={async () => { try { await deleteTopic.mutateAsync(topic.id); setConfirmDelete(false); toast.success("Topic berhasil dihapus."); } catch (error) { toast.danger(isAxiosError(error) && error.response?.status === 409 ? error.response.data?.message : "Topic gagal dihapus."); } }}>Hapus</Button></AlertDialog.Footer></AlertDialog.Dialog></AlertDialog.Container>
       </AlertDialog.Backdrop>
     </section>
   );

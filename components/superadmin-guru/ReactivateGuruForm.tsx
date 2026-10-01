@@ -65,7 +65,7 @@ export function ReactivateGuruForm({ guruId, onReactivated }: ReactivateGuruForm
         </Alert>
       ) : null}
 
-      <p className="text-sm text-slate-500 dark:text-slate-400">
+      <p className="text-sm text-muted">
         Sampaikan kata sandi baru ini ke guru di luar sistem (chat/telepon) setelah aktivasi berhasil.
       </p>
 
@@ -102,7 +102,7 @@ export function ReactivateGuruForm({ guruId, onReactivated }: ReactivateGuruForm
         isPending={reactivateGuru.isPending}
         isDisabled={reactivateGuru.isPending}
         fullWidth
-        className="bg-teal-600 text-white hover:bg-teal-700 data-[pressed=true]:bg-teal-800"
+        className="bg-primary text-primary-foreground hover:bg-primary-hover data-[pressed=true]:bg-primary-pressed"
       >
         {({ isPending }) => (isPending ? "Mengaktifkan..." : "Aktifkan Akun")}
       </Button>

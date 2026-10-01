@@ -55,7 +55,7 @@ export function AttemptTimer({ deadlineAt, stopped, onExpire }: AttemptTimerProp
       className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-semibold ${
         remaining !== null && remaining <= 60
           ? "bg-red-100 text-red-700 dark:bg-red-400/10 dark:text-red-300"
-          : "bg-teal-100 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300"
+          : "bg-brand-100 text-brand-700 dark:bg-brand-400/10 dark:text-brand-300"
       }`}
     >
       <Clock size={16} />

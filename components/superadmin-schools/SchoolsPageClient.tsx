@@ -23,14 +23,14 @@ export function SchoolsPageClient() {
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Sekolah</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <h1 className="text-2xl font-semibold text-foreground">Sekolah</h1>
+          <p className="text-sm text-muted">
             Kelola daftar sekolah yang dapat dipilih guru saat mendaftar.
           </p>
         </div>
 
         <Button
-          className="flex items-center gap-1.5 bg-teal-600 text-white hover:bg-teal-700"
+          className="flex items-center gap-1.5 bg-primary text-primary-foreground hover:bg-primary-hover"
           onPress={() => setCreateOpen(true)}
         >
           <Plus size={16} />
@@ -111,7 +111,7 @@ export function SchoolsPageClient() {
               <AlertDialog.Heading>Hapus sekolah?</AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-muted">
                 Sekolah akan diarsipkan. Guru yang masih terdaftar di sekolah ini tidak ikut
                 terhapus dan tetap dapat login serta mengelola kelasnya seperti biasa.
               </p>

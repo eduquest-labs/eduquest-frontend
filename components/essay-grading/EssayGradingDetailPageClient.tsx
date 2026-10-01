@@ -62,16 +62,16 @@ export function EssayGradingDetailPageClient({
       <div className="flex flex-col gap-3">
         <Link
           href={classId > 0 ? `/guru/grading?classId=${classId}` : "/guru/grading"}
-          className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-teal-700 hover:text-teal-800 dark:text-teal-300"
+          className="inline-flex w-fit items-center gap-1.5 text-sm font-medium text-brand-700 hover:text-brand-800 dark:text-brand-300"
         >
           <ArrowLeft size={15} /> Kembali ke antrean
         </Link>
         <div className="flex flex-wrap items-start justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+            <h1 className="text-2xl font-semibold text-foreground">
               {attempt.data.student.name}
             </h1>
-            <p className="mt-1 text-sm text-slate-500">{attempt.data.challenge.title}</p>
+            <p className="mt-1 text-sm text-muted">{attempt.data.challenge.title}</p>
           </div>
           <Chip
             color={attempt.data.gradingStatus === "complete" ? "success" : "warning"}
@@ -124,9 +124,9 @@ export function EssayGradingDetailPageClient({
             <Card.Content className="flex flex-col gap-5">
               {answer ? (
                 <>
-                  <div className="rounded-xl bg-slate-50 p-4 dark:bg-white/5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-slate-500">Jawaban siswa</p>
-                    <p className="mt-2 whitespace-pre-wrap text-sm text-slate-900 dark:text-white">
+                  <div className="rounded-xl bg-background p-4 dark:bg-surface-secondary">
+                    <p className="text-xs font-semibold uppercase tracking-wide text-muted">Jawaban siswa</p>
+                    <p className="mt-2 whitespace-pre-wrap text-sm text-foreground">
                       {answer.answerText || "Jawaban hanya berupa lampiran."}
                     </p>
                     {answer.hasAttachment ? (

@@ -15,14 +15,14 @@ export function KelasPageClient() {
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div className="flex flex-wrap items-center justify-between gap-4">
         <div className="flex flex-col gap-1">
-          <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Kelas Saya</h1>
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+          <h1 className="text-2xl font-semibold text-foreground">Kelas Saya</h1>
+          <p className="text-sm text-muted">
             Buat kelas, bagikan kodenya, dan impor daftar siswa.
           </p>
         </div>
 
         <Modal>
-          <Modal.Trigger className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-teal-600 px-3.5 py-2 text-sm font-medium text-white hover:bg-teal-700">
+          <Modal.Trigger className="flex cursor-pointer items-center gap-1.5 rounded-lg bg-primary px-3.5 py-2 text-sm font-medium text-primary-foreground hover:bg-primary-hover">
             <Plus size={16} />
             Buat Kelas Baru
           </Modal.Trigger>

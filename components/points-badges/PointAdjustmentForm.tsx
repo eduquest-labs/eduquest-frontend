@@ -113,7 +113,7 @@ export function PointAdjustmentForm({
         type="submit"
         isPending={isPending}
         isDisabled={isPending}
-        className="bg-teal-600 text-white hover:bg-teal-700"
+        className="bg-primary text-primary-foreground hover:bg-primary-hover"
       >
         Simpan koreksi
       </Button>

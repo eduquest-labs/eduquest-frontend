@@ -2,6 +2,8 @@
 @import "@heroui/styles";
 @import "leaflet/dist/leaflet.css";
 
+/* Shared theme for auth, learning, administration, charts and overlays. */
+
 @keyframes gps-location-pulse {
   0% {
     opacity: 0.42;
@@ -36,16 +38,80 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-  --color-primary: #0d9488;
-  --color-primary-foreground: #ffffff;
-  --color-secondary: #2dd4bf;
-  --color-accent: #f5a623;
-  --background-warm: #f7f5f0;
-  --glass-surface: rgba(255, 255, 255, 0.9);
-  --glass-border: #e2e8f0;
-  --glass-shadow: rgba(15, 23, 42, 0.06);
+  color-scheme: light;
+  /* GerakGamify: neutral reading surfaces, vermilion actions, quiet achievement surfaces. */
+  --background: #f8f8f6;
+  --foreground: #242625;
+  --surface: #ffffff;
+  --surface-foreground: var(--foreground);
+  --surface-secondary: #eeefec;
+  --surface-secondary-foreground: var(--foreground);
+  --surface-tertiary: #e4e6e2;
+  --surface-tertiary-foreground: var(--foreground);
+  --overlay: var(--surface);
+  --overlay-foreground: var(--foreground);
+  --muted: #626863;
+  --border: #d8dcd5;
+  --separator: #e4e6e2;
+  --default: var(--surface-secondary);
+  --default-foreground: var(--foreground);
+  --primary: #c43d25;
+  --primary-hover: #a93220;
+  --primary-pressed: #892c1f;
+  --primary-foreground: #ffffff;
+  --primary-soft: #faeee8;
+  --primary-soft-foreground: #a93220;
+  /* HeroUI accent means the primary action, not the decorative reward. */
+  --accent: var(--primary);
+  --accent-foreground: var(--primary-foreground);
+  --accent-hover: var(--primary-hover);
+  --accent-soft: var(--primary-soft);
+  --accent-soft-foreground: var(--primary-soft-foreground);
+  --reward: #e5e7e0;
+  --reward-hover: #d7dccf;
+  --reward-foreground: #30372c;
+  --reward-soft: #f0f2ed;
+  --reward-text: #505a49;
+  --reward-border: #cbd2bf;
+  --success: #28704e;
+  --success-foreground: #ffffff;
+  --warning: #956016;
+  --warning-foreground: #ffffff;
+  --danger: #b53c4b;
+  --danger-foreground: #ffffff;
+  --focus: var(--primary);
+  --link: var(--primary-soft-foreground);
+  --field-background: var(--surface);
+  --field-foreground: var(--foreground);
+  --field-placeholder: var(--muted);
+  --field-border: #a6ada4;
+  --field-border-width: 1px;
+  --field-border-focus: var(--primary);
+  --field-focus: var(--surface);
+  --field-hover: var(--surface);
+  --field-shadow: none;
+  --segment: var(--surface);
+  --segment-foreground: var(--foreground);
+  --background-warm: var(--background);
+  --brand-strong: #292c2b;
+  --brand-mark: #292c2b;
+  --brand-on-mark: #ffffff;
+  --brand-arrow: #f39479;
+  --border-strong: #a6ada4;
+  --chart-primary: #c43d25;
+  --chart-secondary: #7b8578;
+  --chart-fill: #f39479;
+  --chart-area: #faeee8;
+  --chart-grid: #d8dcd5;
+  --chart-empty: #bbc3b7;
+  --chart-text: #626863;
+  --chart-point: #242625;
+  --shadow-color: 34, 39, 35;
+  --surface-shadow: 0 2px 8px rgba(var(--shadow-color), 0.04);
+  --overlay-shadow: 0 12px 36px rgba(var(--shadow-color), 0.13);
+  --glass-surface: color-mix(in srgb, var(--surface) 94%, transparent);
+  --glass-border: var(--border);
+  --glass-shadow: rgba(var(--shadow-color), 0.06);
 }
 
 @theme inline {
@@ -53,37 +119,108 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-jakarta-sans);
-  --color-accent: #f5a623;
+  --font-display: var(--font-geist-sans);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-primary-pressed: var(--primary-pressed);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary-soft: var(--primary-soft);
+  --color-primary-soft-foreground: var(--primary-soft-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-reward: var(--reward);
+  --color-reward-hover: var(--reward-hover);
+  --color-reward-foreground: var(--reward-foreground);
+  --color-reward-soft: var(--reward-soft);
+  --color-reward-text: var(--reward-text);
+  --color-reward-border: var(--reward-border);
+  --color-muted-foreground: var(--muted);
+  --color-brand-strong: var(--brand-strong);
+  --color-ink: #242625;
   --color-background-warm: var(--background-warm);
+  /* Tonal scales for illustrations and existing utility-based layouts. */
+  --color-brand-50: #fdf5f0;
+  --color-brand-100: #fae7dd;
+  --color-brand-200: #f9c6b4;
+  --color-brand-300: #f39479;
+  --color-brand-400: #e97555;
+  --color-brand-500: #d55a3c;
+  --color-brand-600: #c43d25;
+  --color-brand-700: #a93220;
+  --color-brand-800: #892c1f;
+  --color-brand-900: #702e21;
+  --color-brand-950: #41221b;
+  --color-ink-50: #f8f8f6;
+  --color-ink-100: #eeefec;
+  --color-ink-200: #d8dcd5;
+  --color-ink-300: #bcc4b9;
+  --color-ink-400: #8b9688;
+  --color-ink-500: #626863;
+  --color-ink-600: #505b50;
+  --color-ink-700: #3d483e;
+  --color-ink-800: #323633;
+  --color-ink-900: #242625;
+  --color-ink-950: #1a1c1b;
 }
 
 [data-theme="dark"] {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --color-accent: #f7b84b;
-  --background-warm: #102321;
-  --glass-surface: rgba(23, 23, 23, 0.9);
-  --glass-border: rgba(255, 255, 255, 0.1);
-  --glass-shadow: rgba(0, 0, 0, 0.4);
+  color-scheme: dark;
+  --background: #1a1c1b;
+  --foreground: #eef0ec;
+  --surface: #232624;
+  --surface-secondary: #2d302e;
+  --surface-tertiary: #323633;
+  --overlay: #2d302e;
+  --muted: #afb5ae;
+  --border: #434a43;
+  --separator: #323633;
+  --primary: #f39479;
+  --primary-hover: #f9c6b4;
+  --primary-pressed: #e97555;
+  --primary-foreground: #271e19;
+  --primary-soft: #432b23;
+  --primary-soft-foreground: #f9c6b4;
+  --reward: #e5e7e0;
+  --reward-hover: #f0f2e9;
+  --reward-soft: #2e372a;
+  --reward-text: #d4dcc7;
+  --reward-foreground: #30372c;
+  --border-strong: #7c8778;
+  --reward-border: #505e44;
+  --success: #85d0a6;
+  --success-foreground: #142a1e;
+  --warning: #f0be72;
+  --warning-foreground: #35240e;
+  --danger: #f59ba7;
+  --danger-foreground: #3a1820;
+  --field-border: #7c8778;
+  --chart-secondary: #acb6a5;
+  --chart-primary: #f39479;
+  --chart-fill: #d55a3c;
+  --chart-area: #432b23;
+  --chart-grid: #434a43;
+  --chart-empty: #505b50;
+  --chart-text: #afb5ae;
+  --chart-point: #eef0ec;
+  --shadow-color: 0, 0, 0;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --color-accent: #f7b84b;
-    --background-warm: #102321;
-    --glass-surface: rgba(23, 23, 23, 0.9);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --glass-shadow: rgba(0, 0, 0, 0.4);
-  }
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* Keep saved credentials readable and consistent with the current theme. */
+html input:-webkit-autofill {
+  -webkit-text-fill-color: var(--field-foreground);
+  caret-color: var(--field-foreground);
+  box-shadow: 0 0 0 1000px var(--field-background) inset;
 }
 
 html {

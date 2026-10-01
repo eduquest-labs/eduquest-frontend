@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { StudentProfilePage } from "@/components/student";
 
-export const metadata: Metadata = { title: "Profil Siswa | EduQuest" };
+export const metadata: Metadata = { title: "Profil Siswa | GerakGamify" };
 
 export default function ProfilePage() {
   return <StudentProfilePage />;

@@ -116,21 +116,21 @@ export function StudentProfilePage() {
       >
         <motion.header
           variants={sectionVariants}
-          className="relative overflow-hidden rounded-3xl border border-teal-200/80 bg-linear-to-br from-white via-teal-50 to-cyan-100/80 p-6 shadow-[0_18px_50px_-28px_rgba(13,148,136,0.7)] sm:p-7 dark:border-teal-400/20 dark:from-slate-950 dark:via-teal-950/70 dark:to-cyan-950/60"
+          className="relative overflow-hidden rounded-3xl border border-border bg-surface p-6 shadow-sm sm:p-7"
         >
           <div
             aria-hidden="true"
-            className="absolute -right-16 -top-20 size-52 rounded-full bg-teal-300/25 blur-3xl dark:bg-teal-400/15"
+            className="absolute -right-16 -top-20 size-52 rounded-full bg-brand-300/25 blur-3xl dark:bg-brand-400/15"
           />
           <div className="relative flex flex-col items-center gap-5 text-center sm:flex-row sm:items-center sm:gap-6 sm:text-left">
-            <span className="grid size-20 shrink-0 place-items-center rounded-3xl bg-teal-600 font-display text-2xl font-bold text-white shadow-lg shadow-teal-600/25 sm:size-24 sm:text-3xl">
+            <span className="grid size-20 shrink-0 place-items-center rounded-3xl bg-primary font-display text-2xl font-bold text-primary-foreground shadow-lg shadow-brand-600/25 sm:size-24 sm:text-3xl">
               {initials(me.data.name)}
             </span>
             <div className="min-w-0 flex-1">
-              <h1 className="font-display text-2xl font-bold tracking-tight text-slate-950 sm:text-3xl dark:text-white">
+              <h1 className="font-display text-2xl font-bold tracking-tight text-ink-950 sm:text-3xl dark:text-white">
                 {me.data.name}
               </h1>
-              <p className="mt-1 flex items-center justify-center gap-1.5 text-sm text-slate-600 sm:justify-start dark:text-slate-300">
+              <p className="mt-1 flex items-center justify-center gap-1.5 text-sm text-ink-600 sm:justify-start dark:text-ink-300">
                 <IdCard aria-hidden="true" size={15} />
                 <span className="font-mono">{me.data.nisn ?? "NISN belum tersedia"}</span>
               </p>
@@ -162,9 +162,9 @@ export function StudentProfilePage() {
         </motion.header>
 
         <motion.div variants={sectionVariants} className="grid gap-4 sm:grid-cols-2">
-          <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/5">
-            <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-              <span className="grid size-8 place-items-center rounded-xl bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-200">
+          <article className="rounded-3xl border border-border bg-surface p-5 shadow-sm dark:border-border dark:bg-surface-secondary">
+            <div className="flex items-center gap-2 text-muted">
+              <span className="grid size-8 place-items-center rounded-xl bg-ink-100 text-ink-700 dark:bg-surface-secondary dark:text-ink-200">
                 <GraduationCap aria-hidden="true" size={16} />
               </span>
               <h2 className="text-sm font-semibold">Kelas</h2>
@@ -174,26 +174,26 @@ export function StudentProfilePage() {
                 {classes.map((classItem) => (
                   <li
                     key={classItem.id}
-                    className="flex items-center justify-between gap-3 rounded-xl bg-slate-50 px-3 py-2 dark:bg-white/5"
+                    className="flex items-center justify-between gap-3 rounded-xl bg-background px-3 py-2 dark:bg-surface-secondary"
                   >
-                    <span className="min-w-0 truncate text-sm font-medium text-slate-800 dark:text-slate-100">
+                    <span className="min-w-0 truncate text-sm font-medium text-ink-800 dark:text-ink-100">
                       {classItem.name}
                     </span>
-                    <span className="shrink-0 text-sm font-semibold text-teal-700 dark:text-teal-300">
+                    <span className="shrink-0 text-sm font-semibold text-primary-soft-foreground">
                       {classItem.totalPoints.toLocaleString("id-ID")} poin
                     </span>
                   </li>
                 ))}
               </ul>
             ) : (
-              <p className="mt-3 text-sm text-slate-500">Belum tergabung di kelas mana pun.</p>
+              <p className="mt-3 text-sm text-muted">Belum tergabung di kelas mana pun.</p>
             )}
           </article>
 
-          <article className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm dark:border-white/10 dark:bg-white/5">
+          <article className="rounded-3xl border border-border bg-surface p-5 shadow-sm dark:border-border dark:bg-surface-secondary">
             <div className="flex items-center justify-between gap-2">
-              <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-                <span className="grid size-8 place-items-center rounded-xl bg-violet-100 text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
+              <div className="flex items-center gap-2 text-muted">
+                <span className="grid size-8 place-items-center rounded-xl bg-reward-soft text-reward-text bg-reward-soft text-reward-text">
                   <Award aria-hidden="true" size={16} />
                 </span>
                 <h2 className="text-sm font-semibold">Badge</h2>
@@ -209,7 +209,7 @@ export function StudentProfilePage() {
                 {earnedBadges.map((studentBadge) => (
                   <span
                     key={studentBadge.id}
-                    className="inline-flex items-center gap-1.5 rounded-full border border-violet-200/80 bg-violet-50 px-3 py-1.5 text-xs font-semibold text-violet-800 dark:border-violet-400/20 dark:bg-violet-400/10 dark:text-violet-200"
+                    className="inline-flex items-center gap-1.5 rounded-full border border-reward-border bg-reward-soft px-3 py-1.5 text-xs font-semibold text-reward-text border-reward-border bg-reward-soft text-reward-text"
                   >
                     <Sparkles aria-hidden="true" size={12} />
                     {studentBadge.badge.name}
@@ -217,7 +217,7 @@ export function StudentProfilePage() {
                 ))}
               </div>
             ) : (
-              <p className="mt-3 text-sm text-slate-500">
+              <p className="mt-3 text-sm text-muted">
                 Belum ada badge. Selesaikan challenge untuk membukanya.
               </p>
             )}
@@ -226,15 +226,15 @@ export function StudentProfilePage() {
 
         <motion.article
           variants={sectionVariants}
-          className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6 dark:border-white/10 dark:bg-white/5"
+          className="rounded-3xl border border-border bg-surface p-5 shadow-sm sm:p-6 dark:border-border dark:bg-surface-secondary"
         >
-          <div className="flex items-center gap-2 text-slate-600 dark:text-slate-300">
-            <span className="grid size-8 place-items-center rounded-xl bg-slate-100 text-slate-700 dark:bg-white/10 dark:text-slate-200">
+          <div className="flex items-center gap-2 text-muted">
+            <span className="grid size-8 place-items-center rounded-xl bg-ink-100 text-ink-700 dark:bg-surface-secondary dark:text-ink-200">
               <Mail aria-hidden="true" size={16} />
             </span>
             <div>
               <h2 className="text-sm font-semibold">Email untuk login</h2>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted">
                 Nama dan NISN berasal dari data sekolah dan tidak dapat diubah.
               </p>
             </div>
@@ -270,7 +270,7 @@ export function StudentProfilePage() {
                 type="submit"
                 isPending={isSaving}
                 isDisabled={isSaving}
-                className="min-h-11 bg-teal-600 text-white"
+                className="min-h-11 bg-primary text-primary-foreground"
               >
                 Simpan email
               </Button>

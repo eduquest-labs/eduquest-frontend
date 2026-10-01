@@ -105,12 +105,12 @@ export function EssayGradeForm({ classId, attemptId, question, answer }: EssayGr
           type="submit"
           isPending={gradeEssay.isPending}
           isDisabled={gradeEssay.isPending}
-          className="bg-teal-600 text-white hover:bg-teal-700"
+          className="bg-primary text-primary-foreground hover:bg-primary-hover"
         >
           {hasGrade ? "Perbarui nilai" : "Simpan nilai"}
         </Button>
         {answer.gradedAt ? (
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-muted">
             Terakhir dinilai {formatTimeID(
               new Intl.DateTimeFormat("id-ID", {
                 dateStyle: "medium",

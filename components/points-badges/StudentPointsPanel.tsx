@@ -59,22 +59,22 @@ export function StudentPointsPanel({
 
   return (
     <div className="flex flex-col gap-5">
-      <section className="rounded-xl bg-teal-50 p-4 dark:bg-teal-400/10">
-        <p className="text-sm text-teal-700 dark:text-teal-300">{points.data.student.name}</p>
-        <p className="mt-1 text-3xl font-bold text-teal-900 dark:text-teal-100">
+      <section className="rounded-xl bg-primary-soft p-4 dark:bg-brand-400/10">
+        <p className="text-sm text-primary-soft-foreground">{points.data.student.name}</p>
+        <p className="mt-1 text-3xl font-bold text-brand-900 dark:text-brand-100">
           {points.data.totalPoints.toLocaleString("id-ID")} poin
         </p>
-        <p className="mt-1 text-xs text-teal-700/70 dark:text-teal-300/70">
+        <p className="mt-1 text-xs text-brand-700/70 dark:text-brand-300/70">
           Sinkron terakhir {formatTimeID(dateFormatter, new Date(points.data.lastSyncedAt))}
         </p>
       </section>
 
       <section className="flex flex-col gap-3">
         <h3 className="flex items-center gap-2 text-sm font-semibold">
-          <Trophy size={16} className="text-amber-500" /> Badge dimiliki
+          <Trophy size={16} className="text-reward-text" /> Badge dimiliki
         </h3>
         {points.data.badges.length === 0 ? (
-          <p className="text-sm text-slate-500">Siswa belum memiliki badge.</p>
+          <p className="text-sm text-muted">Siswa belum memiliki badge.</p>
         ) : (
           <div className="flex flex-wrap gap-2">
             {points.data.badges.map((studentBadge) => (
@@ -90,7 +90,7 @@ export function StudentPointsPanel({
         )}
       </section>
 
-      <section className="flex flex-col gap-3 rounded-xl border border-slate-200 p-4 dark:border-white/10">
+      <section className="flex flex-col gap-3 rounded-xl border border-border p-4 dark:border-border">
         <h3 className="text-sm font-semibold">Koreksi poin manual</h3>
         <PointAdjustmentForm
           isPending={adjustment.isPending}
@@ -103,7 +103,7 @@ export function StudentPointsPanel({
 
       <section className="flex flex-col gap-3">
         <h3 className="flex items-center gap-2 text-sm font-semibold">
-          <Award size={16} className="text-violet-500" /> Badge tersedia
+          <Award size={16} className="text-reward-text" /> Badge tersedia
         </h3>
         {badges.isLoading ? (
           <div className="flex flex-col gap-2">
@@ -120,18 +120,18 @@ export function StudentPointsPanel({
           </Alert>
         ) : null}
         {badges.data?.length === 0 ? (
-          <p className="text-sm text-slate-500">Katalog badge belum tersedia.</p>
+          <p className="text-sm text-muted">Katalog badge belum tersedia.</p>
         ) : null}
         {badges.data?.map((badge) => {
           const isOwned = ownedBadgeIds.has(badge.id);
           return (
             <div
               key={badge.id}
-              className="flex flex-col gap-2 rounded-lg border border-slate-200 p-3 sm:flex-row sm:items-center dark:border-white/10"
+              className="flex flex-col gap-2 rounded-lg border border-border p-3 sm:flex-row sm:items-center dark:border-border"
             >
               <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium">{badge.name}</p>
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-muted">
                   {badge.description ?? "Tanpa deskripsi"}
                 </p>
               </div>
@@ -159,14 +159,14 @@ export function StudentPointsPanel({
           <History size={16} /> Riwayat koreksi
         </h3>
         {points.data.adjustments.length === 0 ? (
-          <p className="text-sm text-slate-500">Belum ada koreksi poin.</p>
+          <p className="text-sm text-muted">Belum ada koreksi poin.</p>
         ) : (
-          <div className="flex flex-col divide-y divide-slate-200 dark:divide-white/10">
+          <div className="flex flex-col divide-y divide-border dark:divide-border">
             {points.data.adjustments.map((item) => (
               <div key={item.id} className="flex items-start justify-between gap-4 py-3">
                 <div>
                   <p className="text-sm">{item.reason}</p>
-                  <p className="mt-0.5 text-xs text-slate-500">
+                  <p className="mt-0.5 text-xs text-muted">
                     {item.adjustedBy.name} · {formatTimeID(dateFormatter, new Date(item.createdAt))}
                   </p>
                 </div>

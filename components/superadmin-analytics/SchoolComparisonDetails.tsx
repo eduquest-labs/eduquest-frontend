@@ -22,11 +22,11 @@ export function SchoolComparisonDetails({
       <div className="mb-3">
         <h2
           id="school-comparison-details-title"
-          className="text-lg font-semibold text-slate-900 dark:text-white"
+          className="text-lg font-semibold text-foreground"
         >
           Detail per sekolah
         </h2>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-muted">
           Angka distribusi tidak memuat identitas atau skor individual siswa.
         </p>
       </div>
@@ -63,42 +63,42 @@ export function SchoolComparisonDetails({
               <Card.Content>
                 <dl className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-3">
                   <div>
-                    <dt className="text-xs text-slate-500">Attempt locked</dt>
-                    <dd className="mt-1 font-semibold text-slate-900 dark:text-white">
+                    <dt className="text-xs text-muted">Attempt locked</dt>
+                    <dd className="mt-1 font-semibold text-foreground">
                       {NUMBER_FORMATTER.format(
                         comparison.lockedAttemptCount
                       )}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-slate-500">Skor final</dt>
-                    <dd className="mt-1 font-semibold text-slate-900 dark:text-white">
+                    <dt className="text-xs text-muted">Skor final</dt>
+                    <dd className="mt-1 font-semibold text-foreground">
                       {NUMBER_FORMATTER.format(
                         comparison.scoredAttemptCount
                       )}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-slate-500">Rata-rata</dt>
-                    <dd className="mt-1 font-semibold text-slate-900 dark:text-white">
+                    <dt className="text-xs text-muted">Rata-rata</dt>
+                    <dd className="mt-1 font-semibold text-foreground">
                       {formatScore(comparison.averageScore)}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-slate-500">Minimum</dt>
-                    <dd className="mt-1 font-semibold text-slate-900 dark:text-white">
+                    <dt className="text-xs text-muted">Minimum</dt>
+                    <dd className="mt-1 font-semibold text-foreground">
                       {formatScore(comparison.minimumScore)}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-slate-500">Median</dt>
-                    <dd className="mt-1 font-semibold text-slate-900 dark:text-white">
+                    <dt className="text-xs text-muted">Median</dt>
+                    <dd className="mt-1 font-semibold text-foreground">
                       {formatScore(comparison.medianScore)}
                     </dd>
                   </div>
                   <div>
-                    <dt className="text-xs text-slate-500">Maksimum</dt>
-                    <dd className="mt-1 font-semibold text-slate-900 dark:text-white">
+                    <dt className="text-xs text-muted">Maksimum</dt>
+                    <dd className="mt-1 font-semibold text-foreground">
                       {formatScore(comparison.maximumScore)}
                     </dd>
                   </div>

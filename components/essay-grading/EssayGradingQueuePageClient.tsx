@@ -45,8 +45,8 @@ export function EssayGradingQueuePageClient({ initialClassId }: EssayGradingQueu
   return (
     <div className="flex flex-col gap-6 p-4 sm:p-8">
       <div>
-        <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">Penilaian Esai</h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <h1 className="text-2xl font-semibold text-foreground">Penilaian Esai</h1>
+        <p className="mt-1 text-sm text-muted">
           Selesaikan antrean jawaban esai per kelas agar nilai akhir siswa dapat ditampilkan.
         </p>
       </div>
@@ -65,13 +65,13 @@ export function EssayGradingQueuePageClient({ initialClassId }: EssayGradingQueu
         </Alert>
       ) : null}
       {classes.data?.length ? (
-        <div className="rounded-xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/5">
-          <label className="flex max-w-md flex-col gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+        <div className="rounded-xl border border-border bg-surface p-4 dark:border-border dark:bg-surface-secondary">
+          <label className="flex max-w-md flex-col gap-1.5 text-sm font-medium text-muted">
             Kelas aktif
             <select
               value={selectedClassId ?? ""}
               onChange={(event) => selectClass(Number(event.target.value))}
-              className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm dark:border-white/15 dark:bg-black"
+              className="h-10 rounded-lg border border-ink-300 bg-surface px-3 text-sm dark:border-white/15 dark:bg-background"
             >
               {classes.data.map((kelas) => (
                 <option key={kelas.id} value={kelas.id}>{kelas.name}</option>
@@ -94,11 +94,11 @@ export function EssayGradingQueuePageClient({ initialClassId }: EssayGradingQueu
         </Alert>
       ) : null}
       {!queue.isLoading && !queue.isError && selectedClassId && attempts.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-slate-200 px-6 py-16 text-center dark:border-white/10">
-          <ClipboardCheck size={24} className="text-teal-600" />
+        <div className="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-border px-6 py-16 text-center dark:border-border">
+          <ClipboardCheck size={24} className="text-brand-600" />
           <div>
-            <p className="font-semibold text-slate-900 dark:text-white">Semua esai sudah dinilai</p>
-            <p className="mt-1 text-sm text-slate-500">Tidak ada attempt terkunci yang menunggu penilaian.</p>
+            <p className="font-semibold text-foreground">Semua esai sudah dinilai</p>
+            <p className="mt-1 text-sm text-muted">Tidak ada attempt terkunci yang menunggu penilaian.</p>
           </div>
         </div>
       ) : null}
@@ -117,11 +117,11 @@ export function EssayGradingQueuePageClient({ initialClassId }: EssayGradingQueu
                 </div>
               </Card.Header>
               <Card.Content className="flex flex-col gap-2 text-sm">
-                <p className="text-slate-600 dark:text-slate-300">
+                <p className="text-muted">
                   {attempt.gradedEssayAnswersCount} dari {attempt.essayAnswersCount} esai sudah dinilai
                 </p>
                 {attempt.finishedAt ? (
-                  <p className="text-xs text-slate-500">
+                  <p className="text-xs text-muted">
                     Dikumpulkan {formatTimeID(
                       new Intl.DateTimeFormat("id-ID", {
                         dateStyle: "medium",

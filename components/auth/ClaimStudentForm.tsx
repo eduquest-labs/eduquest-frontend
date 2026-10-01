@@ -92,7 +92,7 @@ export function ClaimStudentForm({ onClaimed }: ClaimStudentFormProps) {
         </div>
         <ProgressBar aria-label="Progres aktivasi akun" value={step * 50}>
           <ProgressBar.Track>
-            <ProgressBar.Fill className="bg-teal-600" />
+            <ProgressBar.Fill className="bg-primary" />
           </ProgressBar.Track>
         </ProgressBar>
       </div>
@@ -111,7 +111,7 @@ export function ClaimStudentForm({ onClaimed }: ClaimStudentFormProps) {
             <Input fullWidth inputMode="numeric" placeholder="10 digit NISN" autoComplete="username" />
             {fieldErrors.nisn ? <FieldError>{fieldErrors.nisn}</FieldError> : null}
           </TextField>
-          <Button type="submit" fullWidth className="bg-teal-600 text-white hover:bg-teal-700">Lanjutkan</Button>
+          <Button type="submit" fullWidth className="bg-primary text-primary-foreground hover:bg-primary-hover">Lanjutkan</Button>
         </>
       ) : (
         <>
@@ -133,7 +133,7 @@ export function ClaimStudentForm({ onClaimed }: ClaimStudentFormProps) {
           </TextField>
           <div className="grid grid-cols-[auto_1fr] gap-3">
             <Button type="button" variant="secondary" isDisabled={isPending} onPress={() => setStep(1)} aria-label="Kembali ke langkah pertama"><ArrowLeft size={18} /></Button>
-            <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-teal-600 text-white hover:bg-teal-700">{({ isPending: pending }) => pending ? "Mengaktifkan..." : "Aktifkan akun"}</Button>
+            <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-primary text-primary-foreground hover:bg-primary-hover">{({ isPending: pending }) => pending ? "Mengaktifkan..." : "Aktifkan akun"}</Button>
           </div>
         </>
       )}

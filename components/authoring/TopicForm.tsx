@@ -66,7 +66,7 @@ export function TopicForm({ classId, topic, isPending, onSubmit }: TopicFormProp
           <Label>Urutan</Label>
           <Tooltip delay={0}>
             <Tooltip.Trigger aria-label="Keterangan urutan topic">
-              <Info size={14} className="text-slate-400" />
+              <Info size={14} className="text-ink-400" />
             </Tooltip.Trigger>
             <Tooltip.Content showArrow className="max-w-72 bg-black text-white shadow-md dark:bg-white dark:text-black">
               <Tooltip.Arrow>
@@ -84,19 +84,19 @@ export function TopicForm({ classId, topic, isPending, onSubmit }: TopicFormProp
         <Input type="number" min={0} />
         {errors.sortOrder ? <FieldError>{errors.sortOrder}</FieldError> : null}
       </TextField>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-slate-700 dark:text-slate-200">
+      <label className="flex flex-col gap-1.5 text-sm font-medium text-muted">
         Termin (opsional)
         <select
           value={values.termId ?? ""}
           disabled={isPending || terms.isLoading}
           onChange={(event) => setValues((old) => ({ ...old, termId: event.target.value ? Number(event.target.value) : null }))}
-          className="h-10 rounded-lg border border-slate-300 bg-white px-3 text-sm outline-none focus:border-teal-600 dark:border-white/15 dark:bg-black"
+          className="h-10 rounded-lg border border-ink-300 bg-surface px-3 text-sm outline-none focus:border-brand-600 dark:border-white/15 dark:bg-background"
         >
           <option value="">Tanpa termin</option>
           {terms.data?.map((term) => <option key={term.id} value={term.id}>{term.name}</option>)}
         </select>
       </label>
-      <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-teal-600 text-white hover:bg-teal-700">
+      <Button type="submit" isPending={isPending} isDisabled={isPending} className="bg-primary text-primary-foreground hover:bg-primary-hover">
         {topic ? "Simpan perubahan" : "Buat topic"}
       </Button>
     </Form>

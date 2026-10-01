@@ -136,7 +136,7 @@ export default function PhysicalActivityMap({
           positions={positions}
           pathOptions={{
             color:
-              status === "invalid" ? "#d97706" : "var(--color-primary)",
+              status === "invalid" ? "var(--warning)" : "var(--primary)",
             weight: 5,
             opacity: 0.92,
             dashArray: status === "invalid" ? "10 8" : undefined,
@@ -150,8 +150,8 @@ export default function PhysicalActivityMap({
           center={[firstPoint.latitude, firstPoint.longitude]}
           radius={7}
           pathOptions={{
-            color: "#ffffff",
-            fillColor: "#16a34a",
+            color: "var(--brand-on-mark)",
+            fillColor: "var(--success)",
             fillOpacity: 1,
             opacity: 1,
             weight: 3,
@@ -169,8 +169,8 @@ export default function PhysicalActivityMap({
               center={[lastPoint.latitude, lastPoint.longitude]}
               radius={lastPoint.accuracyMeters}
               pathOptions={{
-                color: "var(--color-primary)",
-                fillColor: "var(--color-primary)",
+                color: "var(--primary)",
+                fillColor: "var(--primary)",
                 fillOpacity: 0.08,
                 opacity: 0.32,
                 weight: 1,
@@ -182,8 +182,8 @@ export default function PhysicalActivityMap({
             radius={13}
             pathOptions={{
               className: "gps-current-location-pulse",
-              color: "var(--color-primary)",
-              fillColor: "var(--color-primary)",
+              color: "var(--primary)",
+              fillColor: "var(--primary)",
               fillOpacity: 0.16,
               opacity: 0.35,
               weight: 1,
@@ -193,8 +193,8 @@ export default function PhysicalActivityMap({
             center={[lastPoint.latitude, lastPoint.longitude]}
             radius={7}
             pathOptions={{
-              color: "#ffffff",
-              fillColor: "var(--color-primary)",
+              color: "var(--brand-on-mark)",
+              fillColor: "var(--primary)",
               fillOpacity: 1,
               opacity: 1,
               weight: 3,
@@ -211,8 +211,8 @@ export default function PhysicalActivityMap({
           center={[lastPoint.latitude, lastPoint.longitude]}
           radius={7}
           pathOptions={{
-            color: "#ffffff",
-            fillColor: "#ef4444",
+            color: "var(--brand-on-mark)",
+            fillColor: "var(--danger)",
             fillOpacity: 1,
             opacity: 1,
             weight: 3,

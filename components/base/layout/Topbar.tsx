@@ -4,7 +4,7 @@ import { Menu } from "lucide-react";
 
 import { Drawer } from "@heroui/react";
 
-import { siteConfig } from "@/config/site.config";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 import { SidebarNav, type NavItem } from "@/components/base/layout/Sidebar";
 import { UserMenu } from "@/components/base/shared/UserMenu";
 
@@ -14,11 +14,11 @@ export interface TopbarProps {
 
 export function Topbar({ navItems }: TopbarProps) {
   return (
-    <header className="flex items-center justify-between gap-4 border-b border-slate-200 bg-white px-4 py-3 lg:justify-end lg:px-6 dark:border-white/10 dark:bg-black">
+    <header className="flex items-center justify-between gap-4 border-b border-border bg-surface px-4 py-3 lg:justify-end lg:px-6 dark:border-border dark:bg-background">
       <Drawer>
         <Drawer.Trigger
           aria-label="Buka menu navigasi"
-          className="flex size-9 cursor-pointer items-center justify-center rounded-lg text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-white/5 lg:hidden"
+          className="flex size-9 cursor-pointer items-center justify-center rounded-lg text-ink-600 hover:bg-ink-100 dark:text-ink-300 dark:hover:bg-white/5 lg:hidden"
         >
           <Menu size={19} />
         </Drawer.Trigger>
@@ -30,7 +30,7 @@ export function Topbar({ navItems }: TopbarProps) {
                   <Drawer.CloseTrigger />
                   <Drawer.Header>
                     <Drawer.Heading className="text-base font-bold">
-                      {siteConfig.name}
+                      <BrandLogo compact />
                     </Drawer.Heading>
                   </Drawer.Header>
                   <Drawer.Body>

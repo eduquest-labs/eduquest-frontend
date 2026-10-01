@@ -42,7 +42,7 @@ export function MonitoringPageClient() {
       <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <div className="flex flex-wrap items-center gap-2">
-            <h1 className="text-2xl font-semibold text-slate-900 dark:text-white">
+            <h1 className="text-2xl font-semibold text-foreground">
               Monitoring Live
             </h1>
             <Chip color="success" size="sm" variant="soft">
@@ -53,7 +53,7 @@ export function MonitoringPageClient() {
               Live
             </Chip>
           </div>
-          <p className="mt-1 max-w-2xl text-sm text-slate-500">
+          <p className="mt-1 max-w-2xl text-sm text-muted">
             Pantau siswa yang sedang mengerjakan atau baru mengumpulkan
             challenge. Feed diperbarui otomatis setiap 5 detik.
           </p>
@@ -106,10 +106,10 @@ export function MonitoringPageClient() {
 
       <div
         aria-live="polite"
-        className="flex min-h-7 flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500"
+        className="flex min-h-7 flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted"
       >
-        <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-slate-100 px-3 py-1 font-medium text-slate-600 dark:bg-white/10 dark:text-slate-300">
-          <Radio aria-hidden="true" size={13} className="shrink-0 text-teal-600" />
+        <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-ink-100 px-3 py-1 font-medium text-ink-600 dark:bg-surface-secondary dark:text-ink-300">
+          <Radio aria-hidden="true" size={13} className="shrink-0 text-brand-600" />
           <span className="truncate">Menampilkan {selectedClassName}</span>
         </span>
         {isRefreshing ? (

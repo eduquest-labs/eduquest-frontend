@@ -25,7 +25,7 @@ export function MonitoringFeed({
     <Card className="min-w-0 items-stretch">
       <Card.Header>
         <div className="flex items-center gap-3">
-          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-teal-50 text-teal-700 dark:bg-teal-400/10 dark:text-teal-300">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-brand-700 dark:bg-brand-400/10 dark:text-brand-300">
             <Activity aria-hidden="true" size={18} />
           </span>
           <div>
@@ -55,18 +55,18 @@ export function MonitoringFeed({
         ) : null}
 
         {!isLoading && isError ? (
-          <p className="py-10 text-center text-sm text-slate-500">
+          <p className="py-10 text-center text-sm text-muted">
             Feed monitoring belum dapat dimuat.
           </p>
         ) : null}
 
         {!isLoading && !isError && activities.length === 0 ? (
           <div className="flex flex-col items-center gap-2 py-12 text-center">
-            <Clock3 aria-hidden="true" className="text-slate-400" size={24} />
-            <p className="text-sm font-semibold text-slate-800 dark:text-slate-100">
+            <Clock3 aria-hidden="true" className="text-ink-400" size={24} />
+            <p className="text-sm font-semibold text-ink-800 dark:text-ink-100">
               Belum ada aktivitas live
             </p>
-            <p className="max-w-sm text-xs text-slate-500">
+            <p className="max-w-sm text-xs text-muted">
               Siswa yang mulai mengerjakan atau baru mengumpulkan challenge
               akan muncul di sini.
             </p>
@@ -74,7 +74,7 @@ export function MonitoringFeed({
         ) : null}
 
         {!isLoading && !isError && activities.length > 0 ? (
-          <ul className="divide-y divide-slate-100 dark:divide-white/10">
+          <ul className="divide-y divide-ink-100 dark:divide-border">
             {activities.map((activity) => {
               const activityAt =
                 activity.finishedAt ?? activity.startedAt;
@@ -86,18 +86,18 @@ export function MonitoringFeed({
                   className="flex min-w-0 flex-col gap-3 py-4 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between"
                 >
                   <div className="min-w-0">
-                    <p className="wrap-break-word text-sm font-semibold text-slate-900 dark:text-white">
+                    <p className="wrap-break-word text-sm font-semibold text-foreground">
                       {activity.studentName}
                     </p>
-                    <p className="mt-0.5 wrap-break-word text-sm text-slate-600 dark:text-slate-300">
+                    <p className="mt-0.5 wrap-break-word text-sm text-muted">
                       {activity.challengeTitle}
                     </p>
-                    <p className="mt-1 text-xs text-slate-500">
+                    <p className="mt-1 text-xs text-muted">
                       {activity.className} ·{" "}
                       {formatTimeID(WIB_DATE_FORMATTER, new Date(activityAt))} WIB
                     </p>
                     {isSubmitted && activity.totalScore !== null ? (
-                      <p className="mt-1 text-xs font-medium text-slate-600 dark:text-slate-300">
+                      <p className="mt-1 text-xs font-medium text-muted">
                         Skor {activity.totalScore.toLocaleString("id-ID")}
                       </p>
                     ) : null}

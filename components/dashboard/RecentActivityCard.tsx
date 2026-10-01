@@ -35,7 +35,7 @@ export function RecentActivityCard({
       <Card className="min-w-0 items-stretch">
         <Card.Header>
           <div className="flex items-center gap-3">
-            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-violet-50 text-violet-700 dark:bg-violet-400/10 dark:text-violet-300">
+            <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-primary-soft text-primary-soft-foreground">
               <Activity aria-hidden="true" size={18} />
             </span>
             <div>
@@ -65,18 +65,18 @@ export function RecentActivityCard({
           ) : null}
 
           {!isLoading && isError ? (
-            <p className="py-8 text-center text-sm text-slate-500">
+            <p className="py-8 text-center text-sm text-muted">
               Aktivitas terbaru gagal dimuat.
             </p>
           ) : null}
 
           {!isLoading && !isError && activities.length === 0 ? (
             <div className="flex flex-col items-center gap-2 py-10 text-center">
-              <Clock3 aria-hidden="true" className="text-slate-400" size={22} />
-              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+              <Clock3 aria-hidden="true" className="text-ink-400" size={22} />
+              <p className="text-sm font-medium text-muted">
                 Belum ada aktivitas siswa
               </p>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-muted">
                 Attempt baru akan muncul di sini.
               </p>
             </div>
@@ -90,22 +90,22 @@ export function RecentActivityCard({
                 animate="visible"
                 exit={{ opacity: 0 }}
                 variants={dashboardContainerVariants}
-                className="divide-y divide-slate-100 dark:divide-white/10"
+                className="divide-y divide-ink-100 dark:divide-border"
               >
                 {activities.map((activity) => (
                   <motion.li
                     key={activity.id}
                     variants={dashboardListItemVariants}
-                    className="flex min-w-0 flex-col gap-3 rounded-lg py-4 transition-colors first:pt-0 last:pb-0 hover:bg-slate-50 sm:flex-row sm:items-center sm:justify-between dark:hover:bg-white/5"
+                    className="flex min-w-0 flex-col gap-3 rounded-lg py-4 transition-colors first:pt-0 last:pb-0 hover:bg-background sm:flex-row sm:items-center sm:justify-between dark:hover:bg-white/5"
                   >
                     <div className="min-w-0">
-                      <p className="truncate text-sm font-semibold text-slate-900 dark:text-white">
+                      <p className="truncate text-sm font-semibold text-foreground">
                         {activity.studentName}
                       </p>
-                      <p className="mt-0.5 truncate text-sm text-slate-600 dark:text-slate-300">
+                      <p className="mt-0.5 truncate text-sm text-muted">
                         {activity.challengeTitle}
                       </p>
-                      <p className="mt-1 text-xs text-slate-500">
+                      <p className="mt-1 text-xs text-muted">
                         {activity.className} ·{" "}
                         {formatTimeID(
                           WIB_DATE_FORMATTER,

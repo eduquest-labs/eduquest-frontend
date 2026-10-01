@@ -68,13 +68,13 @@ export function LeaderboardTable({
   );
 
   return (
-    <section className="min-w-0 overflow-hidden rounded-2xl border border-slate-200 bg-white p-4 dark:border-white/10 dark:bg-white/5">
+    <section className="min-w-0 overflow-hidden rounded-2xl border border-border bg-surface p-4 dark:border-border dark:bg-surface-secondary">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white">
+          <h2 className="text-lg font-semibold text-foreground">
             Leaderboard
           </h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-muted">
             Peringkat diperbarui otomatis setiap 15 detik.
           </p>
         </div>
@@ -217,7 +217,7 @@ export function LeaderboardTable({
           </Table>
         )}
         {!isLoading && !isError && entries.length === 0 ? (
-          <p className="py-8 text-center text-sm text-slate-500">
+          <p className="py-8 text-center text-sm text-muted">
             Belum ada siswa pada kelas ini.
           </p>
         ) : null}

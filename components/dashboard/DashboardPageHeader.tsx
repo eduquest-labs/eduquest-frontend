@@ -18,10 +18,10 @@ export function DashboardPageHeader({
       variants={dashboardItemVariants}
       className="flex min-w-0 flex-col gap-1"
     >
-      <h1 className="truncate text-2xl font-semibold text-slate-900 dark:text-white">
+      <h1 className="truncate text-2xl font-semibold text-foreground">
         Halo, {lecturerName ?? "Guru"}
       </h1>
-      <p className="text-sm text-slate-500 dark:text-slate-400">
+      <p className="text-sm text-muted">
         Kelola kelas dan pantau progres siswa Anda dari sini.
       </p>
     </motion.header>

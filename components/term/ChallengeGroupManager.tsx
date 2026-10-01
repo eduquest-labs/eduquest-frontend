@@ -43,11 +43,11 @@ function GroupCard({ challengeId, group }: { challengeId: number; group: Challen
   const deleteGroup = useDeleteChallengeGroup(challengeId);
 
   return (
-    <div className="flex flex-col gap-2 rounded-xl border border-slate-200 p-4 dark:border-white/10">
+    <div className="flex flex-col gap-2 rounded-xl border border-border p-4 dark:border-border">
       <div className="flex items-center justify-between">
-        <p className="font-medium text-slate-900 dark:text-white">{group.name}</p>
+        <p className="font-medium text-foreground">{group.name}</p>
         <div className="flex items-center gap-2">
-          {group.groupScore !== null ? <span className="text-sm font-semibold text-teal-700">{group.groupScore}%</span> : null}
+          {group.groupScore !== null ? <span className="text-sm font-semibold text-brand-700">{group.groupScore}%</span> : null}
           <Button
             size="sm"
             variant="tertiary"
@@ -59,7 +59,7 @@ function GroupCard({ challengeId, group }: { challengeId: number; group: Challen
           </Button>
         </div>
       </div>
-      <p className="text-xs text-slate-500">{group.members.map((member) => member.studentName).join(", ") || "Belum ada anggota"}</p>
+      <p className="text-xs text-muted">{group.members.map((member) => member.studentName).join(", ") || "Belum ada anggota"}</p>
       {group.groupScore === null ? <GradeForm challengeId={challengeId} groupId={group.id} onDone={() => {}} /> : null}
 
       <AlertDialog.Backdrop isOpen={confirmDelete} onOpenChange={setConfirmDelete}>
@@ -71,7 +71,7 @@ function GroupCard({ challengeId, group }: { challengeId: number; group: Challen
               <AlertDialog.Heading>Hapus kelompok?</AlertDialog.Heading>
             </AlertDialog.Header>
             <AlertDialog.Body>
-              <p className="text-sm text-slate-500">
+              <p className="text-sm text-muted">
                 Kelompok &quot;{group.name}&quot; akan dihapus. Jika kelompok ini sudah dinilai, status kelulusan termin anggotanya akan dihitung ulang.
               </p>
             </AlertDialog.Body>
@@ -111,7 +111,7 @@ export function ChallengeGroupManager({ challengeId, classId }: ChallengeGroupMa
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Kelompok</h3>
+        <h3 className="text-sm font-semibold text-foreground">Kelompok</h3>
         <Button size="sm" variant="secondary" onPress={createOverlay.open}>Buat Kelompok</Button>
       </div>
 
@@ -120,7 +120,7 @@ export function ChallengeGroupManager({ challengeId, classId }: ChallengeGroupMa
         <Alert status="danger"><Alert.Indicator /><Alert.Content><Alert.Description>Kelompok gagal dimuat.</Alert.Description></Alert.Content></Alert>
       ) : null}
       {!groups.isLoading && !groups.isError && groups.data?.length === 0 ? (
-        <p className="text-sm text-slate-500">Belum ada kelompok untuk challenge ini.</p>
+        <p className="text-sm text-muted">Belum ada kelompok untuk challenge ini.</p>
       ) : null}
       {groups.data?.map((group) => (
         <GroupCard key={group.id} challengeId={challengeId} group={group} />
@@ -181,7 +181,7 @@ export function ChallengeGroupManager({ challengeId, classId }: ChallengeGroupMa
                   setSelectedIds([]);
                   toast.success("Kelompok berhasil dibuat.");
                 }}
-                className="bg-teal-600 text-white hover:bg-teal-700"
+                className="bg-primary text-primary-foreground hover:bg-primary-hover"
               >
                 Buat Kelompok
               </Button>

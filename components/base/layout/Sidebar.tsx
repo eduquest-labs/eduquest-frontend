@@ -13,7 +13,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { siteConfig } from "@/config/site.config";
+import { BrandLogo } from "@/components/brand/BrandLogo";
 
 export interface NavItem {
   href: string;
@@ -62,8 +62,8 @@ export function SidebarNav({ navItems, onNavigate }: SidebarNavProps) {
             className={cn(
               "flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors",
               isActive
-                ? "bg-teal-600 text-white"
-                : "text-slate-600 hover:bg-slate-100 dark:text-slate-400 dark:hover:bg-white/5"
+                ? "bg-primary text-primary-foreground"
+                : "text-ink-600 hover:bg-ink-100 dark:text-ink-400 dark:hover:bg-white/5"
             )}
           >
             <item.icon size={17} strokeWidth={2} />
@@ -81,9 +81,9 @@ export interface SidebarProps {
 
 export function Sidebar({ navItems }: SidebarProps) {
   return (
-    <aside className="hidden w-64 shrink-0 flex-col gap-8 border-r border-slate-200 bg-white p-4 lg:flex dark:border-white/10 dark:bg-black">
-      <span className="px-2 text-base font-bold tracking-tight text-slate-900 dark:text-white">
-        {siteConfig.name}
+    <aside className="hidden w-64 shrink-0 flex-col gap-8 border-r border-border bg-surface p-4 lg:flex dark:border-border dark:bg-background">
+      <span className="px-2 text-base font-bold tracking-tight text-foreground">
+        <BrandLogo compact />
       </span>
       <SidebarNav navItems={navItems} />
     </aside>

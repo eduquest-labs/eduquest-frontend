@@ -43,7 +43,7 @@ export function TermManagePanel({ classId, term }: TermManagePanelProps) {
             <Modal.Header><Modal.Heading>Kelola {term.name}</Modal.Heading></Modal.Header>
             <Modal.Body className="flex flex-col gap-6">
               <section className="flex flex-col gap-3">
-                <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Threshold Kelulusan</h3>
+                <h3 className="text-sm font-semibold text-foreground">Threshold Kelulusan</h3>
                 <TermForm
                   term={term}
                   isPending={updateTerm.isPending}
@@ -55,19 +55,19 @@ export function TermManagePanel({ classId, term }: TermManagePanelProps) {
                 <TermThresholdHistoryList termId={term.id} />
               </section>
 
-              <section className="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-white/10">
-                <h3 className="text-sm font-semibold text-slate-900 dark:text-white">Status Siswa</h3>
+              <section className="flex flex-col gap-3 border-t border-border pt-4 dark:border-border">
+                <h3 className="text-sm font-semibold text-foreground">Status Siswa</h3>
                 {progress.isLoading ? <Skeleton className="h-32 w-full rounded-lg" /> : null}
                 {progress.isError ? (
                   <Alert status="danger"><Alert.Indicator /><Alert.Content><Alert.Description>Status siswa gagal dimuat.</Alert.Description></Alert.Content></Alert>
                 ) : null}
                 {progress.data?.map((student) => (
-                  <div key={student.classStudentId} className="flex items-center justify-between gap-3 rounded-lg border border-slate-200 p-3 dark:border-white/10">
+                  <div key={student.classStudentId} className="flex items-center justify-between gap-3 rounded-lg border border-border p-3 dark:border-border">
                     <div>
-                      <p className="font-medium text-slate-900 dark:text-white">{student.studentName}</p>
+                      <p className="font-medium text-foreground">{student.studentName}</p>
                       <div className="mt-1 flex items-center gap-2">
                         <Chip size="sm" color={STATUS_CHIP[student.status]}>{STATUS_LABEL[student.status]}</Chip>
-                        {student.source === "override" ? <span className="text-xs text-slate-500">Override manual</span> : null}
+                        {student.source === "override" ? <span className="text-xs text-muted">Override manual</span> : null}
                       </div>
                     </div>
                     <Button size="sm" variant="tertiary" onPress={() => setOverriding(student)}>Override</Button>
@@ -76,7 +76,7 @@ export function TermManagePanel({ classId, term }: TermManagePanelProps) {
               </section>
 
               {overriding ? (
-                <section className="border-t border-slate-200 pt-4 dark:border-white/10">
+                <section className="border-t border-border pt-4 dark:border-border">
                   <TermOverrideForm
                     termId={term.id}
                     student={overriding}

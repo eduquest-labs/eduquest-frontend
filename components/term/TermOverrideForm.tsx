@@ -55,7 +55,7 @@ export function TermOverrideForm({ termId, student, onDone }: TermOverrideFormPr
         <TextArea rows={2} />
       </TextField>
       <div className="flex gap-2">
-        <Button isPending={override.isPending} onPress={handleOverride} className="bg-teal-600 text-white hover:bg-teal-700">
+        <Button isPending={override.isPending} onPress={handleOverride} className="bg-primary text-primary-foreground hover:bg-primary-hover">
           Simpan override
         </Button>
         {student.source === "override" ? (

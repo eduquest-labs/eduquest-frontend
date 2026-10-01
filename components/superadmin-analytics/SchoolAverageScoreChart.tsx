@@ -12,8 +12,8 @@ type SchoolAverageScoreChartProps = {
   comparisons: SchoolComparison[];
 };
 
-const SCORE_COLOR = "#0f766e";
-const EMPTY_COLOR = "#cbd5e1";
+const SCORE_COLOR = "var(--chart-primary)";
+const EMPTY_COLOR = "var(--chart-empty)";
 
 export function SchoolAverageScoreChart({
   comparisons,
@@ -45,8 +45,8 @@ export function SchoolAverageScoreChart({
         type: "value",
         min: 0,
         max: Math.ceil(maximumAverage * 1.1),
-        splitLine: { lineStyle: { color: "#e2e8f0" } },
-        axisLabel: { color: "#64748b" },
+        splitLine: { lineStyle: { color: "var(--chart-grid)" } },
+        axisLabel: { color: "var(--chart-text)" },
       },
       yAxis: {
         type: "category",
@@ -55,7 +55,7 @@ export function SchoolAverageScoreChart({
         axisTick: { show: false },
         axisLine: { show: false },
         axisLabel: {
-          color: "#475569",
+          color: "var(--chart-text)",
           width: 112,
           overflow: "truncate",
         },
@@ -75,7 +75,7 @@ export function SchoolAverageScoreChart({
             label: {
               show: true,
               position: "right",
-              color: "#475569",
+              color: "var(--chart-text)",
               formatter:
                 comparison.averageScore === null
                   ? "—"

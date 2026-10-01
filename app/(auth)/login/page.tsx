@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 
 import { auth } from "@/auth";
 import { AuthShell, LoginForm } from "@/components/auth";
-import { buildTitle, pageMetadata, siteConfig } from "@/config/site.config";
+import { buildTitle, pageMetadata } from "@/config/site.config";
 
 export const metadata: Metadata = {
   title: buildTitle(pageMetadata.login.title),
@@ -20,26 +20,18 @@ export default async function LoginPage() {
   }
 
   return (
-    <AuthShell>
-      <div className="flex flex-col items-center gap-2 text-center">
-        <span className="text-lg font-bold tracking-tight text-teal-700 dark:text-teal-300">
-          {siteConfig.name}
-        </span>
-        <h1 className="text-2xl font-semibold">Masuk ke akun Anda</h1>
-      </div>
+    <AuthShell
+      variant="login"
+      title="Senang bertemu lagi."
+      description="Masuk dengan email atau NISN untuk melanjutkan perjalanan belajarmu."
+      footer={
+        <>
+          <p>Baru pertama kali di sini? <Link href="/claim">Aktivasi akun siswa</Link></p>
+          <p>Ingin mendampingi kelas? <Link href="/register">Daftar sebagai guru</Link></p>
+        </>
+      }
+    >
       <LoginForm />
-      <p className="text-center text-sm text-muted-foreground">
-        Siswa baru dan belum pernah masuk?{" "}
-        <Link href="/claim" className="font-medium text-teal-700 underline dark:text-teal-300">
-          Aktivasi akun di sini
-        </Link>
-      </p>
-      <p className="text-center text-sm text-muted-foreground">
-        Guru baru di EduQuest?{" "}
-        <Link href="/register" className="font-medium text-teal-700 underline dark:text-teal-300">
-          Daftar sebagai guru
-        </Link>
-      </p>
     </AuthShell>
   );
 }

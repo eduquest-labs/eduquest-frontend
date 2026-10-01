@@ -49,11 +49,11 @@ export function GuruDashboard() {
         <div>
           <h2
             id="dashboard-title"
-            className="text-lg font-semibold text-slate-900 dark:text-white"
+            className="text-lg font-semibold text-foreground"
           >
             Ringkasan kelas
           </h2>
-          <p className="mt-1 text-sm text-slate-500">
+          <p className="mt-1 text-sm text-muted">
             Snapshot diperbarui otomatis setiap 60 detik.
           </p>
         </div>
@@ -109,8 +109,8 @@ export function GuruDashboard() {
         aria-live="polite"
         aria-atomic="true"
       >
-        <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-white/10 dark:text-slate-300">
-          <span className="size-1.5 shrink-0 rounded-full bg-teal-500" />
+        <span className="inline-flex max-w-full items-center gap-2 rounded-full bg-ink-100 px-3 py-1 text-xs font-medium text-ink-600 dark:bg-surface-secondary dark:text-ink-300">
+          <span className="size-1.5 shrink-0 rounded-full bg-primary-soft0" />
           <span className="truncate">Menampilkan {selectedClassName}</span>
         </span>
         <AnimatePresence>
@@ -119,7 +119,7 @@ export function GuruDashboard() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              className="inline-flex items-center gap-2 text-xs text-slate-500"
+              className="inline-flex items-center gap-2 text-xs text-muted"
             >
               <motion.span
                 aria-hidden="true"
@@ -133,7 +133,7 @@ export function GuruDashboard() {
                     ? undefined
                     : { duration: 1.2, repeat: Infinity }
                 }
-                className="size-1.5 rounded-full bg-teal-500"
+                className="size-1.5 rounded-full bg-primary-soft0"
               />
               Memperbarui data…
             </motion.span>
