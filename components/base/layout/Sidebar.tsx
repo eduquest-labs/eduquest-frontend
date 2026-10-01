@@ -27,6 +27,7 @@ export const GURU_NAV_ITEMS: NavItem[] = [
   { href: "/guru", label: "Dashboard", icon: LayoutDashboard },
   { href: "/guru/kelas", label: "Kelas", icon: School },
   { href: "/guru/authoring", label: "Authoring", icon: BookOpen },
+  { href: "/guru/activity-bank", label: "Bank Aktivitas", icon: BookOpen },
   { href: "/guru/analytics", label: "Analitik", icon: BarChart3 },
   { href: "/guru/grading", label: "Penilaian Esai", icon: ClipboardCheck },
 ];
@@ -35,6 +36,7 @@ export const SUPERADMIN_NAV_ITEMS: NavItem[] = [
   { href: "/superadmin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/superadmin/schools", label: "Sekolah", icon: School },
   { href: "/superadmin/guru", label: "Guru", icon: Users },
+  { href: "/superadmin/activity-bank", label: "Bank Aktivitas", icon: BookOpen },
   { href: "/superadmin/analytics", label: "Analitik", icon: BarChart3 },
 ];
 

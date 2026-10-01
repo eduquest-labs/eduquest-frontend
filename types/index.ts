@@ -15,3 +15,5 @@ export * from "./superadmin-guru.types";
 export * from "./superadmin-analytics.types";
 export * from "./term.types";
 export * from "./challenge-group.types";
+export * from "./activity-bank.types";
+export * from "./question-form.types";

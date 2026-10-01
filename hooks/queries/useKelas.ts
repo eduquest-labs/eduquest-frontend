@@ -10,10 +10,11 @@ export const kelasKeys = {
   students: (id: number) => [...kelasKeys.all, "students", id] as const,
 };
 
-export function useClasses() {
+export function useClasses(enabled = true) {
   return useQuery({
     queryKey: kelasKeys.lists(),
     queryFn: listClasses,
+    enabled,
   });
 }
 

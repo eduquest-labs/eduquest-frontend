@@ -13,3 +13,4 @@ export * from "./superadmin-guru.adapter";
 export * from "./superadmin-analytics.adapter";
 export * from "./term.adapter";
 export * from "./challenge-group.adapter";
+export * from "./activity-bank.adapter";

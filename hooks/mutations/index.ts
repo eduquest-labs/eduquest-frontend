@@ -8,3 +8,4 @@ export * from "./usePointMutations";
 export * from "./usePhysicalActivityMutations";
 export * from "./useTermMutations";
 export * from "./useChallengeGroupMutations";
+export * from "./useActivityBankMutations";

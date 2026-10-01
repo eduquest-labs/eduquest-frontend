@@ -115,7 +115,7 @@ export function ChallengeEditorPageClient({ classId, topicId, challengeId }: Cha
         <section className="flex flex-col gap-4 rounded-xl border border-border bg-surface p-4 sm:p-5 dark:border-border dark:bg-surface-secondary">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div><h2 className="font-semibold text-foreground">Daftar soal</h2><p className="text-sm text-muted">{questions.data?.length ?? 0} soal</p></div>
-            {!isPublished ? <Button className="bg-primary text-primary-foreground" onPress={createOverlay.open}><Plus size={16} /> Tambah soal</Button> : null}
+            {!isPublished ? <div className="flex flex-wrap items-center gap-2"><Link className="rounded-lg border border-border px-3 py-2 text-sm font-medium" href={`/guru/activity-bank?challengeId=${challengeId}&classId=${classId}&topicId=${topicId}`}>Ambil dari bank</Link><Button className="bg-primary text-primary-foreground" onPress={createOverlay.open}><Plus size={16} /> Tambah soal</Button></div> : null}
           </div>
           {!questions.data?.length ? (
             <div className="rounded-lg border border-dashed border-border px-6 py-12 text-center dark:border-border"><p className="font-medium text-foreground">Belum ada soal</p><p className="mt-1 text-sm text-muted">Tambahkan minimal satu soal sebelum challenge dipublikasikan.</p></div>

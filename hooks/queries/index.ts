@@ -15,3 +15,4 @@ export * from "./useSuperadminGuru";
 export * from "./useSuperadminAnalytics";
 export * from "./useTerms";
 export * from "./useChallengeGroups";
+export * from "./useActivityBank";

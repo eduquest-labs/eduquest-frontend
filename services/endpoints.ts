@@ -1,4 +1,14 @@
 export const API_ENDPOINTS = {
+  ACTIVITY_BANK: {
+    FOLDERS: "/activity-bank/folders",
+    FOLDER: (id: number) => `/activity-bank/folders/${id}`,
+    MATERIALS: "/activity-bank/materials",
+    MATERIAL: (id: number) => `/activity-bank/materials/${id}`,
+    STATUS: (id: number, status: "publish" | "unpublish") => `/activity-bank/materials/${id}/${status}`,
+    COPY: (id: number) => `/activity-bank/materials/${id}/copy`,
+    CHALLENGES: (id: number) => `/activity-bank/materials/${id}/challenges`,
+    IMPORT: (id: number) => `/activity-bank/materials/${id}/questions/import`,
+  },
   AUTH: {
     LOGIN: "/login",
     CLAIM_STUDENT: "/claim-student",
