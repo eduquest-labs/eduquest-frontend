@@ -1,5 +1,6 @@
 "use client";
 
+import { ResearchSelect } from "@/components/superadmin-shared/ResearchSelect";
 import { useState } from "react";
 
 import { AlertDialog, Alert, Button, ComboBox, Input, Label, ListBox, Modal, Skeleton, toast } from "@heroui/react";
@@ -60,7 +61,7 @@ export function GuruPageClient() {
           </ListBox>
         </ComboBox.Popover>
       </ComboBox>
-      <label className={styles.selectLabel}>Status akun<select value={status} onChange={(event) => setStatus(event.target.value)}><option value="all">Semua status</option><option value="active">Aktif</option><option value="inactive">Nonaktif</option></select></label>
+      <ResearchSelect label="Status akun" value={status} onChange={setStatus} options={[{ value: "all", label: "Semua status" }, { value: "active", label: "Aktif" }, { value: "inactive", label: "Nonaktif" }]} />
       {search || status !== "all" || schoolFilter !== null ? <Button size="sm" variant="tertiary" onPress={() => { setSearch(""); setStatus("all"); setSchoolFilter(null); }}>Reset filter</Button> : null}
       </div>
       {schools.isError ? <Alert status="warning"><Alert.Content><Alert.Description>Daftar filter sekolah gagal dimuat.</Alert.Description></Alert.Content><Button size="sm" variant="secondary" onPress={() => schools.refetch()}>Muat ulang sekolah</Button></Alert> : null}

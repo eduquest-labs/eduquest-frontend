@@ -11,7 +11,7 @@
 .researchSeal span { color: var(--muted); font-size: 12px; }
 .filterBar { display: flex; align-items: flex-end; flex-wrap: wrap; gap: 12px; background: var(--surface-secondary); padding: 16px 18px; border-radius: 12px; }
 .field { display: flex; flex-direction: column; gap: 7px; min-width: 0; color: var(--muted); font-size: 12px; font-weight: 500; }
-.field input, .field select { min-height: 42px; border: 1px solid var(--field-border); border-radius: 8px; padding: 9px 11px; background: var(--surface); color: var(--foreground); font-size: 13px; width: 100%; }
+.field input { min-height: 42px; border: 1px solid var(--field-border); border-radius: 8px; padding: 9px 11px; background: var(--surface); color: var(--foreground); font-size: 13px; width: 100%; }
 .schoolField { flex: 1; min-width: 180px; }
 .rangePresets { display: flex; gap: 4px; align-self: flex-end; }
 .rangePresets button { border-radius: 6px; padding: 9px; color: var(--muted); cursor: pointer; font-size: 12px; min-height: 42px; transition: background 180ms ease; }

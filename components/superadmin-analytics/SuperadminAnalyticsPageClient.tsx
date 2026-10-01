@@ -1,5 +1,6 @@
 "use client";
 
+import { ResearchSelect } from "@/components/superadmin-shared/ResearchSelect";
 import { useState } from "react";
 import { Alert, Button, Skeleton } from "@heroui/react";
 import { Download } from "lucide-react";
@@ -29,9 +30,9 @@ export function SuperadminAnalyticsPageClient() {
     <ResearchHeader section="Analitik" title="Analitik antar sekolah" description="Baca hasil belajar bersama ukuran sampel pengerjaan dan kelengkapan penilaiannya." actions={<Button variant="secondary" isDisabled={unavailable || comparisons.length === 0} onPress={() => downloadSchoolComparison(comparisons)}><Download size={16} aria-hidden="true" /> Ekspor CSV</Button>} />
     <p className={styles.note}>Perbandingan menggunakan skor mentah, digabung lintas seluruh guru dalam satu sekolah. Attempt dengan esai pending belum masuk statistik skor final.</p>
     <div className={styles.toolbar}>
-      <label className={styles.selectLabel}>Sekolah pembanding<select value={schoolFilter} onChange={(event) => setSchoolFilter(event.target.value)} disabled={unavailable}><option value="all">Semua sekolah</option>{all.map((item) => <option value={item.schoolId} key={item.schoolId}>{item.schoolName}</option>)}</select></label>
-      <label className={styles.selectLabel}>Status penilaian<select value={statusFilter} onChange={(event) => setStatusFilter(event.target.value)} disabled={unavailable}><option value="all">Semua status</option><option value="pending">Menunggu penilaian</option><option value="complete">Penilaian lengkap</option><option value="empty">Belum ada data</option></select></label>
-      <label className={styles.selectLabel}>Urutkan sekolah<select value={sort} onChange={(event) => setSort(event.target.value)}><option value="name">Nama sekolah</option><option value="pending">Pending terbanyak</option><option value="sample">Skor final terbanyak</option></select></label>
+      <ResearchSelect label="Sekolah pembanding" value={schoolFilter} onChange={setSchoolFilter} disabled={unavailable} options={[{ value: "all", label: "Semua sekolah" }, ...all.map((item) => ({ value: String(item.schoolId), label: item.schoolName }))]} />
+      <ResearchSelect label="Status penilaian" value={statusFilter} onChange={setStatusFilter} disabled={unavailable} options={[{ value: "all", label: "Semua status" }, { value: "pending", label: "Menunggu penilaian" }, { value: "complete", label: "Penilaian lengkap" }, { value: "empty", label: "Belum ada data" }]} />
+      <ResearchSelect label="Urutkan sekolah" value={sort} onChange={setSort} options={[{ value: "name", label: "Nama sekolah" }, { value: "pending", label: "Pending terbanyak" }, { value: "sample", label: "Skor final terbanyak" }]} />
       {schoolFilter !== "all" || statusFilter !== "all" || sort !== "name" ? <Button size="sm" variant="tertiary" onPress={() => { setSchoolFilter("all"); setStatusFilter("all"); setSort("name"); }}>Reset filter</Button> : null}
     </div>
     <ResearchMetrics>

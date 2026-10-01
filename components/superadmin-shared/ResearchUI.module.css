@@ -33,8 +33,6 @@
 .search:focus-within { outline: 2px solid var(--focus); outline-offset: 2px; }
 .search input { width: 100%; min-width: 0; background: transparent; outline: none; color: var(--foreground); font-size: 13px; }
 .search input::placeholder { color: var(--muted); }
-.selectLabel { display: flex; flex-direction: column; gap: 6px; color: var(--muted); font-size: 11px; }
-.selectLabel select { background: var(--field-background); color: var(--foreground); border: 1px solid var(--field-border); border-radius: 8px; padding: 10px 30px 10px 12px; min-height: 44px; max-width: 260px; font-size: 13px; }
 .page a:focus-visible, .page button:focus-visible, .page select:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
 .resultCount { color: var(--muted); font-size: 12px; font-variant-numeric: tabular-nums; }
 .empty { padding: 44px 20px; text-align: center; background: var(--surface-secondary); border-radius: 10px; }
@@ -87,8 +85,6 @@
   .panelHeader { flex-wrap: wrap; }
   .charts { grid-template-columns: minmax(0, 1fr); }
   .search { flex-basis: 100%; }
-  .selectLabel { flex: 1; }
-  .selectLabel select { max-width: 100%; width: 100%; }
   .coverageRow { grid-template-columns: minmax(0, 1fr) 50px auto; gap: 10px; }
 }
 @media (prefers-reduced-motion: reduce) { .page *, .page *::before, .page *::after { animation: none !important; transition: none !important; } .links a:hover { transform: none; } }

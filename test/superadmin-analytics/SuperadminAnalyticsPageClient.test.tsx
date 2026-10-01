@@ -170,7 +170,8 @@ describe("SuperadminAnalyticsPageClient", () => {
     const click = vi.spyOn(HTMLAnchorElement.prototype, "click").mockImplementation(() => {});
     renderWithProviders(<SuperadminAnalyticsPageClient />);
     await screen.findByRole("table");
-    fireEvent.change(screen.getByLabelText("Sekolah pembanding"), { target: { value: "2" } });
+    fireEvent.click(screen.getByRole("button", { name: /Sekolah pembanding/ }));
+    fireEvent.click(await screen.findByRole("option", { name: "SMA Negeri 2 Bandung" }));
     const table = screen.getByRole("table");
     expect(within(table).queryByText("SMA Negeri 1 Bandung")).not.toBeInTheDocument();
     expect(within(table).getByText("SMA Negeri 2 Bandung")).toBeInTheDocument();

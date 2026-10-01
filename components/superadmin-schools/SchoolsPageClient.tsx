@@ -1,5 +1,6 @@
 "use client";
 
+import { ResearchSelect } from "@/components/superadmin-shared/ResearchSelect";
 import { useState } from "react";
 import { Plus } from "lucide-react";
 
@@ -37,7 +38,7 @@ export function SchoolsPageClient() {
       <ResearchPanel title="Direktori sekolah" description="Kelola data sekolah dan identifikasi cakupan yang belum terisi.">
         <div className={styles.toolbar}>
           <ResearchSearch value={search} onChange={setSearch} label="Cari sekolah" placeholder="Cari nama sekolah…" />
-          <label className={styles.selectLabel}>Cakupan siswa<select value={coverage} onChange={(event) => setCoverage(event.target.value)} disabled={unavailable}><option value="all">Semua sekolah</option><option value="populated">Memiliki siswa</option><option value="empty">Belum ada siswa</option></select></label>
+          <ResearchSelect label="Cakupan siswa" value={coverage} onChange={setCoverage} disabled={unavailable} options={[{ value: "all", label: "Semua sekolah" }, { value: "populated", label: "Memiliki siswa" }, { value: "empty", label: "Belum ada siswa" }]} />
           {search || coverage !== "all" ? <Button size="sm" variant="tertiary" onPress={() => { setSearch(""); setCoverage("all"); }}>Reset filter</Button> : null}
         </div>
         {!unavailable ? <p role="status" className={`${styles.resultCount} mb-4`}>Menampilkan {filtered.length} dari {all.length} sekolah</p> : null}

@@ -19,6 +19,11 @@ it("searches schools, marks absent coverage, and keeps management actions", asyn
   renderWithProviders(<SchoolsPageClient />);
   const table = await screen.findByRole("grid", { name: "Daftar sekolah" });
   expect(within(table).getByText("Belum ada siswa")).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: /Cakupan siswa/ }));
+  fireEvent.click(await screen.findByRole("option", { name: "Belum ada siswa" }));
+  expect(within(table).queryByText("SMA Bandung")).not.toBeInTheDocument();
+  expect(within(table).getByText("SMA Sumedang")).toBeInTheDocument();
+  fireEvent.click(screen.getByRole("button", { name: "Reset filter" }));
   fireEvent.change(screen.getByRole("searchbox", { name: "Cari sekolah" }), { target: { value: "bandung" } });
   expect(within(table).queryByText("SMA Sumedang")).not.toBeInTheDocument();
   expect(within(table).getByRole("button", { name: /Edit/ })).toBeInTheDocument();

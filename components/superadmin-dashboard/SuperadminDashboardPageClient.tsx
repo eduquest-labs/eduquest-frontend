@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { ResearchSelect } from "@/components/superadmin-shared/ResearchSelect";
 import { useState } from "react";
 import { Alert, Button, Skeleton } from "@heroui/react";
 import { ArrowUpRight, BookOpen, FlaskConical, GraduationCap, School, Users } from "lucide-react";
@@ -64,12 +65,7 @@ export function SuperadminDashboardPageClient() {
       </header>
 
       <div className={styles.filterBar} role="group" aria-label="Filter dashboard riset">
-        <label className={`${styles.field} ${styles.schoolField}`}>Lingkup sekolah
-          <select value={draft.school_id ?? ""} onChange={(event) => updateFilters({ ...draft, school_id: event.target.value ? Number(event.target.value) : undefined })} disabled={schoolOptions.isLoading || schoolOptions.isError}>
-            <option value="">Semua sekolah</option>
-            {(schoolOptions.data ?? []).map((school) => <option key={school.id} value={school.id}>{school.name}</option>)}
-          </select>
-        </label>
+        <ResearchSelect label="Lingkup sekolah" value={draft.school_id === undefined ? "all" : String(draft.school_id)} onChange={(value) => updateFilters({ ...draft, school_id: value === "all" ? undefined : Number(value) })} disabled={schoolOptions.isLoading || schoolOptions.isError} className={styles.schoolField} options={[{ value: "all", label: "Semua sekolah" }, ...(schoolOptions.data ?? []).map((school) => ({ value: String(school.id), label: school.name }))]} />
         <label className={styles.field}>Dari tanggal<input type="date" required value={draft.start_date} max={draft.end_date} onChange={(event) => updateFilters({ ...draft, start_date: event.target.value })} /></label>
         <label className={styles.field}>Sampai tanggal<input type="date" required value={draft.end_date} min={draft.start_date} max={dateInJakarta()} onChange={(event) => updateFilters({ ...draft, end_date: event.target.value })} /></label>
         <div className={styles.rangePresets} aria-label="Pilihan periode">

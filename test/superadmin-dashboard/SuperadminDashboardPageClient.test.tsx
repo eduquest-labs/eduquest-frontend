@@ -64,7 +64,8 @@ describe("SuperadminDashboardPageClient", () => {
     await waitFor(() => expect(query).toContain("start_date=2026-09-20"));
     fireEvent.change(screen.getByLabelText("Sampai tanggal"), { target: { value: "2026-09-30" } });
     await waitFor(() => expect(query).toContain("end_date=2026-09-30"));
-    fireEvent.change(screen.getByLabelText("Lingkup sekolah"), { target: { value: "1" } });
+    fireEvent.click(screen.getByRole("button", { name: /Lingkup sekolah/ }));
+    fireEvent.click(await screen.findByRole("option", { name: "SMA Negeri 1 Bandung" }));
     await waitFor(() => expect(query).toContain("school_id=1"));
     expect(query).toContain("start_date=2026-09-20");
     expect(query).toContain("end_date=2026-09-30");

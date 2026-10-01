@@ -25,7 +25,8 @@ afterEach(clearToken);
 it("combines teacher search and status while retaining the right account action", async () => {
   renderWithProviders(<GuruPageClient />);
   const table = await screen.findByRole("grid", { name: "Daftar guru" });
-  fireEvent.change(screen.getByLabelText("Status akun"), { target: { value: "inactive" } });
+  fireEvent.click(screen.getByRole("button", { name: /Status akun/ }));
+  fireEvent.click(await screen.findByRole("option", { name: "Nonaktif" }));
   expect(within(table).queryByText("Bu Sari")).not.toBeInTheDocument();
   expect(within(table).getByRole("button", { name: /Aktifkan/ })).toBeInTheDocument();
   fireEvent.change(screen.getByRole("searchbox", { name: "Cari guru" }), { target: { value: "sari" } });
