@@ -39,40 +39,40 @@
 
 :root {
   color-scheme: light;
-  /* GerakGamify: neutral reading surfaces, vermilion actions, quiet achievement surfaces. */
-  --background: #f8f8f6;
-  --foreground: #242625;
+  /* GerakGamify: warm paper, deep teal actions and gold achievements from the production landing. */
+  --background: #f7f5f0;
+  --foreground: #173f3d;
   --surface: #ffffff;
   --surface-foreground: var(--foreground);
-  --surface-secondary: #eeefec;
+  --surface-secondary: #edf2ec;
   --surface-secondary-foreground: var(--foreground);
-  --surface-tertiary: #e4e6e2;
+  --surface-tertiary: #e1e9e2;
   --surface-tertiary-foreground: var(--foreground);
   --overlay: var(--surface);
   --overlay-foreground: var(--foreground);
-  --muted: #626863;
-  --border: #d8dcd5;
-  --separator: #e4e6e2;
+  --muted: #566a66;
+  --border: #d7e1d8;
+  --separator: #e1e9e2;
   --default: var(--surface-secondary);
   --default-foreground: var(--foreground);
-  --primary: #c43d25;
-  --primary-hover: #a93220;
-  --primary-pressed: #892c1f;
+  --primary: #173f3d;
+  --primary-hover: #0b4f4a;
+  --primary-pressed: #022f2e;
   --primary-foreground: #ffffff;
-  --primary-soft: #faeee8;
-  --primary-soft-foreground: #a93220;
+  --primary-soft: #e6f0eb;
+  --primary-soft-foreground: #173f3d;
   /* HeroUI accent means the primary action, not the decorative reward. */
   --accent: var(--primary);
   --accent-foreground: var(--primary-foreground);
   --accent-hover: var(--primary-hover);
   --accent-soft: var(--primary-soft);
   --accent-soft-foreground: var(--primary-soft-foreground);
-  --reward: #e5e7e0;
-  --reward-hover: #d7dccf;
-  --reward-foreground: #30372c;
-  --reward-soft: #f0f2ed;
-  --reward-text: #505a49;
-  --reward-border: #cbd2bf;
+  --reward: #f5a623;
+  --reward-hover: #e89b1b;
+  --reward-foreground: #3e2b08;
+  --reward-soft: #fff2d8;
+  --reward-text: #8a5700;
+  --reward-border: #edcc85;
   --success: #28704e;
   --success-foreground: #ffffff;
   --warning: #956016;
@@ -84,7 +84,7 @@
   --field-background: var(--surface);
   --field-foreground: var(--foreground);
   --field-placeholder: var(--muted);
-  --field-border: #a6ada4;
+  --field-border: #94aaa2;
   --field-border-width: 1px;
   --field-border-focus: var(--primary);
   --field-focus: var(--surface);
@@ -93,20 +93,20 @@
   --segment: var(--surface);
   --segment-foreground: var(--foreground);
   --background-warm: var(--background);
-  --brand-strong: #292c2b;
-  --brand-mark: #292c2b;
-  --brand-on-mark: #ffffff;
-  --brand-arrow: #f39479;
-  --border-strong: #a6ada4;
-  --chart-primary: #c43d25;
-  --chart-secondary: #7b8578;
-  --chart-fill: #f39479;
-  --chart-area: #faeee8;
-  --chart-grid: #d8dcd5;
-  --chart-empty: #bbc3b7;
-  --chart-text: #626863;
-  --chart-point: #242625;
-  --shadow-color: 34, 39, 35;
+  --brand-strong: #173f3d;
+  --brand-mark: #173f3d;
+  --brand-on-mark: #f7f5f0;
+  --brand-arrow: #f5a623;
+  --border-strong: #94aaa2;
+  --chart-primary: #173f3d;
+  --chart-secondary: #8a5700;
+  --chart-fill: #a6d4c6;
+  --chart-area: #e6f0eb;
+  --chart-grid: #d7e1d8;
+  --chart-empty: #bccdc3;
+  --chart-text: #566a66;
+  --chart-point: #173f3d;
+  --shadow-color: 23, 63, 61;
   --surface-shadow: 0 2px 8px rgba(var(--shadow-color), 0.04);
   --overlay-shadow: 0 12px 36px rgba(var(--shadow-color), 0.13);
   --glass-surface: color-mix(in srgb, var(--surface) 94%, transparent);
@@ -119,7 +119,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-display: var(--font-geist-sans);
+  --font-display: var(--font-jakarta-sans);
   --color-primary: var(--primary);
   --color-primary-hover: var(--primary-hover);
   --color-primary-pressed: var(--primary-pressed);
@@ -136,73 +136,74 @@
   --color-reward-border: var(--reward-border);
   --color-muted-foreground: var(--muted);
   --color-brand-strong: var(--brand-strong);
-  --color-ink: #242625;
+  --color-ink: #173f3d;
   --color-background-warm: var(--background-warm);
   /* Tonal scales for illustrations and existing utility-based layouts. */
-  --color-brand-50: #fdf5f0;
-  --color-brand-100: #fae7dd;
-  --color-brand-200: #f9c6b4;
-  --color-brand-300: #f39479;
-  --color-brand-400: #e97555;
-  --color-brand-500: #d55a3c;
-  --color-brand-600: #c43d25;
-  --color-brand-700: #a93220;
-  --color-brand-800: #892c1f;
-  --color-brand-900: #702e21;
-  --color-brand-950: #41221b;
-  --color-ink-50: #f8f8f6;
-  --color-ink-100: #eeefec;
-  --color-ink-200: #d8dcd5;
-  --color-ink-300: #bcc4b9;
-  --color-ink-400: #8b9688;
-  --color-ink-500: #626863;
-  --color-ink-600: #505b50;
-  --color-ink-700: #3d483e;
-  --color-ink-800: #323633;
-  --color-ink-900: #242625;
-  --color-ink-950: #1a1c1b;
+  --color-brand-50: #f0f8f4;
+  --color-brand-100: #dcefe6;
+  --color-brand-200: #b9dfce;
+  --color-brand-300: #8ecbb6;
+  --color-brand-400: #60ae94;
+  --color-brand-500: #3e9178;
+  --color-brand-600: #2b7560;
+  --color-brand-700: #245e4f;
+  --color-brand-800: #214c41;
+  --color-brand-900: #173f3d;
+  --color-brand-950: #102321;
+  --color-ink-50: #f7f5f0;
+  --color-ink-100: #edf2ec;
+  --color-ink-200: #d7e1d8;
+  --color-ink-300: #bccdc3;
+  --color-ink-400: #8da99c;
+  --color-ink-500: #566a66;
+  --color-ink-600: #455f54;
+  --color-ink-700: #364f45;
+  --color-ink-800: #29473f;
+  --color-ink-900: #173f3d;
+  --color-ink-950: #102321;
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
-  --background: #1a1c1b;
-  --foreground: #eef0ec;
-  --surface: #232624;
-  --surface-secondary: #2d302e;
-  --surface-tertiary: #323633;
-  --overlay: #2d302e;
-  --muted: #afb5ae;
-  --border: #434a43;
-  --separator: #323633;
-  --primary: #f39479;
-  --primary-hover: #f9c6b4;
-  --primary-pressed: #e97555;
-  --primary-foreground: #271e19;
-  --primary-soft: #432b23;
-  --primary-soft-foreground: #f9c6b4;
-  --reward: #e5e7e0;
-  --reward-hover: #f0f2e9;
-  --reward-soft: #2e372a;
-  --reward-text: #d4dcc7;
-  --reward-foreground: #30372c;
-  --border-strong: #7c8778;
-  --reward-border: #505e44;
+  --background: #102321;
+  --foreground: #e8f2ec;
+  --surface: #18302d;
+  --surface-secondary: #203c36;
+  --surface-tertiary: #29473f;
+  --overlay: #203c36;
+  --muted: #adc2b8;
+  --border: #3d5e52;
+  --separator: #29473f;
+  --primary: #a6d4c6;
+  --primary-hover: #c4e7db;
+  --primary-pressed: #83bbaa;
+  --primary-foreground: #102321;
+  --primary-soft: #25483e;
+  --primary-soft-foreground: #c4e7db;
+  --reward: #f7b84b;
+  --reward-hover: #f9cb79;
+  --reward-soft: #3a301b;
+  --reward-text: #f7c871;
+  --reward-foreground: #3e2b08;
+  --border-strong: #7d9d8b;
+  --reward-border: #725929;
   --success: #85d0a6;
   --success-foreground: #142a1e;
   --warning: #f0be72;
   --warning-foreground: #35240e;
   --danger: #f59ba7;
   --danger-foreground: #3a1820;
-  --field-border: #7c8778;
-  --chart-secondary: #acb6a5;
-  --chart-primary: #f39479;
-  --chart-fill: #d55a3c;
-  --chart-area: #432b23;
-  --chart-grid: #434a43;
-  --chart-empty: #505b50;
-  --chart-text: #afb5ae;
-  --chart-point: #eef0ec;
+  --field-border: #7d9d8b;
+  --chart-secondary: #f7b84b;
+  --chart-primary: #a6d4c6;
+  --chart-fill: #527f70;
+  --chart-area: #25483e;
+  --chart-grid: #3d5e52;
+  --chart-empty: #456858;
+  --chart-text: #adc2b8;
+  --chart-point: #e8f2ec;
   --shadow-color: 0, 0, 0;
+  --brand-arrow: #f7b84b;
 }
 
 ::selection {
@@ -214,6 +215,25 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), sans-serif;
+}
+
+/* Preserve the production landing's decorative accent without changing the
+   application's HeroUI action accent. */
+.marketing-site {
+  --background: #ffffff;
+  --foreground: #171717;
+  --background-warm: #f7f5f0;
+  --accent: #f5a623;
+  --color-accent: #f5a623;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+[data-theme="dark"] .marketing-site {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --background-warm: #102321;
+  --accent: #f7b84b;
+  --color-accent: #f7b84b;
 }
 
 /* Keep saved credentials readable and consistent with the current theme. */

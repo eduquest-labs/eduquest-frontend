@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import { BrandLogo } from "@/components/brand/BrandLogo";
 import * as motion from "framer-motion/client";
 import {
   ArrowRight,
@@ -11,6 +10,8 @@ import {
   Camera,
   Footprints,
   School,
+  Sparkles,
+  Star,
   Trophy,
   Users,
 } from "lucide-react";
@@ -120,7 +121,7 @@ const reveal = {
 };
 
 export const metadata: Metadata = {
-  title: "GerakGamify — Belajar Aktif, Progres Terlihat",
+  title: "EduQuest — Belajar Aktif, Progres Terlihat",
   description:
     "Platform gamifikasi pembelajaran untuk tantangan, progres siswa, dan riset kelas lintas sekolah.",
 };
@@ -129,7 +130,7 @@ export default function MarketingPage() {
   const currentYear = new Date().getFullYear();
 
   return (
-    <main className="min-h-screen overflow-x-clip bg-background text-foreground">
+    <main className="marketing-site min-h-screen overflow-x-clip bg-background text-foreground">
       <section className="bg-background-warm">
         <header className="relative z-30">
           <nav
@@ -137,16 +138,16 @@ export default function MarketingPage() {
             className="mx-auto flex min-h-20 max-w-7xl items-center justify-between gap-4 px-5 sm:px-8 lg:px-12"
           >
             <Link
-              className="font-display text-xl font-extrabold tracking-[-0.035em] text-foreground focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:text-white"
+              className="font-display text-xl font-extrabold tracking-[-0.04em] text-[#173f3d] focus-visible:rounded-md focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:text-white"
               href="/"
             >
-              <BrandLogo />
+              Edu<span className="text-accent">Quest</span>
             </Link>
 
-            <div className="hidden items-center gap-7 text-sm font-semibold text-ink-950/70 lg:flex dark:text-ink-50/75">
+            <div className="hidden items-center gap-7 text-sm font-semibold text-teal-950/70 md:flex dark:text-teal-50/75">
               {NAV_ITEMS.map((item) => (
                 <a
-                  className="transition-colors duration-200 hover:text-ink-800 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:hover:text-white"
+                  className="transition-colors duration-200 hover:text-teal-800 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:hover:text-white"
                   href={item.href}
                   key={item.href}
                 >
@@ -156,7 +157,7 @@ export default function MarketingPage() {
             </div>
 
             <Link
-              className="inline-flex min-h-11 items-center justify-center rounded-full bg-brand-strong px-5 text-sm font-bold text-white shadow-sm transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:bg-primary dark:text-primary-foreground"
+              className="inline-flex min-h-11 items-center justify-center rounded-full bg-[#173f3d] px-5 text-sm font-bold text-white shadow-sm transition-colors duration-200 hover:bg-[#245e5a] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:bg-accent dark:text-[#173f3d]"
               href="/login"
             >
               Masuk
@@ -166,25 +167,35 @@ export default function MarketingPage() {
 
         <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 pt-10 pb-24 sm:px-8 sm:pt-16 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16 lg:px-12 lg:pt-20 lg:pb-32">
           <motion.div data-marketing-reveal {...reveal}>
-            <h1 className="font-display max-w-3xl text-4xl leading-[1.12] font-bold tracking-[-0.035em] text-foreground sm:text-5xl lg:text-5xl">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-teal-900/10 bg-white/70 px-4 py-2 text-xs font-bold tracking-[0.14em] text-teal-800 uppercase dark:border-white/10 dark:bg-white/5 dark:text-teal-200">
+              <Sparkles aria-hidden="true" className="size-4 text-accent" />
+              Riset gamifikasi pembelajaran
+            </div>
+            <h1 className="font-display max-w-3xl text-5xl leading-[0.98] font-extrabold tracking-[-0.055em] text-[#173f3d] sm:text-6xl lg:text-7xl dark:text-white">
               Tetap Semangat Belajar{" "}
-              <span>Bersama GerakGamify</span>
+              <span className="relative mt-3 block w-fit">
+                <span className="relative z-10">Bersama EduQuest</span>
+                <span
+                  aria-hidden="true"
+                  className="absolute right-0 bottom-1 left-0 h-3 -rotate-1 rounded-full bg-accent/90 sm:h-4"
+                />
+              </span>
             </h1>
-            <p className="mt-8 max-w-xl text-base leading-8 text-ink-950/65 sm:text-lg dark:text-ink-50/70">
+            <p className="mt-8 max-w-xl text-base leading-8 text-teal-950/65 sm:text-lg dark:text-teal-50/70">
               Ubah soal, aktivitas fisik, dan progres kelas menjadi petualangan
               belajar yang ramah, terukur, dan membuat setiap langkah terasa
               berarti.
             </p>
             <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:items-center">
               <Link
-                className="inline-flex min-h-12 w-fit items-center justify-center gap-2 rounded-full bg-primary px-7 text-sm font-extrabold text-primary-foreground shadow-sm transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-focus"
+                className="inline-flex min-h-12 w-fit items-center justify-center gap-2 rounded-full bg-accent px-7 text-sm font-extrabold text-[#173f3d] shadow-[0_12px_30px_rgba(245,166,35,0.28)] transition-colors duration-200 hover:bg-[#ffb83f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#173f3d]"
                 href="/claim"
               >
                 Aktivasi Akun
                 <ArrowRight aria-hidden="true" className="size-4" />
               </Link>
               <a
-                className="inline-flex min-h-11 w-fit items-center text-sm font-bold text-ink-900 underline decoration-reward decoration-2 underline-offset-4 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:text-ink-100"
+                className="inline-flex min-h-11 w-fit items-center text-sm font-bold text-teal-900 underline decoration-accent decoration-2 underline-offset-4 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-accent dark:text-teal-100"
                 href="#fitur"
               >
                 Lihat cara kerjanya
@@ -198,7 +209,24 @@ export default function MarketingPage() {
             {...reveal}
             transition={{ duration: 0.34, delay: 0.06, ease: "easeOut" }}
           >
-            <div className="relative aspect-4/5 overflow-hidden rounded-2xl bg-surface-secondary">
+            <div className="absolute -top-8 -right-5 z-10 hidden text-accent sm:block lg:-right-7">
+              <Star aria-hidden="true" className="size-12 fill-current" />
+            </div>
+            <svg
+              aria-hidden="true"
+              className="absolute -top-10 -left-8 z-10 hidden h-28 w-36 text-[#173f3d] sm:block dark:text-teal-200"
+              fill="none"
+              viewBox="0 0 150 110"
+            >
+              <path
+                d="M8 96C28 18 79 10 139 31"
+                stroke="currentColor"
+                strokeDasharray="5 8"
+                strokeLinecap="round"
+                strokeWidth="3"
+              />
+            </svg>
+            <div className="relative aspect-4/5 overflow-hidden rounded-[2.5rem_2.5rem_7rem_2.5rem] bg-teal-200 sm:rounded-[4rem_4rem_9rem_4rem]">
               <Image
                 fill
                 priority
@@ -209,16 +237,51 @@ export default function MarketingPage() {
               />
               <div
                 aria-hidden="true"
-                className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-brand-strong/35 to-transparent"
+                className="absolute inset-x-0 bottom-0 h-1/3 bg-linear-to-t from-[#173f3d]/35 to-transparent"
               />
             </div>
 
+            <div className="absolute -bottom-12 left-2 z-20 flex max-w-[calc(100%-1rem)] items-end gap-2 sm:-left-7 sm:gap-4">
+              <div className="flex items-center gap-3 rounded-2xl border border-white/80 bg-white/95 p-3 shadow-[0_18px_45px_rgba(23,63,61,0.18)] dark:border-white/10 dark:bg-neutral-900/95">
+                <div className="relative size-10 overflow-hidden rounded-xl bg-teal-100 sm:size-12">
+                  <Image
+                    fill
+                    alt="Potret ilustratif pendamping belajar"
+                    className="object-cover"
+                    sizes="48px"
+                    src={TEACHER_IMAGE}
+                  />
+                </div>
+                <div>
+                  <p className="text-[0.62rem] font-bold tracking-wide text-teal-800/60 uppercase dark:text-teal-200/70">
+                    Tantangan aktif
+                  </p>
+                  <p className="font-display text-lg font-extrabold text-[#173f3d] dark:text-white">
+                    210+ poin
+                  </p>
+                </div>
+              </div>
+              <div className="max-w-40 rounded-2xl bg-[#173f3d] p-3 text-white shadow-[0_18px_45px_rgba(23,63,61,0.2)] sm:max-w-48 sm:p-4">
+                <div className="mb-2 flex gap-0.5 text-accent">
+                  {Array.from({ length: 5 }, (_, index) => (
+                    <Star
+                      aria-hidden="true"
+                      className="size-3 fill-current"
+                      key={index}
+                    />
+                  ))}
+                </div>
+                <p className="text-[0.65rem] leading-4 sm:text-xs">
+                  “Belajar terasa seperti menuntaskan misi bersama.”
+                </p>
+              </div>
+            </div>
           </motion.div>
         </div>
       </section>
 
       <motion.section
-        className="scroll-mt-8 bg-surface py-24 sm:py-28 dark:bg-background"
+        className="scroll-mt-8 bg-white py-24 sm:py-28 dark:bg-neutral-950"
         data-marketing-reveal
         id="fitur"
         {...reveal}
@@ -227,26 +290,29 @@ export default function MarketingPage() {
           <SectionHeading
             accent="Belajar dan Mengajar"
             align="center"
-            eyebrow="Cara kerja GerakGamify"
+            eyebrow="Cara kerja EduQuest"
             title="Cara Lebih Mudah untuk"
           />
           <div className="mt-14 grid gap-5 md:grid-cols-3">
-            {VALUE_PROPS.map((item) => {
+            {VALUE_PROPS.map((item, index) => {
               const Icon = item.icon;
               return (
                 <article
-                  className="group border-t border-border py-7"
+                  className="group rounded-3xl border border-teal-950/10 bg-background-warm p-7 transition-colors duration-200 hover:border-teal-700/30 dark:border-white/10"
                   key={item.title}
                 >
                   <div className="mb-8 flex items-start justify-between">
-                    <div className="flex size-10 items-center text-primary">
+                    <div className="flex size-14 items-center justify-center rounded-2xl bg-[#173f3d] text-white shadow-sm">
                       <Icon aria-hidden="true" className="size-6" />
                     </div>
+                    <span className="font-display text-sm font-extrabold text-teal-900/30 dark:text-teal-100/30">
+                      0{index + 1}
+                    </span>
                   </div>
-                  <h3 className="font-display text-xl font-bold text-foreground dark:text-white">
+                  <h3 className="font-display text-xl font-bold text-[#173f3d] dark:text-white">
                     {item.title}
                   </h3>
-                  <p className="mt-4 text-sm leading-7 text-ink-950/65 dark:text-ink-50/65">
+                  <p className="mt-4 text-sm leading-7 text-teal-950/65 dark:text-teal-50/65">
                     {item.description}
                   </p>
                 </article>
@@ -270,11 +336,11 @@ export default function MarketingPage() {
               style={{
                 backgroundImage:
                   "linear-gradient(rgba(255,255,255,.22) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.22) 1px, transparent 1px)",
-                backgroundColor: "var(--brand-strong)",
+                backgroundColor: "#173f3d",
                 backgroundSize: "28px 28px",
               }}
             />
-            <div className="relative aspect-5/4 overflow-hidden rounded-[2rem] bg-brand-200 sm:rounded-[3rem]">
+            <div className="relative aspect-5/4 overflow-hidden rounded-[2rem] bg-teal-200 sm:rounded-[3rem]">
               <Image
                 fill
                 alt="Sekelompok siswa belajar bersama di ruang kelas"
@@ -305,8 +371,8 @@ export default function MarketingPage() {
               eyebrow="Untuk sekolah dan peneliti"
               title="Riset Gamifikasi"
             />
-            <p className="mt-8 text-base leading-8 text-ink-950/70 dark:text-ink-50/70">
-              GerakGamify v1.0 dirancang untuk riset multi-sekolah dengan gamifikasi
+            <p className="mt-8 text-base leading-8 text-teal-950/70 dark:text-teal-50/70">
+              EduQuest v1.0 dirancang untuk riset multi-sekolah dengan gamifikasi
               penuh bagi seluruh siswa. Setiap kelas tetap memiliki tantangan yang
               relevan, sementara progres dapat dibaca dari waktu ke waktu secara
               terstruktur.
@@ -318,24 +384,24 @@ export default function MarketingPage() {
                 "Data riset dapat dikelola tanpa menghilangkan pengalaman yang ramah bagi siswa.",
               ].map((item) => (
                 <div className="flex gap-4" key={item}>
-                  <div className="mt-1 flex size-7 shrink-0 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                  <div className="mt-1 flex size-7 shrink-0 items-center justify-center rounded-full bg-accent text-[#173f3d]">
                     <BookOpenCheck aria-hidden="true" className="size-4" />
                   </div>
-                  <p className="text-sm leading-7 text-ink-950/70 dark:text-ink-50/70">
+                  <p className="text-sm leading-7 text-teal-950/70 dark:text-teal-50/70">
                     {item}
                   </p>
                 </div>
               ))}
             </div>
-            <p className="mt-8 inline-flex rounded-full border border-brand-900/10 bg-surface/70 px-4 py-2 text-xs font-bold text-ink-900/70 dark:border-border dark:bg-surface-secondary dark:text-ink-100/70">
-              Angka di samping adalah target skala riset GerakGamify v1.0.
+            <p className="mt-8 inline-flex rounded-full border border-teal-900/10 bg-white/70 px-4 py-2 text-xs font-bold text-teal-900/70 dark:border-white/10 dark:bg-white/5 dark:text-teal-100/70">
+              Angka di samping adalah target skala riset EduQuest v1.0.
             </p>
           </div>
         </div>
       </motion.section>
 
       <motion.section
-        className="bg-surface py-24 sm:py-28 dark:bg-background"
+        className="bg-white py-24 sm:py-28 dark:bg-neutral-950"
         data-marketing-reveal
         {...reveal}
       >
@@ -346,7 +412,7 @@ export default function MarketingPage() {
             eyebrow="Cerita ilustratif"
             title="Suara dari"
           />
-          <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-7 text-ink-950/60 dark:text-ink-50/65">
+          <p className="mx-auto mt-6 max-w-2xl text-center text-sm leading-7 text-teal-950/60 dark:text-teal-50/65">
             Contoh berikut membantu menggambarkan pengalaman yang ingin dibangun.
             Seluruh nama dan kutipan masih berupa placeholder, bukan data peserta
             riset.
@@ -368,11 +434,11 @@ export default function MarketingPage() {
         <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-12">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
             <SectionHeading
-              accent="Wawasan GerakGamify"
+              accent="Wawasan EduQuest"
               eyebrow="Sumber daya"
               title="Jelajahi"
             />
-            <p className="max-w-sm text-sm leading-7 text-ink-950/60 dark:text-ink-50/65">
+            <p className="max-w-sm text-sm leading-7 text-teal-950/60 dark:text-teal-50/65">
               Catatan yang akan membantu sekolah memahami gamifikasi, gerak, dan
               progres belajar dengan lebih utuh.
             </p>
@@ -380,7 +446,7 @@ export default function MarketingPage() {
           <div className="mt-14 grid gap-6 md:grid-cols-3">
             {RESOURCES.map((resource) => (
               <article className="group" key={resource.title}>
-                <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-brand-200">
+                <div className="relative aspect-4/3 overflow-hidden rounded-3xl bg-teal-200">
                   <Image
                     fill
                     alt={resource.alt}
@@ -388,18 +454,18 @@ export default function MarketingPage() {
                     sizes="(max-width: 767px) 92vw, 30vw"
                     src={resource.image}
                   />
-                  <span className="absolute top-4 right-4 flex size-11 items-center justify-center rounded-full bg-surface text-foreground shadow-sm">
+                  <span className="absolute top-4 right-4 flex size-11 items-center justify-center rounded-full bg-white text-[#173f3d] shadow-sm">
                     <ArrowUpRight aria-hidden="true" className="size-5" />
                   </span>
                 </div>
-                <p className="mt-6 text-xs font-bold tracking-[0.16em] text-ink-700 uppercase dark:text-ink-300">
+                <p className="mt-6 text-xs font-bold tracking-[0.16em] text-teal-700 uppercase dark:text-teal-300">
                   {resource.category}
                 </p>
-                <h3 className="mt-3 font-display text-xl leading-snug font-bold text-foreground dark:text-white">
+                <h3 className="mt-3 font-display text-xl leading-snug font-bold text-[#173f3d] dark:text-white">
                   {resource.title}
                 </h3>
-                <p className="mt-4 text-xs font-semibold text-ink-900/50 dark:text-ink-100/50">
-                  Artikel GerakGamify — segera hadir
+                <p className="mt-4 text-xs font-semibold text-teal-900/50 dark:text-teal-100/50">
+                  Artikel EduQuest — segera hadir
                 </p>
               </article>
             ))}
@@ -408,38 +474,38 @@ export default function MarketingPage() {
       </motion.section>
 
       <motion.section
-        className="scroll-mt-8 bg-surface px-5 py-20 sm:px-8 sm:py-24 lg:px-12 dark:bg-background"
+        className="scroll-mt-8 bg-white px-5 py-20 sm:px-8 sm:py-24 lg:px-12 dark:bg-neutral-950"
         data-marketing-reveal
         id="tentang"
         {...reveal}
       >
-        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-brand-strong text-white shadow-[0_30px_80px_rgba(34,39,35,0.10)] sm:rounded-[3rem] lg:grid-cols-[0.78fr_1.22fr]">
+        <div className="mx-auto grid max-w-7xl overflow-hidden rounded-[2rem] bg-[#173f3d] text-white shadow-[0_30px_80px_rgba(23,63,61,0.18)] sm:rounded-[3rem] lg:grid-cols-[0.78fr_1.22fr]">
           <div className="relative min-h-72 lg:min-h-107.5">
             <Image
               fill
-              alt="Siswa belajar bersama dalam program GerakGamify"
+              alt="Siswa belajar bersama dalam program EduQuest"
               className="object-cover"
               sizes="(max-width: 1023px) 92vw, 36vw"
               src={CLASSROOM_IMAGE}
             />
             <div
               aria-hidden="true"
-              className="absolute inset-0 bg-linear-to-t from-brand-strong/55 via-transparent to-transparent lg:bg-linear-to-r lg:from-transparent lg:to-brand-strong/45"
+              className="absolute inset-0 bg-linear-to-t from-[#173f3d]/55 via-transparent to-transparent lg:bg-linear-to-r lg:from-transparent lg:to-[#173f3d]/45"
             />
           </div>
           <div className="flex flex-col justify-center px-7 py-12 sm:px-12 lg:px-16">
-            <p className="text-xs font-bold tracking-[0.18em] text-ink-200 uppercase">
+            <p className="text-xs font-bold tracking-[0.18em] text-teal-200 uppercase">
               Mulai dari langkah pertama
             </p>
-            <h2 className="font-display mt-5 max-w-2xl text-3xl leading-tight font-extrabold tracking-[-0.035em] sm:text-5xl">
-              Bergabung dengan Program GerakGamify
+            <h2 className="font-display mt-5 max-w-2xl text-3xl leading-tight font-extrabold tracking-[-0.04em] sm:text-5xl">
+              Bergabung dengan Program EduQuest
             </h2>
-            <p className="mt-6 max-w-xl text-sm leading-7 text-ink-50/75 sm:text-base">
+            <p className="mt-6 max-w-xl text-sm leading-7 text-teal-50/75 sm:text-base">
               Aktifkan akun siswa, masuk ke kelas, dan temukan cara baru untuk
               bertumbuh melalui tantangan yang menyenangkan.
             </p>
             <Link
-              className="mt-9 inline-flex min-h-12 w-fit items-center gap-3 rounded-full bg-primary px-6 text-sm font-extrabold text-primary-foreground transition-colors duration-200 hover:bg-primary-hover focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
+              className="mt-9 inline-flex min-h-12 w-fit items-center gap-3 rounded-full bg-accent px-6 text-sm font-extrabold text-[#173f3d] transition-colors duration-200 hover:bg-[#ffb83f] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white"
               href="/claim"
             >
               Mulai Petualangan
@@ -449,24 +515,24 @@ export default function MarketingPage() {
         </div>
       </motion.section>
 
-      <footer className="border-t border-brand-950/10 bg-background-warm dark:border-border">
+      <footer className="border-t border-teal-950/10 bg-background-warm dark:border-white/10">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 lg:px-12">
           <div className="grid gap-10 lg:grid-cols-[1fr_auto_auto] lg:items-start">
             <div className="max-w-sm">
               <Link
-                className="font-display text-2xl font-extrabold tracking-[-0.035em] text-foreground dark:text-white"
+                className="font-display text-2xl font-extrabold tracking-[-0.04em] text-[#173f3d] dark:text-white"
                 href="/"
               >
-                <BrandLogo />
+                Edu<span className="text-accent">Quest</span>
               </Link>
-              <p className="mt-4 text-sm leading-7 text-ink-950/60 dark:text-ink-50/65">
+              <p className="mt-4 text-sm leading-7 text-teal-950/60 dark:text-teal-50/65">
                 Petualangan belajar bergamifikasi untuk progres siswa dan riset
                 kelas yang lebih bermakna.
               </p>
             </div>
-            <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm font-semibold text-ink-950/65 sm:grid-cols-4 lg:grid-cols-2 dark:text-ink-50/70">
+            <div className="grid grid-cols-2 gap-x-8 gap-y-4 text-sm font-semibold text-teal-950/65 sm:grid-cols-4 lg:grid-cols-2 dark:text-teal-50/70">
               {NAV_ITEMS.map((item) => (
-                <a className="hover:text-ink-800 dark:hover:text-white" href={item.href} key={item.href}>
+                <a className="hover:text-teal-800 dark:hover:text-white" href={item.href} key={item.href}>
                   {item.label}
                 </a>
               ))}
@@ -474,12 +540,12 @@ export default function MarketingPage() {
             <div>
               <button
                 disabled
-                className="inline-flex min-h-11 cursor-not-allowed items-center rounded-full border border-brand-900/15 px-5 text-sm font-bold text-ink-950/45 dark:border-white/15 dark:text-ink-50/45"
+                className="inline-flex min-h-11 cursor-not-allowed items-center rounded-full border border-teal-900/15 px-5 text-sm font-bold text-teal-950/45 dark:border-white/15 dark:text-teal-50/45"
                 type="button"
               >
                 Subscribe · Segera hadir
               </button>
-              <div className="mt-5 flex gap-2" aria-label="Media sosial GerakGamify">
+              <div className="mt-5 flex gap-2" aria-label="Media sosial EduQuest">
                 {[
                   { icon: Camera, label: "Instagram — segera hadir" },
                   { icon: Users, label: "Facebook — segera hadir" },
@@ -490,7 +556,7 @@ export default function MarketingPage() {
                     <button
                       disabled
                       aria-label={item.label}
-                      className="flex size-11 cursor-not-allowed items-center justify-center rounded-full border border-brand-900/15 text-ink-950/40 dark:border-white/15 dark:text-ink-50/40"
+                      className="flex size-11 cursor-not-allowed items-center justify-center rounded-full border border-teal-900/15 text-teal-950/40 dark:border-white/15 dark:text-teal-50/40"
                       key={item.label}
                       type="button"
                     >
@@ -501,8 +567,8 @@ export default function MarketingPage() {
               </div>
             </div>
           </div>
-          <div className="mt-12 flex flex-col gap-3 border-t border-brand-950/10 pt-6 text-xs text-ink-950/50 sm:flex-row sm:items-center sm:justify-between dark:border-border dark:text-ink-50/50">
-            <p>© {currentYear} GerakGamify. Seluruh hak dilindungi.</p>
+          <div className="mt-12 flex flex-col gap-3 border-t border-teal-950/10 pt-6 text-xs text-teal-950/50 sm:flex-row sm:items-center sm:justify-between dark:border-white/10 dark:text-teal-50/50">
+            <p>© {currentYear} EduQuest. Seluruh hak dilindungi.</p>
             <p>Dibangun untuk pembelajaran yang aktif dan suportif.</p>
           </div>
         </div>

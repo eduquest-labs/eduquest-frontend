@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none">
   <title>GerakGamify</title>
-  <path fill="#292c2b" d="M15 2H34C41 2 46 7 46 14V33C46 41 41 46 33 46H2V15C2 7 7 2 15 2Z"/>
-  <path stroke="#ffffff" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" d="M32.5 15.5A12 12 0 1 0 35.5 26H24"/>
-  <path stroke="#f39479" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M26 18H37V29M36 19L26 29"/>
-  <path stroke="#f39479" stroke-width="2" stroke-linecap="round" opacity=".8" d="M6 38H14M6 32H10"/>
+  <path fill="#173f3d" d="M15 2H34C41 2 46 7 46 14V33C46 41 41 46 33 46H2V15C2 7 7 2 15 2Z"/>
+  <path stroke="#f7f5f0" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" d="M32.5 15.5A12 12 0 1 0 35.5 26H24"/>
+  <path stroke="#f5a623" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" d="M26 18H37V29M36 19L26 29"/>
+  <path stroke="#f5a623" stroke-width="2" stroke-linecap="round" opacity=".8" d="M6 38H14M6 32H10"/>
 </svg>

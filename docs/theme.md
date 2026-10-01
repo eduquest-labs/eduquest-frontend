@@ -16,10 +16,14 @@ Auth and logo CSS modules reference these tokens instead of owning a palette.
 | Field | HeroUI `--field-*` | Inputs, focus, border, placeholder and autofill |
 
 HeroUI's `accent` is an alias of the primary action. Do not use `accent` to mean
-the decorative reward. The `brand-*` and `ink-*` tonal scales support illustrations and existing
+the decorative reward in application components. The restored production landing
+uses a `.marketing-site` scope to retain its original gold decorative accent,
+white section backgrounds, typography and dark-mode treatment. Its composition
+and marketing components come from the pre-redesign version.
+The `brand-*` and `ink-*` tonal scales support illustrations and existing
 utility-based compositions; prefer semantic roles for new components. Avoid
-large multicolor gradients. Vermilion is the action color; achievements use quiet
-neutral surfaces with readable labels and icons. Do not use the brand scale for
+large multicolor gradients. Deep teal is the action color; gold highlights achievements
+with readable labels and icons. The production landing page is the palette reference. Do not use the brand scale for
 body copy or tint the entire application with the action color.
 
 Charts use `--chart-*`. The shared `EChart` component resolves CSS variables to
@@ -34,11 +38,10 @@ Favicon/PWA images and `public/brand/gerakgamify-mark.svg` are exported assets.
 When changing the brand palette, regenerate those exports and update the static
 theme colors in `app/layout.tsx` and `public/manifest.json` as well.
 
-Reference pairs: white on vermilion `#C43D25` has 5.20:1 contrast; muted
-`#626863` on `#F8F8F6` has 5.37:1; dark action text `#271E19` on `#F39479`
-has 7.25:1. These are token-pair measurements, not a full accessibility audit.
+Verify text, muted copy, controls and gold labels in both modes after changing
+tokens. Token-pair measurements are not a full accessibility audit.
 
-Geist carries application text and display headings. The existing Plus Jakarta
+Geist carries application text; Plus Jakarta Sans carries display headings. The existing Plus Jakarta
 Sans wordmark remains a brand asset. Auth inputs/buttons use an 8px radius,
 the story panel uses 16px. Avoid floating card illustrations, sparkle ornaments,
 multiple headline underlines, or animation on non-interactive statistics.

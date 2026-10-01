@@ -1,6 +1,6 @@
 .logo {
   --brand-ink: var(--foreground);
-  --brand-gold: var(--foreground);
+  --brand-gold: var(--reward-text);
   --brand-tile: var(--brand-mark);
   --brand-track: var(--brand-on-mark);
   display: inline-flex;
@@ -56,7 +56,7 @@
   width: 5px;
   height: 5px;
   border-radius: 1px;
-  background: var(--primary);
+  background: var(--brand-arrow);
   transform: rotate(15deg);
   transition: transform 240ms ease;
 }

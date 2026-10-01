@@ -4,8 +4,8 @@
   "description": "Platform gamifikasi pembelajaran untuk riset eksperimen kelas UPI",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#f8f8f6",
-  "theme_color": "#c43d25",
+  "background_color": "#f7f5f0",
+  "theme_color": "#173f3d",
   "orientation": "portrait-primary",
   "icons": [
     {

@@ -5,15 +5,15 @@ The existing routes, forms, permissions and data contracts remain authoritative.
 
 ## Visual direction
 
-Use the clarity of a school athletics programme: direct typography, open neutral
-surfaces, a single vermilion action color and a running-track motif. This replaces
-the earlier cobalt/apricot palette and floating illustration cards. Auth is a
+Use the clarity of a school athletics programme: direct typography, warm paper
+surfaces, deep teal actions and restrained gold achievement accents, following
+the production landing page at https://gerak-gamify.com/. Auth is a
 task surface; the poster supports the brand without delaying access to the form.
 The light default suits classroom and outdoor use; retain dark and system modes.
 
 - Colors live in `app/globals.css`; roles and measured pairs are in `docs/theme.md`.
-- Neutral canvas `#F8F8F6`, ink `#242625`, primary `#C43D25`.
-- Use Geist for UI and headings; preserve the existing logo's Plus Jakarta Sans.
+- Warm canvas `#F7F5F0`, ink and primary `#173F3D`, reward gold `#F5A623`.
+- Use Geist for UI, Plus Jakarta Sans for display headings and the wordmark.
 - Reserve saturated color for actions, selections and the track illustration.
 - Keep status colors distinct and accompany them with text or icons.
 - Use 8px form controls and 12-16px content surfaces. Avoid nesting decorative cards.

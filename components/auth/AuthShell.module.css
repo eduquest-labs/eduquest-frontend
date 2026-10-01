@@ -70,7 +70,7 @@
 .storyTitle {
   position: relative;
   z-index: 1;
-  font-family: var(--font-geist-sans), sans-serif;
+  font-family: var(--font-jakarta-sans), sans-serif;
   font-size: clamp(44px, min(4.8vw, 8vh), 68px);
   font-weight: 650;
   letter-spacing: -.04em;
